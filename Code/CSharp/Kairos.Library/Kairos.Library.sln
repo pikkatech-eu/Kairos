@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kairos.Library", "Kairos.Library.csproj", "{B95E4E70-82D9-45F5-8DD2-84A9B820A3FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kairos", "..\Kairos\Kairos.csproj", "{23ADE7C1-188A-4E0F-A56D-0983FC9AEF41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B95E4E70-82D9-45F5-8DD2-84A9B820A3FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B95E4E70-82D9-45F5-8DD2-84A9B820A3FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B95E4E70-82D9-45F5-8DD2-84A9B820A3FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B95E4E70-82D9-45F5-8DD2-84A9B820A3FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23ADE7C1-188A-4E0F-A56D-0983FC9AEF41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23ADE7C1-188A-4E0F-A56D-0983FC9AEF41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23ADE7C1-188A-4E0F-A56D-0983FC9AEF41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23ADE7C1-188A-4E0F-A56D-0983FC9AEF41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9661362E-B395-4794-B7E6-BB3B3E5059AD}
+	EndGlobalSection
+EndGlobal
