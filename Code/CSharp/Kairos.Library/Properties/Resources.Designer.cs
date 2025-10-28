@@ -59,5 +59,23 @@ namespace Kairos.Library.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project Collection Properties.
+        /// </summary>
+        internal static string ProjectCollectionProperties {
+            get {
+                return ResourceManager.GetString("ProjectCollectionProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project Properties.
+        /// </summary>
+        internal static string ProjectProperties {
+            get {
+                return ResourceManager.GetString("ProjectProperties", resourceCulture);
+            }
+        }
     }
 }

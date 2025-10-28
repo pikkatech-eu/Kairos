@@ -42,16 +42,16 @@ namespace Kairos.Library.Gui.Dialogs
 			// 
 			// _btOk
 			// 
-			resources.ApplyResources(this._btOk, "_btOk");
 			this._btOk.DialogResult = DialogResult.OK;
+			resources.ApplyResources(this._btOk, "_btOk");
 			this._btOk.Name = "_btOk";
 			this._btOk.UseVisualStyleBackColor = true;
 			this._btOk.Click += this.OnOk;
 			// 
 			// _btCancel
 			// 
-			resources.ApplyResources(this._btCancel, "_btCancel");
 			this._btCancel.DialogResult = DialogResult.Cancel;
+			resources.ApplyResources(this._btCancel, "_btCancel");
 			this._btCancel.Name = "_btCancel";
 			this._btCancel.UseVisualStyleBackColor = true;
 			this._btCancel.Click += this.OnCancel;
