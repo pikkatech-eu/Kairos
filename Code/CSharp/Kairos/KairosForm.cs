@@ -1,5 +1,6 @@
 using Kairos.Library;
 using Kairos.Library.Entities;
+using Kairos.Library.Extensions;
 using Kairos.Library.Gui.Dialogs;
 
 namespace Kairos
@@ -12,6 +13,14 @@ namespace Kairos
 
 			KairosManager.Instance.ProjectCollectionChanged += this.OnProjectCollectionChanged;
 			KairosManager.Instance.SelectedActivityChanged += this.OnSelectedActivityChanged;
+			KairosManager.Instance.CurrentWorkIntervalChanged += this.OnCurrentWorkIntervalChanged;
+		}
+
+		private void OnCurrentWorkIntervalChanged(WorkInterval workInterval)
+		{
+			this._txStartTime.Text = workInterval.Start.ToString();
+			this._txCurrentTime.Text	= workInterval.End.ToString();
+			this._txDuration.Text	= workInterval.Duration.StripMilliseconds().ToString();
 		}
 
 		private void OnSelectedActivityChanged(Activity activity)
@@ -111,6 +120,16 @@ namespace Kairos
 				Activity activity = this._tvProjects.SelectedNode.Tag as Activity;
 
 				KairosManager.Instance.AddAddWorkInterval(activity);
+			}
+		}
+
+		private void OnActivityStartWorkInterval(object sender, EventArgs e)
+		{
+			if (this._tvProjects.SelectedNode != null && this._tvProjects.SelectedNode.Tag is Activity)
+			{
+				Activity activity = this._tvProjects.SelectedNode.Tag as Activity;
+
+				KairosManager.Instance.StartCurrentWorkInterval(activity);
 			}
 		}
 	}

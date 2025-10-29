@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Kairos.Library.Extensions;
 
 namespace Kairos.Library.Entities
 {
@@ -15,18 +16,18 @@ namespace Kairos.Library.Entities
 
 		public string[] ListViewStrings()
 		{
-			TimeSpan ts = this.Duration;
-			ts = ts.Add(new TimeSpan(0, 0, 1));
+			//TimeSpan ts = this.Duration;
+			//ts = ts.Add(new TimeSpan(0, 0, 1));
 
-			int hours   = ts.Hours;
-			int minutes = ts.Minutes;
-			int seconds = ts.Seconds;
+			//int hours   = ts.Hours;
+			//int minutes = ts.Minutes;
+			//int seconds = ts.Seconds;
 
 			return 
 					[
 						this.Start.ToString(), 
 						this.End != null ? this.End.ToString() : DateTime.Now.ToString(), 
-						$"{hours}:{minutes}:{seconds}", 
+						this.Duration.StripMilliseconds().ToString(), 
 						this.Description
 					];
 		}
