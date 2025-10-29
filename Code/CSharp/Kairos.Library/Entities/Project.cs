@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kairos.Library
+namespace Kairos.Library.Entities
 {
 	public class Project
 	{

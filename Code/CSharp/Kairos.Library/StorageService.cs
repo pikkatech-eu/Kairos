@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Kairos.Library.Entities;
 
 namespace Kairos.Library
 {

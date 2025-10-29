@@ -66,21 +66,26 @@
 			this._scKairos = new SplitContainer();
 			this._tvProjects = new TreeView();
 			this._cmsProject = new ContextMenuStrip(this.components);
-			this.newProjectToolStripMenuItem = new ToolStripMenuItem();
 			this.editProjectToolStripMenuItem = new ToolStripMenuItem();
 			this.deleteProjectToolStripMenuItem = new ToolStripMenuItem();
+			this.toolStripSeparator3 = new ToolStripSeparator();
+			this.addToolStripMenuItem = new ToolStripMenuItem();
 			this._lvActivities = new ListView();
 			this._cmsActivity = new ContextMenuStrip(this.components);
-			this.addActivityToolStripMenuItem = new ToolStripMenuItem();
 			this.editActivityToolStripMenuItem = new ToolStripMenuItem();
 			this.deleteActivityToolStripMenuItem = new ToolStripMenuItem();
+			this.toolStripSeparator4 = new ToolStripSeparator();
+			this.aToolStripMenuItem = new ToolStripMenuItem();
+			this.startToolStripMenuItem = new ToolStripMenuItem();
+			this.stopToolStripMenuItem = new ToolStripMenuItem();
 			this._cmsWorkInterval = new ContextMenuStrip(this.components);
-			this.addWorkIntervaToolStripMenuItem = new ToolStripMenuItem();
 			this.lToolStripMenuItem = new ToolStripMenuItem();
 			this.deleteWorkIntervaToolStripMenuItem = new ToolStripMenuItem();
 			this.toolStripSeparator2 = new ToolStripSeparator();
-			this.startToolStripMenuItem = new ToolStripMenuItem();
-			this.stopToolStripMenuItem = new ToolStripMenuItem();
+			this.Start = new ColumnHeader();
+			this.Finish = new ColumnHeader();
+			this.Duration = new ColumnHeader();
+			this.Comment = new ColumnHeader();
 			this.menuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -183,20 +188,20 @@
 			// newToolStripMenuItem2
 			// 
 			this.newToolStripMenuItem2.Name = "newToolStripMenuItem2";
-			this.newToolStripMenuItem2.Size = new Size(224, 28);
+			this.newToolStripMenuItem2.Size = new Size(160, 28);
 			this.newToolStripMenuItem2.Text = "&New";
 			this.newToolStripMenuItem2.Click += this.OnActivityNew;
 			// 
 			// editToolStripMenuItem2
 			// 
 			this.editToolStripMenuItem2.Name = "editToolStripMenuItem2";
-			this.editToolStripMenuItem2.Size = new Size(224, 28);
+			this.editToolStripMenuItem2.Size = new Size(160, 28);
 			this.editToolStripMenuItem2.Text = "&Edit";
 			// 
 			// deleteToolStripMenuItem1
 			// 
 			this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-			this.deleteToolStripMenuItem1.Size = new Size(224, 28);
+			this.deleteToolStripMenuItem1.Size = new Size(160, 28);
 			this.deleteToolStripMenuItem1.Text = "&Delete";
 			// 
 			// toolsToolStripMenuItem
@@ -363,15 +368,9 @@
 			// 
 			this._cmsProject.Font = new Font("Consolas", 10F);
 			this._cmsProject.ImageScalingSize = new Size(20, 20);
-			this._cmsProject.Items.AddRange(new ToolStripItem[] { this.newProjectToolStripMenuItem, this.editProjectToolStripMenuItem, this.deleteProjectToolStripMenuItem });
+			this._cmsProject.Items.AddRange(new ToolStripItem[] { this.editProjectToolStripMenuItem, this.deleteProjectToolStripMenuItem, this.toolStripSeparator3, this.addToolStripMenuItem });
 			this._cmsProject.Name = "_cmsProject";
-			this._cmsProject.Size = new Size(205, 76);
-			// 
-			// newProjectToolStripMenuItem
-			// 
-			this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
-			this.newProjectToolStripMenuItem.Size = new Size(204, 24);
-			this.newProjectToolStripMenuItem.Text = "&New Project";
+			this._cmsProject.Size = new Size(205, 82);
 			// 
 			// editProjectToolStripMenuItem
 			// 
@@ -385,54 +384,81 @@
 			this.deleteProjectToolStripMenuItem.Size = new Size(204, 24);
 			this.deleteProjectToolStripMenuItem.Text = "&Delete Project";
 			// 
+			// toolStripSeparator3
+			// 
+			this.toolStripSeparator3.Name = "toolStripSeparator3";
+			this.toolStripSeparator3.Size = new Size(201, 6);
+			// 
+			// addToolStripMenuItem
+			// 
+			this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+			this.addToolStripMenuItem.Size = new Size(204, 24);
+			this.addToolStripMenuItem.Text = "Add &Activity";
+			this.addToolStripMenuItem.Click += this.OnActivityNew;
+			// 
 			// _lvActivities
 			// 
+			this._lvActivities.Columns.AddRange(new ColumnHeader[] { this.Start, this.Finish, this.Duration, this.Comment });
 			this._lvActivities.Dock = DockStyle.Fill;
+			this._lvActivities.FullRowSelect = true;
 			this._lvActivities.Location = new Point(0, 0);
 			this._lvActivities.Name = "_lvActivities";
 			this._lvActivities.Size = new Size(667, 657);
 			this._lvActivities.TabIndex = 0;
 			this._lvActivities.UseCompatibleStateImageBehavior = false;
+			this._lvActivities.View = View.Details;
 			// 
 			// _cmsActivity
 			// 
 			this._cmsActivity.Font = new Font("Consolas", 10F);
 			this._cmsActivity.ImageScalingSize = new Size(20, 20);
-			this._cmsActivity.Items.AddRange(new ToolStripItem[] { this.addActivityToolStripMenuItem, this.editActivityToolStripMenuItem, this.deleteActivityToolStripMenuItem });
+			this._cmsActivity.Items.AddRange(new ToolStripItem[] { this.editActivityToolStripMenuItem, this.deleteActivityToolStripMenuItem, this.toolStripSeparator4, this.aToolStripMenuItem, this.startToolStripMenuItem, this.stopToolStripMenuItem });
 			this._cmsActivity.Name = "_cmsActivity";
-			this._cmsActivity.Size = new Size(214, 76);
-			// 
-			// addActivityToolStripMenuItem
-			// 
-			this.addActivityToolStripMenuItem.Name = "addActivityToolStripMenuItem";
-			this.addActivityToolStripMenuItem.Size = new Size(213, 24);
-			this.addActivityToolStripMenuItem.Text = "&Add Activity";
+			this._cmsActivity.Size = new Size(250, 130);
 			// 
 			// editActivityToolStripMenuItem
 			// 
 			this.editActivityToolStripMenuItem.Name = "editActivityToolStripMenuItem";
-			this.editActivityToolStripMenuItem.Size = new Size(213, 24);
+			this.editActivityToolStripMenuItem.Size = new Size(249, 24);
 			this.editActivityToolStripMenuItem.Text = "&Edit Activity";
 			// 
 			// deleteActivityToolStripMenuItem
 			// 
 			this.deleteActivityToolStripMenuItem.Name = "deleteActivityToolStripMenuItem";
-			this.deleteActivityToolStripMenuItem.Size = new Size(213, 24);
+			this.deleteActivityToolStripMenuItem.Size = new Size(249, 24);
 			this.deleteActivityToolStripMenuItem.Text = "&Delete Activity";
+			// 
+			// toolStripSeparator4
+			// 
+			this.toolStripSeparator4.Name = "toolStripSeparator4";
+			this.toolStripSeparator4.Size = new Size(246, 6);
+			// 
+			// aToolStripMenuItem
+			// 
+			this.aToolStripMenuItem.Name = "aToolStripMenuItem";
+			this.aToolStripMenuItem.Size = new Size(249, 24);
+			this.aToolStripMenuItem.Text = "Add &Work Interval";
+			this.aToolStripMenuItem.Click += this.OnActivityAddWorkInterval;
+			// 
+			// startToolStripMenuItem
+			// 
+			this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+			this.startToolStripMenuItem.Size = new Size(249, 24);
+			this.startToolStripMenuItem.Text = "&Start Work Interval";
+			// 
+			// stopToolStripMenuItem
+			// 
+			this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+			this.stopToolStripMenuItem.Size = new Size(249, 24);
+			this.stopToolStripMenuItem.Text = "&Stop Work Interval";
 			// 
 			// _cmsWorkInterval
 			// 
 			this._cmsWorkInterval.Font = new Font("Consolas", 10F);
 			this._cmsWorkInterval.ImageScalingSize = new Size(20, 20);
-			this._cmsWorkInterval.Items.AddRange(new ToolStripItem[] { this.addWorkIntervaToolStripMenuItem, this.lToolStripMenuItem, this.deleteWorkIntervaToolStripMenuItem, this.toolStripSeparator2, this.startToolStripMenuItem, this.stopToolStripMenuItem });
+			this._cmsWorkInterval.Items.AddRange(new ToolStripItem[] { this.lToolStripMenuItem, this.deleteWorkIntervaToolStripMenuItem, this.toolStripSeparator2 });
 			this._cmsWorkInterval.Name = "_cmsWorkInterval";
-			this._cmsWorkInterval.Size = new Size(259, 130);
-			// 
-			// addWorkIntervaToolStripMenuItem
-			// 
-			this.addWorkIntervaToolStripMenuItem.Name = "addWorkIntervaToolStripMenuItem";
-			this.addWorkIntervaToolStripMenuItem.Size = new Size(258, 24);
-			this.addWorkIntervaToolStripMenuItem.Text = "&Add Work interval";
+			this._cmsWorkInterval.Size = new Size(259, 58);
 			// 
 			// lToolStripMenuItem
 			// 
@@ -451,17 +477,21 @@
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
 			this.toolStripSeparator2.Size = new Size(255, 6);
 			// 
-			// startToolStripMenuItem
+			// Start
 			// 
-			this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-			this.startToolStripMenuItem.Size = new Size(258, 24);
-			this.startToolStripMenuItem.Text = "&Start";
+			this.Start.Text = "Start";
 			// 
-			// stopToolStripMenuItem
+			// Finish
 			// 
-			this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-			this.stopToolStripMenuItem.Size = new Size(258, 24);
-			this.stopToolStripMenuItem.Text = "&Stop";
+			this.Finish.Text = "Finish";
+			// 
+			// Duration
+			// 
+			this.Duration.Text = "Duration";
+			// 
+			// Comment
+			// 
+			this.Comment.Text = "Comment";
 			// 
 			// KairosForm
 			// 
@@ -533,19 +563,24 @@
 		private ToolStripLabel toolStripLabel3;
 		private ToolStripTextBox _txDuration;
 		private ContextMenuStrip _cmsProject;
-		private ToolStripMenuItem newProjectToolStripMenuItem;
 		private ToolStripMenuItem editProjectToolStripMenuItem;
 		private ToolStripMenuItem deleteProjectToolStripMenuItem;
 		private ContextMenuStrip _cmsActivity;
-		private ToolStripMenuItem addActivityToolStripMenuItem;
 		private ToolStripMenuItem editActivityToolStripMenuItem;
 		private ToolStripMenuItem deleteActivityToolStripMenuItem;
 		private ContextMenuStrip _cmsWorkInterval;
-		private ToolStripMenuItem addWorkIntervaToolStripMenuItem;
 		private ToolStripMenuItem lToolStripMenuItem;
 		private ToolStripMenuItem deleteWorkIntervaToolStripMenuItem;
 		private ToolStripSeparator toolStripSeparator2;
+		private ToolStripSeparator toolStripSeparator3;
+		private ToolStripMenuItem addToolStripMenuItem;
+		private ToolStripSeparator toolStripSeparator4;
+		private ToolStripMenuItem aToolStripMenuItem;
 		private ToolStripMenuItem startToolStripMenuItem;
 		private ToolStripMenuItem stopToolStripMenuItem;
+		private ColumnHeader Start;
+		private ColumnHeader Finish;
+		private ColumnHeader Duration;
+		private ColumnHeader Comment;
 	}
 }

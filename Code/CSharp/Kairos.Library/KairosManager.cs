@@ -4,6 +4,8 @@ using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
+using Kairos.Library.Entities;
+using Kairos.Library.Gui;
 using Kairos.Library.Gui.Dialogs;
 using Kairos.Library.Properties;
 
@@ -15,7 +17,6 @@ namespace Kairos.Library
 		public static KairosManager Instance => _instance.Value;
 		private KairosManager() 
 		{
-			// Initialization logic here
 		}
 
 		/// <summary>
@@ -26,6 +27,8 @@ namespace Kairos.Library
 		public ProjectCollection ProjectCollection	{get;internal set;} = new ProjectCollection();
 
 		public event Action<ProjectCollection> ProjectCollectionChanged;
+
+		public event Action<Activity> SelectedActivityChanged;
 
 		public void CreateProjectCollection()
 		{
@@ -78,7 +81,16 @@ namespace Kairos.Library
 
 		public void AddAddWorkInterval(Activity activity)
 		{
-			throw new NotImplementedException();
+			WorkIntervalDialog dialog = new WorkIntervalDialog();
+
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				WorkInterval workInterval = dialog.WorkInterval;
+
+				activity.WorkIntervals.Add(workInterval);
+
+				this.SelectedActivityChanged?.Invoke(activity);
+			}
 		}
 	}
 }

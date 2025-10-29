@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Kairos.Library
+namespace Kairos.Library.Entities
 {
 	public class ProjectCollection
 	{
