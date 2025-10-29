@@ -75,5 +75,10 @@ namespace Kairos.Library
 				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
 			}
 		}
+
+		public void AddAddWorkInterval(Activity activity)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
