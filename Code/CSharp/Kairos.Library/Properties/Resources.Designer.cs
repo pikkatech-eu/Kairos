@@ -61,6 +61,15 @@ namespace Kairos.Library.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity Properties.
+        /// </summary>
+        internal static string ActivityProperties {
+            get {
+                return ResourceManager.GetString("ActivityProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Collection Properties.
         /// </summary>
         internal static string ProjectCollectionProperties {

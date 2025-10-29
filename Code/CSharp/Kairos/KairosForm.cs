@@ -25,11 +25,21 @@ namespace Kairos
 
 			foreach (var project in KairosManager.Instance.ProjectCollection.Projects)
 			{
-				TreeNode node = new TreeNode(project.Name);
-				node.Tag = project;
+				TreeNode nodeProject = new TreeNode(project.Name);
+				nodeProject.Tag = project;
 
-				this._tvProjects.Nodes.Add(node);
+				this._tvProjects.Nodes.Add(nodeProject);
+
+				foreach (var activity in project.Activities)
+				{
+					TreeNode nodeActivity = new TreeNode(activity.Name);
+					nodeActivity.Tag	= activity;
+
+					nodeProject.Nodes.Add(nodeActivity);
+				}
 			}
+
+			this._tvProjects.ExpandAll();
 		}
 
 		private void OnCollectionNew(object sender, EventArgs e)
@@ -46,9 +56,25 @@ namespace Kairos
 		{
 			if (e.Node.Tag is Project)
 			{
+				this._tvProjects.ContextMenuStrip	= this._cmsProject;
+
 				Project project = e.Node.Tag as Project;
 
-				this._lblProject.Text	= project.Name;
+				this._lblProject.Text = project.Name;
+			}
+			else if (e.Node.Tag is Activity)
+			{
+				this._tvProjects.ContextMenuStrip	= this._cmsActivity;
+			}
+		}
+
+		private void OnActivityNew(object sender, EventArgs e)
+		{
+			if (this._tvProjects.SelectedNode != null && this._tvProjects.SelectedNode.Tag is Project)
+			{
+				Project project = this._tvProjects.SelectedNode.Tag as Project;
+
+				KairosManager.Instance.AddActivity(project);
 			}
 		}
 	}

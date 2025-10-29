@@ -157,20 +157,20 @@
 			// newToolStripMenuItem1
 			// 
 			this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
-			this.newToolStripMenuItem1.Size = new Size(224, 28);
+			this.newToolStripMenuItem1.Size = new Size(160, 28);
 			this.newToolStripMenuItem1.Text = "&New";
 			this.newToolStripMenuItem1.Click += this.OnProjectNew;
 			// 
 			// editToolStripMenuItem1
 			// 
 			this.editToolStripMenuItem1.Name = "editToolStripMenuItem1";
-			this.editToolStripMenuItem1.Size = new Size(224, 28);
+			this.editToolStripMenuItem1.Size = new Size(160, 28);
 			this.editToolStripMenuItem1.Text = "&Edit";
 			// 
 			// deleteToolStripMenuItem
 			// 
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-			this.deleteToolStripMenuItem.Size = new Size(224, 28);
+			this.deleteToolStripMenuItem.Size = new Size(160, 28);
 			this.deleteToolStripMenuItem.Text = "&Delete";
 			// 
 			// activityToolStripMenuItem
@@ -183,19 +183,20 @@
 			// newToolStripMenuItem2
 			// 
 			this.newToolStripMenuItem2.Name = "newToolStripMenuItem2";
-			this.newToolStripMenuItem2.Size = new Size(160, 28);
+			this.newToolStripMenuItem2.Size = new Size(224, 28);
 			this.newToolStripMenuItem2.Text = "&New";
+			this.newToolStripMenuItem2.Click += this.OnActivityNew;
 			// 
 			// editToolStripMenuItem2
 			// 
 			this.editToolStripMenuItem2.Name = "editToolStripMenuItem2";
-			this.editToolStripMenuItem2.Size = new Size(160, 28);
+			this.editToolStripMenuItem2.Size = new Size(224, 28);
 			this.editToolStripMenuItem2.Text = "&Edit";
 			// 
 			// deleteToolStripMenuItem1
 			// 
 			this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-			this.deleteToolStripMenuItem1.Size = new Size(160, 28);
+			this.deleteToolStripMenuItem1.Size = new Size(224, 28);
 			this.deleteToolStripMenuItem1.Text = "&Delete";
 			// 
 			// toolsToolStripMenuItem

@@ -58,5 +58,22 @@ namespace Kairos.Library
 				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
 			}
 		}
+
+		public void AddActivity(Project project)
+		{
+			ItemPropertiesDialog dialog = new ItemPropertiesDialog();
+			dialog.Text = Resources.ActivityProperties;
+
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				Activity activity = new Activity();
+				activity.Name	= dialog.ItemName;
+				activity.Description	= dialog.ItemDescription;
+
+				project.Activities.Add(activity);
+
+				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+			}
+		}
 	}
 }

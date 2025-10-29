@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivityProperties" xml:space="preserve">
+    <value>Activity Properties</value>
+  </data>
   <data name="ProjectCollectionProperties" xml:space="preserve">
     <value>Project Collection Properties</value>
   </data>
