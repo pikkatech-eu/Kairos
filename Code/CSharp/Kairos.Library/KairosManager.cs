@@ -57,13 +57,13 @@ namespace Kairos.Library
 
 		public void CreateProjectCollection()
 		{
-			ItemPropertiesDialog dialog = new ItemPropertiesDialog();
-			dialog.Text = Resources.ProjectCollectionProperties;
+			ItemPropertiesDialog dialog	= new ItemPropertiesDialog();
+			dialog.Text					= Resources.ProjectCollectionProperties;
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
-				this.ProjectCollection = new ProjectCollection();
-				this.ProjectCollection.Name	= dialog.ItemName;
+				this.ProjectCollection				= new ProjectCollection();
+				this.ProjectCollection.Name			= dialog.ItemName;
 				this.ProjectCollection.Description	= dialog.ItemDescription;
 
 				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
@@ -73,7 +73,7 @@ namespace Kairos.Library
 		public void AddProject()
 		{
 			ItemPropertiesDialog dialog = new ItemPropertiesDialog();
-			dialog.Text = Resources.ProjectProperties;
+			dialog.Text					= Resources.ProjectProperties;
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
@@ -120,11 +120,21 @@ namespace Kairos.Library
 
 		public void StartCurrentWorkInterval(Activity activity)
 		{
-			this.CurrentWorkInterval = new WorkInterval();
+			this.CurrentWorkInterval		= new WorkInterval();
 			this.CurrentWorkInterval.Start	= DateTime.Now;
 			activity.WorkIntervals.Add(this.CurrentWorkInterval);
 
 			this._timerCurrentWorkInterval.Start();
+
+			this.SelectedActivityChanged?.Invoke(activity);
+		}
+
+		/// <summary>
+		/// TODO -> work here: add CurrentProject, CurrentActivity.
+		/// </summary>
+		public void StopCurrentWorkInterval()
+		{
+			// Activity activity = this.ProjectCollection.
 		}
 	}
 }

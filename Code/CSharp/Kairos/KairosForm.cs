@@ -19,8 +19,8 @@ namespace Kairos
 		private void OnCurrentWorkIntervalChanged(WorkInterval workInterval)
 		{
 			this._txStartTime.Text = workInterval.Start.ToString();
-			this._txCurrentTime.Text	= workInterval.End.ToString();
-			this._txDuration.Text	= workInterval.Duration.StripMilliseconds().ToString();
+			this._txCurrentTime.Text = workInterval.End.ToString();
+			this._txDuration.Text = workInterval.Duration.StripMilliseconds().ToString();
 		}
 
 		private void OnSelectedActivityChanged(Activity activity)
@@ -131,6 +131,11 @@ namespace Kairos
 
 				KairosManager.Instance.StartCurrentWorkInterval(activity);
 			}
+		}
+
+		private void OnActivityStopWorkInterval(object sender, EventArgs e)
+		{
+			KairosManager.Instance.StopCurrentWorkInterval();
 		}
 	}
 }
