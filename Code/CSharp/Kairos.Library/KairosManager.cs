@@ -20,6 +20,11 @@ namespace Kairos.Library
 {
 	public class KairosManager
 	{
+		#region Private Members
+		private Timer	_timerCurrentWorkInterval = null;
+		#endregion
+
+		#region Sigletonium
 		private static readonly Lazy<KairosManager> _instance = new Lazy<KairosManager>(() => new KairosManager());
 		public static KairosManager Instance => _instance.Value;
 		private KairosManager() 
@@ -30,6 +35,7 @@ namespace Kairos.Library
 
 			this._timerCurrentWorkInterval.Tick += this.OnCurrentWorkIntervalTick;
 		}
+		#endregion
 
 		private void OnCurrentWorkIntervalTick(object? sender, EventArgs e)
 		{
@@ -37,16 +43,9 @@ namespace Kairos.Library
 			{
 				this.CurrentWorkInterval.End	= DateTime.Now;
 
-				this.CurrentWorkIntervalChanged?.Invoke(this.CurrentWorkInterval);
-
 				this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
 			}
 		}
-
-		#region Private Members
-		private Timer	_timerCurrentWorkInterval = null;
-		private bool	_isIntervalRunning = false;
-		#endregion
 
 		#region Properties
 		/// <summary>
@@ -61,14 +60,14 @@ namespace Kairos.Library
 		public Activity	CurrentActivity	{get;internal set;} = null;
 
 		public WorkInterval	CurrentWorkInterval	{get;internal set;} = null;
+
+		public bool	IsIntervalRunning = false;
 		#endregion
 
 		#region Events
 		public event Action<ProjectCollection> ProjectCollectionChanged;
 
 		public event Action<Activity> SelectedActivityChanged;
-		 
-		public event Action<WorkInterval> CurrentWorkIntervalChanged;
 		#endregion
 
 		public void CreateProjectCollection()
@@ -152,7 +151,7 @@ namespace Kairos.Library
 			activity.WorkIntervals.Add(this.CurrentWorkInterval);
 
 			this._timerCurrentWorkInterval.Start();
-			this._isIntervalRunning = true;
+			this.IsIntervalRunning = true;
 
 			this.SelectedActivityChanged?.Invoke(activity);
 		}
@@ -167,13 +166,13 @@ namespace Kairos.Library
 				return;
 			}
 
-			if (this._isIntervalRunning)
+			if (this.IsIntervalRunning)
 			{
 				this.CurrentWorkInterval.End = DateTime.Now;
 				this._timerCurrentWorkInterval.Stop();
-				this._isIntervalRunning = false;
+				this.IsIntervalRunning = false;
 
-				this.CurrentWorkIntervalChanged?.Invoke(null);
+				this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
 
 				this.SaveProjectCollection();
 			}
@@ -204,7 +203,7 @@ namespace Kairos.Library
 			}
 		}
 
-		internal void LoadProjectCollection()
+		public void LoadProjectCollection()
 		{
 			OpenFileDialog dialog	= new OpenFileDialog();
 			dialog.Filter			= "Kairos files (*.kai)|*.kai|Json files (*json)|*.json";
@@ -217,6 +216,13 @@ namespace Kairos.Library
 
 				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
 			}
+		}
+
+		public TimeSpan GetTodaysTime()
+		{
+			double y = this.ProjectCollection.Projects.Sum(p => p.GetTodaysTime().TotalSeconds);
+
+			return TimeSpan.FromSeconds(y);
 		}
 	}
 }

@@ -1,7 +1,15 @@
+/***********************************************************************************
+* File:         KairosForm.cs                                                      *
+* Contents:     Class KairosForm                                                   *
+* Author:       Stanislav "Bav" Koncebovski (stanislav@pikkatech.eu)               *
+* Date:         2025-10-30 20:32                                                   *
+* Version:      1.0                                                                *
+* Copyright:    pikkatech.eu (www.pikkatech.eu)                                    *
+***********************************************************************************/
+
 using Kairos.Library;
 using Kairos.Library.Entities;
 using Kairos.Library.Extensions;
-using Kairos.Library.Gui.Dialogs;
 
 namespace Kairos
 {
@@ -13,23 +21,17 @@ namespace Kairos
 
 			KairosManager.Instance.ProjectCollectionChanged += this.OnProjectCollectionChanged;
 			KairosManager.Instance.SelectedActivityChanged += this.OnSelectedActivityChanged;
-			// KairosManager.Instance.CurrentWorkIntervalChanged += this.OnCurrentWorkIntervalChanged;
+
+			this._timerSecond.Tick += this.OnTimerSecondTick;
+
+			this._timerSecond.Start();
 		}
 
-		private void OnCurrentWorkIntervalChanged(WorkInterval workInterval)
+		private void OnTimerSecondTick(object? sender, EventArgs e)
 		{
-			//if (workInterval == null)
-			//{
-			//	this._txStartTime.Text		= "";
-			//	this._txCurrentTime.Text	= "";
-			//	this._txDuration.Text		= "";
-			//}
-			//else
-			//{
-			//	this._txStartTime.Text		= workInterval.Start.ToString();
-			//	this._txCurrentTime.Text	= workInterval.End.ToString();
-			//	this._txDuration.Text		= workInterval.Duration.StripMilliseconds().ToString();
-			//}
+			TimeSpan ts = KairosManager.Instance.GetTodaysTime().StripMilliseconds();
+
+			this._lblCurrentSumForTime.Text = $"Total working time today: {ts}";
 		}
 
 		private void OnSelectedActivityChanged(Activity activity)
@@ -37,73 +39,13 @@ namespace Kairos
 			this.UpdateActivityListView(activity);
 		}
 
-		private void UpdateActivityListView(Activity activity)
-		{
-			this._lvActivities.Items.Clear();
-
-			for (int i = 0; i < activity.WorkIntervals.Count; i++)
-			{
-				WorkInterval workInterval = activity.WorkIntervals[i];
-
-				string[] itemStrings = workInterval.ListViewStrings();
-
-				ListViewItem lvi = new ListViewItem(itemStrings);
-
-				lvi.Tag = workInterval;
-
-				if (i == activity.WorkIntervals.Count - 1)
-				{
-					lvi.ForeColor = Color.White;
-					lvi.BackColor = Color.DarkGreen;
-					lvi.Font = new Font(lvi.Font, FontStyle.Bold);
-				}
-
-				this._lvActivities.Items.Add(lvi);
-			}
-
-			//foreach (WorkInterval workInterval in activity.WorkIntervals)
-			//{
-			//	string[] itemStrings = workInterval.ListViewStrings();
-
-			//	ListViewItem lvi = new ListViewItem(itemStrings);
-
-			//	lvi.Tag = workInterval;
-
-			//	this._lvActivities.Items.Add(lvi);
-			//}
-
-			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-		}
-
 		private void OnProjectCollectionChanged(ProjectCollection pc)
 		{
 			this._lblCollection.Text = pc.Name;
 
 			this.UpdateProjectTreeView();
-		}
 
-		private void UpdateProjectTreeView()
-		{
-			this._tvProjects.Nodes.Clear();
-
-			foreach (var project in KairosManager.Instance.ProjectCollection.Projects)
-			{
-				TreeNode nodeProject = new TreeNode(project.Name);
-				nodeProject.Tag = project;
-
-				this._tvProjects.Nodes.Add(nodeProject);
-
-				foreach (var activity in project.Activities)
-				{
-					TreeNode nodeActivity = new TreeNode(activity.Name);
-					nodeActivity.Tag = activity;
-
-					nodeProject.Nodes.Add(nodeActivity);
-				}
-			}
-
-			this._tvProjects.ExpandAll();
+			this.UpdateActivityListView(null);
 		}
 
 		private void OnCollectionNew(object sender, EventArgs e)
@@ -128,8 +70,10 @@ namespace Kairos
 			}
 			else if (e.Node.Tag is Activity)
 			{
-				this._tvProjects.ContextMenuStrip = this._cmsActivity;
+				this._tvProjects.ContextMenuStrip		= this._cmsActivity;
 				KairosManager.Instance.CurrentActivity	= e.Node.Tag as Activity;
+
+				this.UpdateActivityListView(KairosManager.Instance.CurrentActivity);
 			}
 		}
 
@@ -177,5 +121,70 @@ namespace Kairos
 		{
 			KairosManager.Instance.LoadProjectCollection();
 		}
+
+		#region Private Auviliary
+		private void UpdateProjectTreeView()
+		{
+			this._tvProjects.Nodes.Clear();
+
+			foreach (var project in KairosManager.Instance.ProjectCollection.Projects)
+			{
+				TreeNode nodeProject = new TreeNode(project.Name);
+				nodeProject.Tag = project;
+
+				this._tvProjects.Nodes.Add(nodeProject);
+
+				foreach (var activity in project.Activities)
+				{
+					TreeNode nodeActivity = new TreeNode(activity.Name);
+					nodeActivity.Tag = activity;
+
+					nodeProject.Nodes.Add(nodeActivity);
+				}
+			}
+
+			this._tvProjects.ExpandAll();
+		}
+
+		private void UpdateActivityListView(Activity activity)
+		{
+			this._lvActivities.Items.Clear();
+
+			if (activity == null)
+			{
+				return;
+			}
+
+			for (int i = 0; i < activity.WorkIntervals.Count; i++)
+			{
+				WorkInterval workInterval = activity.WorkIntervals[i];
+
+				string[] itemStrings = workInterval.ListViewStrings();
+
+				ListViewItem lvi = new ListViewItem(itemStrings);
+
+				lvi.Tag = workInterval;
+				lvi.UseItemStyleForSubItems = false;
+
+				ListViewItem.ListViewSubItemCollection subItems = lvi.SubItems;
+
+				if (KairosManager.Instance.IsIntervalRunning && i == activity.WorkIntervals.Count - 1)
+				{
+					subItems[1].ForeColor = Color.White;
+					subItems[1].BackColor = Color.DarkGreen;
+					// subItems[1].Font = new Font(lvi.Font, FontStyle.Bold);
+
+					subItems[2].ForeColor = Color.White;
+					subItems[2].BackColor = Color.DarkGreen;
+					// subItems[2].Font = new Font(lvi.Font, FontStyle.Bold);
+				}
+
+				this._lvActivities.Items.Add(lvi);
+			}
+
+			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+		}
+		#endregion
 	}
 }

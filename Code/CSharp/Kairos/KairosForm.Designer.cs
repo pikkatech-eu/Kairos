@@ -56,7 +56,8 @@
 			this._btStart = new ToolStripButton();
 			this._btStop = new ToolStripButton();
 			this.statusStrip1 = new StatusStrip();
-			this._lvlCurrentSum = new ToolStripStatusLabel();
+			this._lvlCurrentSumForItem = new ToolStripStatusLabel();
+			this._lblCurrentSumForTime = new ToolStripStatusLabel();
 			this._scKairos = new SplitContainer();
 			this._tvProjects = new TreeView();
 			this._cmsProject = new ContextMenuStrip(this.components);
@@ -69,6 +70,7 @@
 			this.Finish = new ColumnHeader();
 			this.Duration = new ColumnHeader();
 			this.Comment = new ColumnHeader();
+			this._ilIssues = new ImageList(this.components);
 			this._cmsActivity = new ContextMenuStrip(this.components);
 			this.editActivityToolStripMenuItem = new ToolStripMenuItem();
 			this.deleteActivityToolStripMenuItem = new ToolStripMenuItem();
@@ -80,6 +82,7 @@
 			this.lToolStripMenuItem = new ToolStripMenuItem();
 			this.deleteWorkIntervaToolStripMenuItem = new ToolStripMenuItem();
 			this.toolStripSeparator2 = new ToolStripSeparator();
+			this._timerSecond = new System.Windows.Forms.Timer(this.components);
 			this.menuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -274,18 +277,24 @@
 			// 
 			this.statusStrip1.Font = new Font("Consolas", 14F);
 			this.statusStrip1.ImageScalingSize = new Size(20, 20);
-			this.statusStrip1.Items.AddRange(new ToolStripItem[] { this._lvlCurrentSum });
+			this.statusStrip1.Items.AddRange(new ToolStripItem[] { this._lvlCurrentSumForItem, this._lblCurrentSumForTime });
 			this.statusStrip1.Location = new Point(0, 719);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new Size(1144, 34);
 			this.statusStrip1.TabIndex = 2;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
-			// _lvlCurrentSum
+			// _lvlCurrentSumForItem
 			// 
-			this._lvlCurrentSum.Name = "_lvlCurrentSum";
-			this._lvlCurrentSum.Size = new Size(51, 28);
-			this._lvlCurrentSum.Text = "***";
+			this._lvlCurrentSumForItem.Name = "_lvlCurrentSumForItem";
+			this._lvlCurrentSumForItem.Size = new Size(51, 28);
+			this._lvlCurrentSumForItem.Text = "***";
+			// 
+			// _lblCurrentSumForTime
+			// 
+			this._lblCurrentSumForTime.Name = "_lblCurrentSumForTime";
+			this._lblCurrentSumForTime.Size = new Size(51, 28);
+			this._lblCurrentSumForTime.Text = "***";
 			// 
 			// _scKairos
 			// 
@@ -374,6 +383,15 @@
 			// 
 			this.Comment.Text = "Comment";
 			// 
+			// _ilIssues
+			// 
+			this._ilIssues.ColorDepth = ColorDepth.Depth32Bit;
+			this._ilIssues.ImageStream = (ImageListStreamer)resources.GetObject("_ilIssues.ImageStream");
+			this._ilIssues.TransparentColor = Color.Transparent;
+			this._ilIssues.Images.SetKeyName(0, "bug_major");
+			this._ilIssues.Images.SetKeyName(1, "bug_minor");
+			this._ilIssues.Images.SetKeyName(2, "feature");
+			// 
 			// _cmsActivity
 			// 
 			this._cmsActivity.Font = new Font("Consolas", 10F);
@@ -448,6 +466,10 @@
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
 			this.toolStripSeparator2.Size = new Size(255, 6);
 			// 
+			// _timerSecond
+			// 
+			this._timerSecond.Interval = 1000;
+			// 
 			// KairosForm
 			// 
 			this.AutoScaleDimensions = new SizeF(9F, 20F);
@@ -503,7 +525,7 @@
 		private ToolStripMenuItem settingsToolStripMenuItem;
 		private ToolStripMenuItem helpToolStripMenuItem;
 		private ToolStripMenuItem aboutToolStripMenuItem;
-		private ToolStripStatusLabel _lvlCurrentSum;
+		private ToolStripStatusLabel _lvlCurrentSumForItem;
 		private SplitContainer _scKairos;
 		private TreeView _tvProjects;
 		private ListView _lvActivities;
@@ -531,5 +553,8 @@
 		private ColumnHeader Finish;
 		private ColumnHeader Duration;
 		private ColumnHeader Comment;
+		private ToolStripStatusLabel _lblCurrentSumForTime;
+		private System.Windows.Forms.Timer _timerSecond;
+		private ImageList _ilIssues;
 	}
 }

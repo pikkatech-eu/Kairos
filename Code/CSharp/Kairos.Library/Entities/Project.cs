@@ -16,5 +16,30 @@ namespace Kairos.Library.Entities
 		public string Description	{get;set;} = "";
 
 		public List<Activity> Activities	{get; set;} = new List<Activity>();
+
+		/// <summary>
+		/// Computes time for the project since today's begin.
+		/// </summary>
+		/// <returns></returns>
+		public TimeSpan GetTodaysTime()
+		{
+			double y = this.Activities.Sum(ac => ac.GetTodaysTime().TotalSeconds);
+
+			return TimeSpan.FromSeconds(y);
+		}
+
+		public TimeSpan GetThisWeeksTime()
+		{
+			double y = this.Activities.Sum(ac => ac.GetThisWeeksTime().TotalSeconds);
+
+			return TimeSpan.FromSeconds(y);
+		}
+
+		public TimeSpan GetAllTime()
+		{
+			double y = this.Activities.Sum(ac => ac.GetAllTime().TotalSeconds);
+
+			return TimeSpan.FromSeconds(y);
+		}
 	}
 }

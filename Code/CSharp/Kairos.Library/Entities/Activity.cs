@@ -7,6 +7,8 @@
 * Copyright:    pikkatech.eu (www.pikkatech.eu)                                    *
 ***********************************************************************************/
 
+using System.Configuration;
+
 namespace Kairos.Library.Entities
 {
 	public class Activity
@@ -16,5 +18,41 @@ namespace Kairos.Library.Entities
 		public string Description	{get;set;} = "";
 
 		public List<WorkInterval> WorkIntervals	{get; set;} = new List<WorkInterval>();
+
+		/// <summary>
+		/// Computes time for the activity since today's begin.
+		/// </summary>
+		/// <returns></returns>
+		public TimeSpan GetTodaysTime()
+		{
+			DateTime dayStart	= DateTime.Today;
+			DateTime dayEnd		= DateTime.Today.AddDays(1);
+			double y = this.WorkIntervals.Where(ti => ti.Start >= dayStart && ti.End <= dayEnd).Sum(x => x.Duration.TotalSeconds);
+
+			TimeSpan result = TimeSpan.FromSeconds(y);
+
+			return result;
+		}
+
+		public TimeSpan GetThisWeeksTime()
+		{
+			DateTime monday = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday);
+
+			DateTime dayEnd		= DateTime.Today.AddDays(1);
+			double y = this.WorkIntervals.Where(ti => ti.Start >= monday && ti.End <= dayEnd).Sum(x => x.Duration.TotalSeconds);
+
+			TimeSpan result = TimeSpan.FromSeconds(y);
+
+			return result;
+		}
+
+		public TimeSpan GetAllTime()
+		{
+			double y = this.WorkIntervals.Sum(x => x.Duration.TotalSeconds);
+
+			TimeSpan result = TimeSpan.FromSeconds(y);
+
+			return result;
+		}
 	}
 }
