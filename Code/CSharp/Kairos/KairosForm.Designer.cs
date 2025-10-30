@@ -54,12 +54,6 @@
 			this._lblCollection = new ToolStripLabel();
 			this._lblProject = new ToolStripLabel();
 			this._btStart = new ToolStripButton();
-			this.toolStripLabel1 = new ToolStripLabel();
-			this._txStartTime = new ToolStripTextBox();
-			this.toolStripLabel2 = new ToolStripLabel();
-			this._txCurrentTime = new ToolStripTextBox();
-			this.toolStripLabel3 = new ToolStripLabel();
-			this._txDuration = new ToolStripTextBox();
 			this._btStop = new ToolStripButton();
 			this.statusStrip1 = new StatusStrip();
 			this._lvlCurrentSum = new ToolStripStatusLabel();
@@ -120,39 +114,39 @@
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
 			this.newToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
-			this.newToolStripMenuItem.Size = new Size(224, 28);
+			this.newToolStripMenuItem.Size = new Size(203, 28);
 			this.newToolStripMenuItem.Text = "&New";
 			this.newToolStripMenuItem.Click += this.OnCollectionNew;
 			// 
 			// editToolStripMenuItem
 			// 
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-			this.editToolStripMenuItem.Size = new Size(224, 28);
+			this.editToolStripMenuItem.Size = new Size(203, 28);
 			this.editToolStripMenuItem.Text = "&Edit";
 			// 
 			// loadToolStripMenuItem
 			// 
 			this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-			this.loadToolStripMenuItem.Size = new Size(224, 28);
+			this.loadToolStripMenuItem.Size = new Size(203, 28);
 			this.loadToolStripMenuItem.Text = "&Load";
 			this.loadToolStripMenuItem.Click += this.OnProjectCollectionLoad;
 			// 
 			// saveAsToolStripMenuItem
 			// 
 			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			this.saveAsToolStripMenuItem.Size = new Size(224, 28);
+			this.saveAsToolStripMenuItem.Size = new Size(203, 28);
 			this.saveAsToolStripMenuItem.Text = "Save &As";
 			this.saveAsToolStripMenuItem.Click += this.OnProjectCollectionSaveAs;
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new Size(221, 6);
+			this.toolStripSeparator1.Size = new Size(200, 6);
 			// 
 			// quitToolStripMenuItem
 			// 
 			this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-			this.quitToolStripMenuItem.Size = new Size(224, 28);
+			this.quitToolStripMenuItem.Size = new Size(203, 28);
 			this.quitToolStripMenuItem.Text = "&Quit";
 			// 
 			// projectToolStripMenuItem
@@ -239,7 +233,7 @@
 			this.toolStrip1.AutoSize = false;
 			this.toolStrip1.Font = new Font("Consolas", 10F);
 			this.toolStrip1.ImageScalingSize = new Size(20, 20);
-			this.toolStrip1.Items.AddRange(new ToolStripItem[] { this._lblCollection, this._lblProject, this._btStart, this.toolStripLabel1, this._txStartTime, this.toolStripLabel2, this._txCurrentTime, this.toolStripLabel3, this._txDuration, this._btStop });
+			this.toolStrip1.Items.AddRange(new ToolStripItem[] { this._lblCollection, this._lblProject, this._btStart, this._btStop });
 			this.toolStrip1.Location = new Point(0, 31);
 			this.toolStrip1.Name = "toolStrip1";
 			this.toolStrip1.Size = new Size(1144, 31);
@@ -266,54 +260,6 @@
 			this._btStart.Name = "_btStart";
 			this._btStart.Size = new Size(29, 28);
 			this._btStart.TextImageRelation = TextImageRelation.Overlay;
-			// 
-			// toolStripLabel1
-			// 
-			this.toolStripLabel1.Name = "toolStripLabel1";
-			this.toolStripLabel1.Size = new Size(54, 28);
-			this.toolStripLabel1.Text = "Start";
-			// 
-			// _txStartTime
-			// 
-			this._txStartTime.BackColor = Color.Black;
-			this._txStartTime.Font = new Font("Consolas", 10F, FontStyle.Bold);
-			this._txStartTime.ForeColor = Color.White;
-			this._txStartTime.Name = "_txStartTime";
-			this._txStartTime.ReadOnly = true;
-			this._txStartTime.Size = new Size(180, 31);
-			this._txStartTime.Text = "00:00:00";
-			// 
-			// toolStripLabel2
-			// 
-			this.toolStripLabel2.Name = "toolStripLabel2";
-			this.toolStripLabel2.Size = new Size(72, 28);
-			this.toolStripLabel2.Text = "Current";
-			// 
-			// _txCurrentTime
-			// 
-			this._txCurrentTime.BackColor = Color.Black;
-			this._txCurrentTime.Font = new Font("Consolas", 10F, FontStyle.Bold);
-			this._txCurrentTime.ForeColor = Color.White;
-			this._txCurrentTime.Name = "_txCurrentTime";
-			this._txCurrentTime.ReadOnly = true;
-			this._txCurrentTime.Size = new Size(180, 31);
-			this._txCurrentTime.Text = "00:00:00";
-			// 
-			// toolStripLabel3
-			// 
-			this.toolStripLabel3.Name = "toolStripLabel3";
-			this.toolStripLabel3.Size = new Size(81, 28);
-			this.toolStripLabel3.Text = "Duration";
-			// 
-			// _txDuration
-			// 
-			this._txDuration.BackColor = Color.Black;
-			this._txDuration.Font = new Font("Consolas", 10F, FontStyle.Bold);
-			this._txDuration.ForeColor = Color.White;
-			this._txDuration.Name = "_txDuration";
-			this._txDuration.ReadOnly = true;
-			this._txDuration.Size = new Size(100, 31);
-			this._txDuration.Text = "00:00:00";
 			// 
 			// _btStop
 			// 
@@ -563,14 +509,8 @@
 		private ListView _lvActivities;
 		private ToolStripLabel _lblCollection;
 		private ToolStripLabel _lblProject;
-		private ToolStripLabel toolStripLabel1;
-		private ToolStripTextBox _txStartTime;
-		private ToolStripLabel toolStripLabel2;
-		private ToolStripTextBox _txCurrentTime;
 		private ToolStripButton _btStart;
 		private ToolStripButton _btStop;
-		private ToolStripLabel toolStripLabel3;
-		private ToolStripTextBox _txDuration;
 		private ContextMenuStrip _cmsProject;
 		private ToolStripMenuItem editProjectToolStripMenuItem;
 		private ToolStripMenuItem deleteProjectToolStripMenuItem;

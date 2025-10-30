@@ -13,23 +13,23 @@ namespace Kairos
 
 			KairosManager.Instance.ProjectCollectionChanged += this.OnProjectCollectionChanged;
 			KairosManager.Instance.SelectedActivityChanged += this.OnSelectedActivityChanged;
-			KairosManager.Instance.CurrentWorkIntervalChanged += this.OnCurrentWorkIntervalChanged;
+			// KairosManager.Instance.CurrentWorkIntervalChanged += this.OnCurrentWorkIntervalChanged;
 		}
 
 		private void OnCurrentWorkIntervalChanged(WorkInterval workInterval)
 		{
-			if (workInterval == null)
-			{
-				this._txStartTime.Text		= "";
-				this._txCurrentTime.Text	= "";
-				this._txDuration.Text		= "";
-			}
-			else
-			{
-				this._txStartTime.Text		= workInterval.Start.ToString();
-				this._txCurrentTime.Text	= workInterval.End.ToString();
-				this._txDuration.Text		= workInterval.Duration.StripMilliseconds().ToString();
-			}
+			//if (workInterval == null)
+			//{
+			//	this._txStartTime.Text		= "";
+			//	this._txCurrentTime.Text	= "";
+			//	this._txDuration.Text		= "";
+			//}
+			//else
+			//{
+			//	this._txStartTime.Text		= workInterval.Start.ToString();
+			//	this._txCurrentTime.Text	= workInterval.End.ToString();
+			//	this._txDuration.Text		= workInterval.Duration.StripMilliseconds().ToString();
+			//}
 		}
 
 		private void OnSelectedActivityChanged(Activity activity)
