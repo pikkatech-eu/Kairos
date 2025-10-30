@@ -1,4 +1,13 @@
-﻿using System.Text.Json.Serialization;
+﻿/***********************************************************************************
+* File:         WorkInterval.cs                                                    *
+* Contents:     Class WorkInterval                                                 *
+* Author:       Stanislav "Bav" Koncebovski (stanislav@pikkatech.eu)               *
+* Date:         2025-10-30 17:34                                                   *
+* Version:      1.0                                                                *
+* Copyright:    pikkatech.eu (www.pikkatech.eu)                                    *
+***********************************************************************************/
+
+using System.Text.Json.Serialization;
 using Kairos.Library.Extensions;
 
 namespace Kairos.Library.Entities
@@ -16,13 +25,6 @@ namespace Kairos.Library.Entities
 
 		public string[] ListViewStrings()
 		{
-			//TimeSpan ts = this.Duration;
-			//ts = ts.Add(new TimeSpan(0, 0, 1));
-
-			//int hours   = ts.Hours;
-			//int minutes = ts.Minutes;
-			//int seconds = ts.Seconds;
-
 			return 
 					[
 						this.Start.ToString(), 
@@ -32,8 +34,7 @@ namespace Kairos.Library.Entities
 					];
 		}
 
-		public override string ToString() =>
-			$"{Start:g} - {End?.ToString("g") ?? "…"} ({Description})";
+		public override string ToString() => $"{Start:g} - {End?.ToString("g") ?? "…"} ({Description})";
 		#endregion
 	}
 }

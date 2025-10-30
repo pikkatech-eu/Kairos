@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/***********************************************************************************
+* File:         Project.cs                                                         *
+* Contents:     Class Project                                                      *
+* Author:       Stanislav "Bav" Koncebovski (stanislav@pikkatech.eu)               *
+* Date:         2025-10-30 17:33                                                   *
+* Version:      1.0                                                                *
+* Copyright:    pikkatech.eu (www.pikkatech.eu)                                    *
+***********************************************************************************/
 
 namespace Kairos.Library.Entities
 {
@@ -12,6 +15,6 @@ namespace Kairos.Library.Entities
 		public string Name	{get;set;} = "";
 		public string Description	{get;set;} = "";
 
-		public List<Activity> Activities	{get;internal set;} = new List<Activity>();
+		public List<Activity> Activities	{get; set;} = new List<Activity>();
 	}
 }

@@ -7,11 +7,14 @@
 * Copyright:    pikkatech.eu (www.pikkatech.eu)                                    *
 ***********************************************************************************/
 
+using System.Runtime.CompilerServices;
 using Kairos.Library.Entities;
 using Kairos.Library.Gui;
 using Kairos.Library.Gui.Dialogs;
 using Kairos.Library.Properties;
 using Timer = System.Windows.Forms.Timer;
+
+[assembly:InternalsVisibleTo("Kairos")]
 
 namespace Kairos.Library
 {
@@ -35,11 +38,17 @@ namespace Kairos.Library
 				this.CurrentWorkInterval.End	= DateTime.Now;
 
 				this.CurrentWorkIntervalChanged?.Invoke(this.CurrentWorkInterval);
+
+				this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
 			}
 		}
 
+		#region Private Members
 		private Timer	_timerCurrentWorkInterval = null;
+		private bool	_isIntervalRunning = false;
+		#endregion
 
+		#region Properties
 		/// <summary>
 		/// Path to currect project collection
 		/// </summary>
@@ -47,13 +56,20 @@ namespace Kairos.Library
 
 		public ProjectCollection ProjectCollection	{get;internal set;} = new ProjectCollection();
 
-		public WorkInterval	CurrentWorkInterval	{get;internal set;} = null;
+		public Project	CurrentProject	{get;internal set;} = null;
 
+		public Activity	CurrentActivity	{get;internal set;} = null;
+
+		public WorkInterval	CurrentWorkInterval	{get;internal set;} = null;
+		#endregion
+
+		#region Events
 		public event Action<ProjectCollection> ProjectCollectionChanged;
 
 		public event Action<Activity> SelectedActivityChanged;
 		 
 		public event Action<WorkInterval> CurrentWorkIntervalChanged;
+		#endregion
 
 		public void CreateProjectCollection()
 		{
@@ -87,34 +103,45 @@ namespace Kairos.Library
 			}
 		}
 
-		public void AddActivity(Project project)
+		public void AddActivity()
 		{
+			if (this.CurrentProject == null)
+			{
+				return;
+			}
+
 			ItemPropertiesDialog dialog = new ItemPropertiesDialog();
+
 			dialog.Text = Resources.ActivityProperties;
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
-				Activity activity = new Activity();
-				activity.Name	= dialog.ItemName;
+				Activity activity		= new Activity();
+				activity.Name			= dialog.ItemName;
 				activity.Description	= dialog.ItemDescription;
 
-				project.Activities.Add(activity);
+				this.CurrentProject.Activities.Add(activity);
 
 				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
 			}
 		}
 
-		public void AddAddWorkInterval(Activity activity)
+		public void AddAddWorkInterval()
 		{
+			if (this.CurrentActivity == null)
+			{
+				return;
+			}
+
 			WorkIntervalDialog dialog = new WorkIntervalDialog();
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
 				WorkInterval workInterval = dialog.WorkInterval;
 
-				activity.WorkIntervals.Add(workInterval);
+				this.CurrentActivity.WorkIntervals.Add(workInterval);
 
-				this.SelectedActivityChanged?.Invoke(activity);
+				this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
 			}
 		}
 
@@ -125,6 +152,7 @@ namespace Kairos.Library
 			activity.WorkIntervals.Add(this.CurrentWorkInterval);
 
 			this._timerCurrentWorkInterval.Start();
+			this._isIntervalRunning = true;
 
 			this.SelectedActivityChanged?.Invoke(activity);
 		}
@@ -134,7 +162,61 @@ namespace Kairos.Library
 		/// </summary>
 		public void StopCurrentWorkInterval()
 		{
-			// Activity activity = this.ProjectCollection.
+			if (this.CurrentWorkInterval == null)
+			{
+				return;
+			}
+
+			if (this._isIntervalRunning)
+			{
+				this.CurrentWorkInterval.End = DateTime.Now;
+				this._timerCurrentWorkInterval.Stop();
+				this._isIntervalRunning = false;
+
+				this.CurrentWorkIntervalChanged?.Invoke(null);
+
+				this.SaveProjectCollection();
+			}
+		}
+
+		public void SaveProjectCollectionAs()
+		{
+			SaveFileDialog dialog	= new SaveFileDialog();
+			dialog.Filter= "Kairos files (*.kai)|*.kai|Json files (*json)|*.json";
+
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				this.FilePath = dialog.FileName;
+
+				this.SaveProjectCollection();
+			}
+		}
+
+		private void SaveProjectCollection()
+		{
+			if (String.IsNullOrEmpty(this.FilePath))
+			{
+				this.SaveProjectCollectionAs();
+			}
+			else
+			{
+				this.ProjectCollection.Save(this.FilePath);
+			}
+		}
+
+		internal void LoadProjectCollection()
+		{
+			OpenFileDialog dialog	= new OpenFileDialog();
+			dialog.Filter			= "Kairos files (*.kai)|*.kai|Json files (*json)|*.json";
+
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				this.FilePath = dialog.FileName;
+
+				this.ProjectCollection = ProjectCollection.Load(this.FilePath);
+
+				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+			}
 		}
 	}
 }

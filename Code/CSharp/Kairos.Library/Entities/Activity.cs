@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/***********************************************************************************
+* File:         Activity.cs                                                        *
+* Contents:     Class Activity                                                     *
+* Author:       Stanislav "Bav" Koncebovski (stanislav@pikkatech.eu)               *
+* Date:         2025-10-30 17:34                                                   *
+* Version:      1.0                                                                *
+* Copyright:    pikkatech.eu (www.pikkatech.eu)                                    *
+***********************************************************************************/
 
 namespace Kairos.Library.Entities
 {
@@ -12,6 +15,6 @@ namespace Kairos.Library.Entities
 		public string Name	{get;set;} = "";
 		public string Description	{get;set;} = "";
 
-		public List<WorkInterval> WorkIntervals	{get;internal set;} = new List<WorkInterval>();
+		public List<WorkInterval> WorkIntervals	{get; set;} = new List<WorkInterval>();
 	}
 }

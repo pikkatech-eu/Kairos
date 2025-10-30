@@ -18,9 +18,18 @@ namespace Kairos
 
 		private void OnCurrentWorkIntervalChanged(WorkInterval workInterval)
 		{
-			this._txStartTime.Text = workInterval.Start.ToString();
-			this._txCurrentTime.Text = workInterval.End.ToString();
-			this._txDuration.Text = workInterval.Duration.StripMilliseconds().ToString();
+			if (workInterval == null)
+			{
+				this._txStartTime.Text		= "";
+				this._txCurrentTime.Text	= "";
+				this._txDuration.Text		= "";
+			}
+			else
+			{
+				this._txStartTime.Text		= workInterval.Start.ToString();
+				this._txCurrentTime.Text	= workInterval.End.ToString();
+				this._txDuration.Text		= workInterval.Duration.StripMilliseconds().ToString();
+			}
 		}
 
 		private void OnSelectedActivityChanged(Activity activity)
@@ -32,16 +41,36 @@ namespace Kairos
 		{
 			this._lvActivities.Items.Clear();
 
-			foreach (WorkInterval workInterval in activity.WorkIntervals)
+			for (int i = 0; i < activity.WorkIntervals.Count; i++)
 			{
+				WorkInterval workInterval = activity.WorkIntervals[i];
+
 				string[] itemStrings = workInterval.ListViewStrings();
 
 				ListViewItem lvi = new ListViewItem(itemStrings);
 
 				lvi.Tag = workInterval;
 
+				if (i == activity.WorkIntervals.Count - 1)
+				{
+					lvi.ForeColor = Color.White;
+					lvi.BackColor = Color.DarkGreen;
+					lvi.Font = new Font(lvi.Font, FontStyle.Bold);
+				}
+
 				this._lvActivities.Items.Add(lvi);
 			}
+
+			//foreach (WorkInterval workInterval in activity.WorkIntervals)
+			//{
+			//	string[] itemStrings = workInterval.ListViewStrings();
+
+			//	ListViewItem lvi = new ListViewItem(itemStrings);
+
+			//	lvi.Tag = workInterval;
+
+			//	this._lvActivities.Items.Add(lvi);
+			//}
 
 			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -100,6 +129,7 @@ namespace Kairos
 			else if (e.Node.Tag is Activity)
 			{
 				this._tvProjects.ContextMenuStrip = this._cmsActivity;
+				KairosManager.Instance.CurrentActivity	= e.Node.Tag as Activity;
 			}
 		}
 
@@ -107,9 +137,8 @@ namespace Kairos
 		{
 			if (this._tvProjects.SelectedNode != null && this._tvProjects.SelectedNode.Tag is Project)
 			{
-				Project project = this._tvProjects.SelectedNode.Tag as Project;
-
-				KairosManager.Instance.AddActivity(project);
+				KairosManager.Instance.CurrentProject = this._tvProjects.SelectedNode.Tag as Project;
+				KairosManager.Instance.AddActivity();
 			}
 		}
 
@@ -119,7 +148,8 @@ namespace Kairos
 			{
 				Activity activity = this._tvProjects.SelectedNode.Tag as Activity;
 
-				KairosManager.Instance.AddAddWorkInterval(activity);
+				KairosManager.Instance.CurrentActivity	= activity;
+				KairosManager.Instance.AddAddWorkInterval();
 			}
 		}
 
@@ -136,6 +166,16 @@ namespace Kairos
 		private void OnActivityStopWorkInterval(object sender, EventArgs e)
 		{
 			KairosManager.Instance.StopCurrentWorkInterval();
+		}
+
+		private void OnProjectCollectionSaveAs(object sender, EventArgs e)
+		{
+			KairosManager.Instance.SaveProjectCollectionAs();
+		}
+
+		private void OnProjectCollectionLoad(object sender, EventArgs e)
+		{
+			KairosManager.Instance.LoadProjectCollection();
 		}
 	}
 }

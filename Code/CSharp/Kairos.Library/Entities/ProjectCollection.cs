@@ -1,9 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿/***********************************************************************************
+* File:         ProjectCollection.cs                                               *
+* Contents:     Class ProjectCollection                                            *
+* Author:       Stanislav "Bav" Koncebovski (stanislav@pikkatech.eu)               *
+* Date:         2025-10-30 17:33                                                   *
+* Version:      1.0                                                                *
+* Copyright:    pikkatech.eu (www.pikkatech.eu)                                    *
+***********************************************************************************/
+
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Kairos.Library.Entities
 {
@@ -11,13 +15,13 @@ namespace Kairos.Library.Entities
 	{
 		public string Name	{get;set;} = "";
 		public string Description	{get;set;} = "";
-		public DateTime Created	{get;internal set;} = DateTime.Now;
+		public DateTime Created	{get; set;} = DateTime.Now;
 
-		public List<Project> Projects	{get;internal set;} = new List<Project>();
+		public List<Project> Projects	{get; set;} = new List<Project>();
 
 		public void Save(string path)
 		{
-			string json = JsonSerializer.Serialize(this.Projects, new JsonSerializerOptions { WriteIndented = true });
+			string json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
 			File.WriteAllText(path, json);
 		}
 
