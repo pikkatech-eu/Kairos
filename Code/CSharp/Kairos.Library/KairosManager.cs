@@ -85,6 +85,23 @@ namespace Kairos.Library
 			}
 		}
 
+		internal void EditProjectCollection()
+		{
+			ItemPropertiesDialog dialog	= new ItemPropertiesDialog();
+			dialog.Text					= Resources.ProjectCollectionProperties;
+			dialog.ItemName				= this.ProjectCollection.Name;
+			dialog.ItemDescription		= this.ProjectCollection.Description;
+
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				this.ProjectCollection.Name			= dialog.ItemName;
+				this.ProjectCollection.Description	= dialog.ItemDescription;
+				this.SaveProjectCollection();
+
+				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+			}
+		}
+
 		public void AddProject()
 		{
 			ItemPropertiesDialog dialog = new ItemPropertiesDialog();
@@ -92,13 +109,64 @@ namespace Kairos.Library
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
-				Project project = new Project();
-				project.Name	= dialog.ItemName;
+				Project project		= new Project();
+				project.Name		= dialog.ItemName;
 				project.Description	= dialog.ItemDescription;
 
 				this.ProjectCollection.Projects.Add(project);
 
 				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+			}
+		}
+
+		internal void EditProject()
+		{
+			if (this.CurrentProject == null)
+			{
+				return;
+			}
+
+			ItemPropertiesDialog dialog = new ItemPropertiesDialog();
+			dialog.Text					= Resources.ProjectProperties;
+
+			dialog.ItemName				= this.CurrentProject.Name;
+			dialog.ItemDescription		= this.CurrentProject.Description;
+
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				this.CurrentProject.Name		= dialog.ItemName;
+				this.CurrentProject.Description	= dialog.ItemDescription;
+
+				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+				
+				this.SaveProjectCollection();
+			}
+		}
+
+		internal void DeleteProject()
+		{
+			if (this.CurrentProject == null)
+			{
+				return;
+			}
+
+			if 
+				(
+					MessageBox.Show
+									(
+										String.Format(Resources.ShallProjectBeDeleted, this.CurrentProject.Name), 
+										Resources.ProjectAboutToBeDeleted, 
+										MessageBoxButtons.OKCancel, 
+										MessageBoxIcon.Question
+									) == DialogResult.OK
+				)
+			{
+				this.ProjectCollection.Projects.Remove(this.CurrentProject);
+				this.CurrentProject = null;
+
+				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+				
+				this.SaveProjectCollection();
 			}
 		}
 
@@ -110,7 +178,6 @@ namespace Kairos.Library
 			}
 
 			ItemPropertiesDialog dialog = new ItemPropertiesDialog();
-
 			dialog.Text = Resources.ActivityProperties;
 
 			if (dialog.ShowDialog() == DialogResult.OK)
@@ -122,6 +189,57 @@ namespace Kairos.Library
 				this.CurrentProject.Activities.Add(activity);
 
 				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+			}
+		}
+
+		internal void EditActivity()
+		{
+			if (this.CurrentActivity == null)
+			{
+				return;
+			}
+
+			ItemPropertiesDialog dialog = new ItemPropertiesDialog();
+			dialog.Text = Resources.ActivityProperties;
+
+			dialog.ItemName			= this.CurrentActivity.Name;
+			dialog.ItemDescription	= this.CurrentActivity.Description;
+
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				this.CurrentActivity.Name			= dialog.ItemName;
+				this.CurrentActivity.Description	= dialog.ItemDescription;
+
+				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+				
+				this.SaveProjectCollection();
+			}
+		}
+
+		internal void DeleteActivity()
+		{
+			if (this.CurrentActivity == null)
+			{
+				return;
+			}
+
+			if 
+				(
+					MessageBox.Show
+									(
+										String.Format(Resources.ShallActivityBeDeleted, this.CurrentActivity.Name), 
+										Resources.ActivityAboutToBeDeleted, 
+										MessageBoxButtons.OKCancel, 
+										MessageBoxIcon.Question
+									) == DialogResult.OK
+				)
+			{
+				this.CurrentProject.Activities.Remove(this.CurrentActivity);
+				this.CurrentActivity = null;
+
+				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+				
+				this.SaveProjectCollection();
 			}
 		}
 
@@ -181,7 +299,7 @@ namespace Kairos.Library
 		public void SaveProjectCollectionAs()
 		{
 			SaveFileDialog dialog	= new SaveFileDialog();
-			dialog.Filter= "Kairos files (*.kai)|*.kai|Json files (*json)|*.json";
+			dialog.Filter			= Resources.FileDialogFilter;
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
@@ -206,7 +324,7 @@ namespace Kairos.Library
 		public void LoadProjectCollection()
 		{
 			OpenFileDialog dialog	= new OpenFileDialog();
-			dialog.Filter			= "Kairos files (*.kai)|*.kai|Json files (*json)|*.json";
+			dialog.Filter			= Resources.FileDialogFilter;
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{

@@ -10,6 +10,7 @@
 using Kairos.Library;
 using Kairos.Library.Entities;
 using Kairos.Library.Extensions;
+using Kairos.Properties;
 
 namespace Kairos
 {
@@ -31,7 +32,7 @@ namespace Kairos
 		{
 			TimeSpan ts = KairosManager.Instance.GetTodaysTime().StripMilliseconds();
 
-			this._lblCurrentSumForTime.Text = $"Total working time today: {ts}";
+			this._lblCurrentSumForTime.Text = String.Format("Today's total: {0}", ts);
 		}
 
 		private void OnSelectedActivityChanged(Activity activity)
@@ -46,6 +47,15 @@ namespace Kairos
 			this.UpdateProjectTreeView();
 
 			this.UpdateActivityListView(null);
+
+			if (KairosManager.Instance.CurrentProject != null)
+			{
+				this._lblProject.Text = KairosManager.Instance.CurrentProject.Name;
+			}
+			else
+			{
+				this._lblProject.Text = "***";
+			}
 		}
 
 		private void OnCollectionNew(object sender, EventArgs e)
@@ -53,9 +63,24 @@ namespace Kairos
 			KairosManager.Instance.CreateProjectCollection();
 		}
 
+		private void OnCollectionEdit(object sender, EventArgs e)
+		{
+			KairosManager.Instance.EditProjectCollection();
+		}
+
 		private void OnProjectNew(object sender, EventArgs e)
 		{
 			KairosManager.Instance.AddProject();
+		}
+
+		private void OnProjectEdit(object sender, EventArgs e)
+		{
+			KairosManager.Instance.EditProject();
+		}
+
+		private void OnProjectDelete(object sender, EventArgs e)
+		{
+			KairosManager.Instance.DeleteProject();
 		}
 
 		private void OnNodeSelected(object sender, TreeViewEventArgs e)
@@ -64,16 +89,42 @@ namespace Kairos
 			{
 				this._tvProjects.ContextMenuStrip = this._cmsProject;
 
-				Project project = e.Node.Tag as Project;
+				KairosManager.Instance.CurrentProject = e.Node.Tag as Project;
+				this._lblProject.Text = KairosManager.Instance.CurrentProject.Name;
 
-				this._lblProject.Text = project.Name;
+				TimeSpan tsToDay = KairosManager.Instance.CurrentProject.GetTodaysTime().StripMilliseconds();
+				TimeSpan tsThisWeek = KairosManager.Instance.CurrentProject.GetThisWeeksTime().StripMilliseconds();
+				TimeSpan tsTotal = KairosManager.Instance.CurrentProject.GetAllTime().StripMilliseconds();
+
+				this._lblCurrentSumForItem.Text = String.Format
+																(
+																	Resources.ItemWorkoutValues,
+																	KairosManager.Instance.CurrentProject.Name,
+																	tsToDay,
+																	tsThisWeek,
+																	tsTotal
+																);
 			}
+
 			else if (e.Node.Tag is Activity)
 			{
-				this._tvProjects.ContextMenuStrip		= this._cmsActivity;
-				KairosManager.Instance.CurrentActivity	= e.Node.Tag as Activity;
+				this._tvProjects.ContextMenuStrip = this._cmsActivity;
+				KairosManager.Instance.CurrentActivity = e.Node.Tag as Activity;
 
 				this.UpdateActivityListView(KairosManager.Instance.CurrentActivity);
+
+				TimeSpan tsToDay = KairosManager.Instance.CurrentActivity.GetTodaysTime().StripMilliseconds();
+				TimeSpan tsThisWeek = KairosManager.Instance.CurrentActivity.GetThisWeeksTime().StripMilliseconds();
+				TimeSpan tsTotal = KairosManager.Instance.CurrentActivity.GetAllTime().StripMilliseconds();
+
+				this._lblCurrentSumForItem.Text = String.Format
+																(
+																	Resources.ItemWorkoutValues,
+																	KairosManager.Instance.CurrentActivity.Name,
+																	tsToDay,
+																	tsThisWeek,
+																	tsTotal
+																);
 			}
 		}
 
@@ -86,13 +137,23 @@ namespace Kairos
 			}
 		}
 
+		private void OnActivityEdit(object sender, EventArgs e)
+		{
+			KairosManager.Instance.EditActivity();
+		}
+
+		private void OnActivityDelete(object sender, EventArgs e)
+		{
+			KairosManager.Instance.DeleteActivity();
+		}
+
 		private void OnActivityAddWorkInterval(object sender, EventArgs e)
 		{
 			if (this._tvProjects.SelectedNode != null && this._tvProjects.SelectedNode.Tag is Activity)
 			{
 				Activity activity = this._tvProjects.SelectedNode.Tag as Activity;
 
-				KairosManager.Instance.CurrentActivity	= activity;
+				KairosManager.Instance.CurrentActivity = activity;
 				KairosManager.Instance.AddAddWorkInterval();
 			}
 		}
@@ -131,6 +192,8 @@ namespace Kairos
 			{
 				TreeNode nodeProject = new TreeNode(project.Name);
 				nodeProject.Tag = project;
+				nodeProject.ImageKey = "rocket";
+				nodeProject.SelectedImageKey = "rocket";
 
 				this._tvProjects.Nodes.Add(nodeProject);
 
@@ -138,6 +201,8 @@ namespace Kairos
 				{
 					TreeNode nodeActivity = new TreeNode(activity.Name);
 					nodeActivity.Tag = activity;
+					nodeActivity.ImageKey = "target";
+					nodeActivity.SelectedImageKey = "target";
 
 					nodeProject.Nodes.Add(nodeActivity);
 				}
@@ -185,6 +250,7 @@ namespace Kairos
 			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 		}
+
 		#endregion
 	}
 }

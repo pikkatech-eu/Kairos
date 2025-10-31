@@ -117,13 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivityAboutToBeDeleted" xml:space="preserve">
+    <value>Activity about to be deleted</value>
+  </data>
   <data name="ActivityProperties" xml:space="preserve">
     <value>Activity Properties</value>
+  </data>
+  <data name="FileDialogFilter" xml:space="preserve">
+    <value>Kairos files (*.kai)|*.kai|Json files (*json)|*.json</value>
+  </data>
+  <data name="ProjectAboutToBeDeleted" xml:space="preserve">
+    <value>Project about to be deleted</value>
   </data>
   <data name="ProjectCollectionProperties" xml:space="preserve">
     <value>Project Collection Properties</value>
   </data>
   <data name="ProjectProperties" xml:space="preserve">
     <value>Project Properties</value>
+  </data>
+  <data name="ShallActivityBeDeleted" xml:space="preserve">
+    <value>Shall activity{0} be deleted?</value>
+  </data>
+  <data name="ShallProjectBeDeleted" xml:space="preserve">
+    <value>Shall project {0} be deleted with all its activities?</value>
   </data>
 </root>

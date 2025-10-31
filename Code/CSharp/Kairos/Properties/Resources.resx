@@ -139,4 +139,10 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="TodaysTotal" xml:space="preserve">
+    <value>Today's total: </value>
+  </data>
+  <data name="ItemWorkoutValues" xml:space="preserve">
+    <value>{0}: Today {1}, Week {2}, Total {3}</value>
+  </data>
 </root>

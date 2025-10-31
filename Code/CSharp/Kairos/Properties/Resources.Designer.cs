@@ -79,6 +79,15 @@ namespace Kairos.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: Today {1}, Week {2}, Total {3}.
+        /// </summary>
+        internal static string ItemWorkoutValues {
+            get {
+                return ResourceManager.GetString("ItemWorkoutValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Name {
@@ -122,6 +131,15 @@ namespace Kairos.Properties {
             get {
                 object obj = ResourceManager.GetObject("Stop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today&apos;s total: .
+        /// </summary>
+        internal static string TodaysTotal {
+            get {
+                return ResourceManager.GetString("TodaysTotal", resourceCulture);
             }
         }
     }

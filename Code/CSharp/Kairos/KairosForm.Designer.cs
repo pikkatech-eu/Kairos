@@ -56,7 +56,7 @@
 			this._btStart = new ToolStripButton();
 			this._btStop = new ToolStripButton();
 			this.statusStrip1 = new StatusStrip();
-			this._lvlCurrentSumForItem = new ToolStripStatusLabel();
+			this._lblCurrentSumForItem = new ToolStripStatusLabel();
 			this._lblCurrentSumForTime = new ToolStripStatusLabel();
 			this._scKairos = new SplitContainer();
 			this._tvProjects = new TreeView();
@@ -65,12 +65,12 @@
 			this.deleteProjectToolStripMenuItem = new ToolStripMenuItem();
 			this.toolStripSeparator3 = new ToolStripSeparator();
 			this.addToolStripMenuItem = new ToolStripMenuItem();
+			this._ilIssues = new ImageList(this.components);
 			this._lvActivities = new ListView();
 			this.Start = new ColumnHeader();
 			this.Finish = new ColumnHeader();
 			this.Duration = new ColumnHeader();
 			this.Comment = new ColumnHeader();
-			this._ilIssues = new ImageList(this.components);
 			this._cmsActivity = new ContextMenuStrip(this.components);
 			this.editActivityToolStripMenuItem = new ToolStripMenuItem();
 			this.deleteActivityToolStripMenuItem = new ToolStripMenuItem();
@@ -126,6 +126,7 @@
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
 			this.editToolStripMenuItem.Size = new Size(203, 28);
 			this.editToolStripMenuItem.Text = "&Edit";
+			this.editToolStripMenuItem.Click += this.OnCollectionEdit;
 			// 
 			// loadToolStripMenuItem
 			// 
@@ -172,12 +173,14 @@
 			this.editToolStripMenuItem1.Name = "editToolStripMenuItem1";
 			this.editToolStripMenuItem1.Size = new Size(269, 28);
 			this.editToolStripMenuItem1.Text = "&Edit";
+			this.editToolStripMenuItem1.Click += this.OnProjectEdit;
 			// 
 			// deleteToolStripMenuItem
 			// 
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
 			this.deleteToolStripMenuItem.Size = new Size(269, 28);
 			this.deleteToolStripMenuItem.Text = "&Delete";
+			this.deleteToolStripMenuItem.Click += this.OnProjectDelete;
 			// 
 			// activityToolStripMenuItem
 			// 
@@ -189,21 +192,23 @@
 			// newToolStripMenuItem2
 			// 
 			this.newToolStripMenuItem2.Name = "newToolStripMenuItem2";
-			this.newToolStripMenuItem2.Size = new Size(160, 28);
+			this.newToolStripMenuItem2.Size = new Size(224, 28);
 			this.newToolStripMenuItem2.Text = "&New";
 			this.newToolStripMenuItem2.Click += this.OnActivityNew;
 			// 
 			// editToolStripMenuItem2
 			// 
 			this.editToolStripMenuItem2.Name = "editToolStripMenuItem2";
-			this.editToolStripMenuItem2.Size = new Size(160, 28);
+			this.editToolStripMenuItem2.Size = new Size(224, 28);
 			this.editToolStripMenuItem2.Text = "&Edit";
+			this.editToolStripMenuItem2.Click += this.OnActivityEdit;
 			// 
 			// deleteToolStripMenuItem1
 			// 
 			this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-			this.deleteToolStripMenuItem1.Size = new Size(160, 28);
+			this.deleteToolStripMenuItem1.Size = new Size(224, 28);
 			this.deleteToolStripMenuItem1.Text = "&Delete";
+			this.deleteToolStripMenuItem1.Click += this.OnActivityDelete;
 			// 
 			// toolsToolStripMenuItem
 			// 
@@ -263,6 +268,7 @@
 			this._btStart.Name = "_btStart";
 			this._btStart.Size = new Size(29, 28);
 			this._btStart.TextImageRelation = TextImageRelation.Overlay;
+			this._btStart.Click += this.OnActivityStartWorkInterval;
 			// 
 			// _btStop
 			// 
@@ -272,28 +278,32 @@
 			this._btStop.Name = "_btStop";
 			this._btStop.Size = new Size(29, 28);
 			this._btStop.Text = "toolStripButton1";
+			this._btStop.Click += this.OnActivityStopWorkInterval;
 			// 
 			// statusStrip1
 			// 
 			this.statusStrip1.Font = new Font("Consolas", 14F);
 			this.statusStrip1.ImageScalingSize = new Size(20, 20);
-			this.statusStrip1.Items.AddRange(new ToolStripItem[] { this._lvlCurrentSumForItem, this._lblCurrentSumForTime });
+			this.statusStrip1.Items.AddRange(new ToolStripItem[] { this._lblCurrentSumForItem, this._lblCurrentSumForTime });
 			this.statusStrip1.Location = new Point(0, 719);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new Size(1144, 34);
 			this.statusStrip1.TabIndex = 2;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
-			// _lvlCurrentSumForItem
+			// _lblCurrentSumForItem
 			// 
-			this._lvlCurrentSumForItem.Name = "_lvlCurrentSumForItem";
-			this._lvlCurrentSumForItem.Size = new Size(51, 28);
-			this._lvlCurrentSumForItem.Text = "***";
+			this._lblCurrentSumForItem.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			this._lblCurrentSumForItem.Name = "_lblCurrentSumForItem";
+			this._lblCurrentSumForItem.Size = new Size(36, 28);
+			this._lblCurrentSumForItem.Text = "***";
 			// 
 			// _lblCurrentSumForTime
 			// 
+			this._lblCurrentSumForTime.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			this._lblCurrentSumForTime.ForeColor = Color.MediumBlue;
 			this._lblCurrentSumForTime.Name = "_lblCurrentSumForTime";
-			this._lblCurrentSumForTime.Size = new Size(51, 28);
+			this._lblCurrentSumForTime.Size = new Size(36, 28);
 			this._lblCurrentSumForTime.Text = "***";
 			// 
 			// _scKairos
@@ -317,8 +327,11 @@
 			// 
 			this._tvProjects.ContextMenuStrip = this._cmsProject;
 			this._tvProjects.Dock = DockStyle.Fill;
+			this._tvProjects.ImageIndex = 0;
+			this._tvProjects.ImageList = this._ilIssues;
 			this._tvProjects.Location = new Point(0, 0);
 			this._tvProjects.Name = "_tvProjects";
+			this._tvProjects.SelectedImageIndex = 0;
 			this._tvProjects.Size = new Size(380, 657);
 			this._tvProjects.TabIndex = 0;
 			this._tvProjects.AfterSelect += this.OnNodeSelected;
@@ -355,6 +368,17 @@
 			this.addToolStripMenuItem.Text = "Add &Activity";
 			this.addToolStripMenuItem.Click += this.OnActivityNew;
 			// 
+			// _ilIssues
+			// 
+			this._ilIssues.ColorDepth = ColorDepth.Depth32Bit;
+			this._ilIssues.ImageStream = (ImageListStreamer)resources.GetObject("_ilIssues.ImageStream");
+			this._ilIssues.TransparentColor = Color.Transparent;
+			this._ilIssues.Images.SetKeyName(0, "bug_major");
+			this._ilIssues.Images.SetKeyName(1, "bug_minor");
+			this._ilIssues.Images.SetKeyName(2, "feature");
+			this._ilIssues.Images.SetKeyName(3, "rocket");
+			this._ilIssues.Images.SetKeyName(4, "target");
+			// 
 			// _lvActivities
 			// 
 			this._lvActivities.Columns.AddRange(new ColumnHeader[] { this.Start, this.Finish, this.Duration, this.Comment });
@@ -382,15 +406,6 @@
 			// Comment
 			// 
 			this.Comment.Text = "Comment";
-			// 
-			// _ilIssues
-			// 
-			this._ilIssues.ColorDepth = ColorDepth.Depth32Bit;
-			this._ilIssues.ImageStream = (ImageListStreamer)resources.GetObject("_ilIssues.ImageStream");
-			this._ilIssues.TransparentColor = Color.Transparent;
-			this._ilIssues.Images.SetKeyName(0, "bug_major");
-			this._ilIssues.Images.SetKeyName(1, "bug_minor");
-			this._ilIssues.Images.SetKeyName(2, "feature");
 			// 
 			// _cmsActivity
 			// 
@@ -525,7 +540,7 @@
 		private ToolStripMenuItem settingsToolStripMenuItem;
 		private ToolStripMenuItem helpToolStripMenuItem;
 		private ToolStripMenuItem aboutToolStripMenuItem;
-		private ToolStripStatusLabel _lvlCurrentSumForItem;
+		private ToolStripStatusLabel _lblCurrentSumForItem;
 		private SplitContainer _scKairos;
 		private TreeView _tvProjects;
 		private ListView _lvActivities;

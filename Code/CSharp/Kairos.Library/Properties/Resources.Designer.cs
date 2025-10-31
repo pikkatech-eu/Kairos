@@ -61,11 +61,38 @@ namespace Kairos.Library.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity about to be deleted.
+        /// </summary>
+        internal static string ActivityAboutToBeDeleted {
+            get {
+                return ResourceManager.GetString("ActivityAboutToBeDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activity Properties.
         /// </summary>
         internal static string ActivityProperties {
             get {
                 return ResourceManager.GetString("ActivityProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kairos files (*.kai)|*.kai|Json files (*json)|*.json.
+        /// </summary>
+        internal static string FileDialogFilter {
+            get {
+                return ResourceManager.GetString("FileDialogFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project about to be deleted.
+        /// </summary>
+        internal static string ProjectAboutToBeDeleted {
+            get {
+                return ResourceManager.GetString("ProjectAboutToBeDeleted", resourceCulture);
             }
         }
         
@@ -84,6 +111,24 @@ namespace Kairos.Library.Properties {
         internal static string ProjectProperties {
             get {
                 return ResourceManager.GetString("ProjectProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shall activity{0} be deleted?.
+        /// </summary>
+        internal static string ShallActivityBeDeleted {
+            get {
+                return ResourceManager.GetString("ShallActivityBeDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shall project {0} be deleted with all its activities?.
+        /// </summary>
+        internal static string ShallProjectBeDeleted {
+            get {
+                return ResourceManager.GetString("ShallProjectBeDeleted", resourceCulture);
             }
         }
     }
