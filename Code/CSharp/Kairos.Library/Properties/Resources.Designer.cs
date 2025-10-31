@@ -88,6 +88,24 @@ namespace Kairos.Library.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        internal static string General {
+            get {
+                return ResourceManager.GetString("General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If set to true, will try to open the last project..
+        /// </summary>
+        internal static string IfSetToTrueWillTryToOpenTheLastProject {
+            get {
+                return ResourceManager.GetString("IfSetToTrueWillTryToOpenTheLastProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project about to be deleted.
         /// </summary>
         internal static string ProjectAboutToBeDeleted {
@@ -138,6 +156,15 @@ namespace Kairos.Library.Properties {
         internal static string ShallSelectedWorkIntervalBeDeleted {
             get {
                 return ResourceManager.GetString("ShallSelectedWorkIntervalBeDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The last opened project collection file.
+        /// </summary>
+        internal static string TheLastOpenedProjectCollectionFile {
+            get {
+                return ResourceManager.GetString("TheLastOpenedProjectCollectionFile", resourceCulture);
             }
         }
         

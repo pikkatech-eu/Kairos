@@ -8,14 +8,14 @@
 ***********************************************************************************/
 
 using System.Runtime.CompilerServices;
+using BugLite.Library.Gui.Dialogs;
 using Kairos.Library.Entities;
 using Kairos.Library.Gui;
 using Kairos.Library.Gui.Dialogs;
 using Kairos.Library.Properties;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using Timer = System.Windows.Forms.Timer;
 
-[assembly:InternalsVisibleTo("Kairos")]
+[assembly: InternalsVisibleTo("Kairos")]
 
 namespace Kairos.Library
 {
@@ -30,6 +30,8 @@ namespace Kairos.Library
 		public static KairosManager Instance => _instance.Value;
 		private KairosManager() 
 		{
+			this.Settings = Settings.Load();
+
 			this._timerCurrentWorkInterval = new System.Windows.Forms.Timer();
 
 			this._timerCurrentWorkInterval.Interval	= 1000;
@@ -68,6 +70,8 @@ namespace Kairos.Library
 		public WorkInterval	SelectedWorkInterval	{get;internal set;} = null;
 
 		public bool	IsIntervalRunning = false;
+
+		public Settings Settings	{get;set;}	= new Settings();
 		#endregion
 
 		#region Events
@@ -310,6 +314,7 @@ namespace Kairos.Library
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
 				this.FilePath = dialog.FileName;
+				this.Settings.LastOpenedProjectCollectionFile	= this.FilePath;
 
 				this.SaveProjectCollection();
 			}
@@ -336,10 +341,17 @@ namespace Kairos.Library
 			{
 				this.FilePath = dialog.FileName;
 
-				this.ProjectCollection = ProjectCollection.Load(this.FilePath);
+				this.Settings.LastOpenedProjectCollectionFile = this.FilePath;
 
-				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+				this.DoLoadProjectCollection();
 			}
+		}
+
+		internal void DoLoadProjectCollection()
+		{
+			this.ProjectCollection = ProjectCollection.Load(this.FilePath);
+
+			this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
 		}
 
 		public TimeSpan GetTodaysTime()
@@ -406,6 +418,19 @@ namespace Kairos.Library
 
 					this.SaveProjectCollection();
 				}
+			}
+		}
+
+		internal void EditSettings()
+		{
+			SettingsDialog dialog = new SettingsDialog();
+			dialog.Settings	= this.Settings;
+
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				this.Settings	= dialog.Settings; 
+
+				this.Settings.Save();
 			}
 		}
 	}

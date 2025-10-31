@@ -150,4 +150,13 @@
   <data name="WorkIntervalProperties" xml:space="preserve">
     <value>Work Interval Properties</value>
   </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="IfSetToTrueWillTryToOpenTheLastProject" xml:space="preserve">
+    <value>If set to true, will try to open the last project.</value>
+  </data>
+  <data name="TheLastOpenedProjectCollectionFile" xml:space="preserve">
+    <value>The last opened project collection file</value>
+  </data>
 </root>

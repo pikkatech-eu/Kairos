@@ -11,6 +11,7 @@ using Kairos.Library;
 using Kairos.Library.Entities;
 using Kairos.Library.Extensions;
 using Kairos.Properties;
+using KM = Kairos.Library.KairosManager;
 
 namespace Kairos
 {
@@ -24,6 +25,13 @@ namespace Kairos
 			KairosManager.Instance.SelectedActivityChanged += this.OnSelectedActivityChanged;
 
 			this._timerSecond.Tick += this.OnTimerSecondTick;
+
+			if (KairosManager.Instance.Settings.AutoLoadLastProject && !String.IsNullOrEmpty(KM.Instance.Settings.LastOpenedProjectCollectionFile))
+			{
+				KM.Instance.FilePath = KM.Instance.Settings.LastOpenedProjectCollectionFile;
+				KM.Instance.DoLoadProjectCollection();
+			}
+
 
 			this._timerSecond.Start();
 		}
@@ -270,6 +278,16 @@ namespace Kairos
 			{
 				KairosManager.Instance.SelectedWorkInterval = this._lvActivities.SelectedItems[0].Tag as WorkInterval;
 			}
+		}
+
+		private void OnToolsSettings(object sender, EventArgs e)
+		{
+			KairosManager.Instance.EditSettings();
+		}
+
+		private void OnProjectCollectionQuit(object sender, EventArgs e)
+		{
+			this.Close();
 		}
 	}
 }
