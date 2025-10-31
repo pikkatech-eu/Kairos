@@ -5,8 +5,8 @@
     <Compile Update="Gui\ItemPropertiesDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Gui\TimeIntervalControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Update="Gui\TimeIntervalDialog.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Update="Gui\WorkIntervalDialog.cs">
       <SubType>Form</SubType>

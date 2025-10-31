@@ -192,21 +192,21 @@
 			// newToolStripMenuItem2
 			// 
 			this.newToolStripMenuItem2.Name = "newToolStripMenuItem2";
-			this.newToolStripMenuItem2.Size = new Size(224, 28);
+			this.newToolStripMenuItem2.Size = new Size(160, 28);
 			this.newToolStripMenuItem2.Text = "&New";
 			this.newToolStripMenuItem2.Click += this.OnActivityNew;
 			// 
 			// editToolStripMenuItem2
 			// 
 			this.editToolStripMenuItem2.Name = "editToolStripMenuItem2";
-			this.editToolStripMenuItem2.Size = new Size(224, 28);
+			this.editToolStripMenuItem2.Size = new Size(160, 28);
 			this.editToolStripMenuItem2.Text = "&Edit";
 			this.editToolStripMenuItem2.Click += this.OnActivityEdit;
 			// 
 			// deleteToolStripMenuItem1
 			// 
 			this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-			this.deleteToolStripMenuItem1.Size = new Size(224, 28);
+			this.deleteToolStripMenuItem1.Size = new Size(160, 28);
 			this.deleteToolStripMenuItem1.Text = "&Delete";
 			this.deleteToolStripMenuItem1.Click += this.OnActivityDelete;
 			// 
@@ -382,6 +382,7 @@
 			// _lvActivities
 			// 
 			this._lvActivities.Columns.AddRange(new ColumnHeader[] { this.Start, this.Finish, this.Duration, this.Comment });
+			this._lvActivities.ContextMenuStrip = this._cmsWorkInterval;
 			this._lvActivities.Dock = DockStyle.Fill;
 			this._lvActivities.FullRowSelect = true;
 			this._lvActivities.Location = new Point(0, 0);
@@ -390,6 +391,7 @@
 			this._lvActivities.TabIndex = 0;
 			this._lvActivities.UseCompatibleStateImageBehavior = false;
 			this._lvActivities.View = View.Details;
+			this._lvActivities.SelectedIndexChanged += this.OnWorkIntervalSelected;
 			// 
 			// Start
 			// 
@@ -469,12 +471,14 @@
 			this.lToolStripMenuItem.Name = "lToolStripMenuItem";
 			this.lToolStripMenuItem.Size = new Size(258, 24);
 			this.lToolStripMenuItem.Text = "&Edit Work interval";
+			this.lToolStripMenuItem.Click += this.OnWorkIntervalEdit;
 			// 
 			// deleteWorkIntervaToolStripMenuItem
 			// 
 			this.deleteWorkIntervaToolStripMenuItem.Name = "deleteWorkIntervaToolStripMenuItem";
 			this.deleteWorkIntervaToolStripMenuItem.Size = new Size(258, 24);
 			this.deleteWorkIntervaToolStripMenuItem.Text = "&Delete Work interval";
+			this.deleteWorkIntervaToolStripMenuItem.Click += this.OnWorkIntervalDelete;
 			// 
 			// toolStripSeparator2
 			// 

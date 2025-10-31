@@ -120,6 +120,9 @@
   <data name="ActivityAboutToBeDeleted" xml:space="preserve">
     <value>Activity about to be deleted</value>
   </data>
+  <data name="WorkIntervalAboutToBeDeleted" xml:space="preserve">
+    <value>Work interval about to be deleted</value>
+  </data>
   <data name="ActivityProperties" xml:space="preserve">
     <value>Activity Properties</value>
   </data>
@@ -136,9 +139,15 @@
     <value>Project Properties</value>
   </data>
   <data name="ShallActivityBeDeleted" xml:space="preserve">
-    <value>Shall activity{0} be deleted?</value>
+    <value>Shall activity {0} be deleted?</value>
+  </data>
+  <data name="ShallSelectedWorkIntervalBeDeleted" xml:space="preserve">
+    <value>Shall selected work interval be deleted?</value>
   </data>
   <data name="ShallProjectBeDeleted" xml:space="preserve">
     <value>Shall project {0} be deleted with all its activities?</value>
+  </data>
+  <data name="WorkIntervalProperties" xml:space="preserve">
+    <value>Work Interval Properties</value>
   </data>
 </root>

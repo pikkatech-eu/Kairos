@@ -183,6 +183,16 @@ namespace Kairos
 			KairosManager.Instance.LoadProjectCollection();
 		}
 
+		private void OnWorkIntervalEdit(object sender, EventArgs e)
+		{
+			KairosManager.Instance.EditSelectedWorkInterval();
+		}
+
+		private void OnWorkIntervalDelete(object sender, EventArgs e)
+		{
+			KairosManager.Instance.DeleteSelectedWorkInterval();
+		}
+
 		#region Private Auviliary
 		private void UpdateProjectTreeView()
 		{
@@ -252,5 +262,14 @@ namespace Kairos
 		}
 
 		#endregion
+
+
+		private void OnWorkIntervalSelected(object sender, EventArgs e)
+		{
+			if (this._lvActivities.SelectedItems.Count == 1)
+			{
+				KairosManager.Instance.SelectedWorkInterval = this._lvActivities.SelectedItems[0].Tag as WorkInterval;
+			}
+		}
 	}
 }

@@ -12,6 +12,7 @@ using Kairos.Library.Entities;
 using Kairos.Library.Gui;
 using Kairos.Library.Gui.Dialogs;
 using Kairos.Library.Properties;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using Timer = System.Windows.Forms.Timer;
 
 [assembly:InternalsVisibleTo("Kairos")]
@@ -60,6 +61,11 @@ namespace Kairos.Library
 		public Activity	CurrentActivity	{get;internal set;} = null;
 
 		public WorkInterval	CurrentWorkInterval	{get;internal set;} = null;
+
+		/// <summary>
+		/// WorkInterval selected in ListView
+		/// </summary>
+		public WorkInterval	SelectedWorkInterval	{get;internal set;} = null;
 
 		public bool	IsIntervalRunning = false;
 		#endregion
@@ -341,6 +347,66 @@ namespace Kairos.Library
 			double y = this.ProjectCollection.Projects.Sum(p => p.GetTodaysTime().TotalSeconds);
 
 			return TimeSpan.FromSeconds(y);
+		}
+
+		internal void EditSelectedWorkInterval()
+		{
+			if (this.SelectedWorkInterval == null)
+			{
+				return;
+			}
+
+			WorkIntervalDialog dialog	= new WorkIntervalDialog();
+			dialog.Text					= Resources.WorkIntervalProperties;
+
+			dialog.WorkInterval = this.SelectedWorkInterval;
+
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				this.SelectedWorkInterval = dialog.WorkInterval;
+
+				int index = this.CurrentActivity.WorkIntervals.FindIndex(wi => wi.Id == this.SelectedWorkInterval.Id);
+
+				if (index >= 0)
+				{
+					this.CurrentActivity.WorkIntervals[index] = dialog.WorkInterval;
+
+					this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
+
+					this.SaveProjectCollection();
+				}
+			}
+		}
+
+		internal void DeleteSelectedWorkInterval()
+		{
+			if (this.SelectedWorkInterval == null)
+			{
+				return;
+			}
+
+			if 
+			(
+				MessageBox.Show
+								(
+									String.Format(Resources.ShallSelectedWorkIntervalBeDeleted), 
+									Resources.WorkIntervalAboutToBeDeleted, 
+									MessageBoxButtons.OKCancel, 
+									MessageBoxIcon.Question
+								) == DialogResult.OK
+			)
+			{
+				int index = this.CurrentActivity.WorkIntervals.FindIndex(wi => wi.Id == this.SelectedWorkInterval.Id);
+
+				if (index >= 0)
+				{
+					this.CurrentActivity.WorkIntervals.RemoveAt(index);
+
+					this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
+
+					this.SaveProjectCollection();
+				}
+			}
 		}
 	}
 }

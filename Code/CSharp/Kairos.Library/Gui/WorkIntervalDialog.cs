@@ -27,6 +27,7 @@ namespace Kairos.Library.Gui
 				WorkInterval workInterval	= new WorkInterval();
 				workInterval.Start			= this._dtpFrom.Value;
 				workInterval.End			= this._dtpTo.Value;
+				workInterval.Id				= this.Tag != null ? (Guid)this.Tag : new Guid();
 
 				workInterval.Description	= this._txDescription.Text;
 
@@ -38,6 +39,7 @@ namespace Kairos.Library.Gui
 				this._dtpFrom.Value			= value.Start;
 				this._dtpTo.Value			= value.End ?? DateTime.Now;
 				this._txDescription.Text	= value.Description;
+				this.Tag					= value.Id;
 			}
 		}
 	}

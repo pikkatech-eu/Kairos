@@ -115,7 +115,7 @@ namespace Kairos.Library.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shall activity{0} be deleted?.
+        ///   Looks up a localized string similar to Shall activity {0} be deleted?.
         /// </summary>
         internal static string ShallActivityBeDeleted {
             get {
@@ -129,6 +129,33 @@ namespace Kairos.Library.Properties {
         internal static string ShallProjectBeDeleted {
             get {
                 return ResourceManager.GetString("ShallProjectBeDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shall selected work interval be deleted?.
+        /// </summary>
+        internal static string ShallSelectedWorkIntervalBeDeleted {
+            get {
+                return ResourceManager.GetString("ShallSelectedWorkIntervalBeDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work interval about to be deleted.
+        /// </summary>
+        internal static string WorkIntervalAboutToBeDeleted {
+            get {
+                return ResourceManager.GetString("WorkIntervalAboutToBeDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work Interval Properties.
+        /// </summary>
+        internal static string WorkIntervalProperties {
+            get {
+                return ResourceManager.GetString("WorkIntervalProperties", resourceCulture);
             }
         }
     }

@@ -90,7 +90,7 @@
 			// 
 			// _dtpTo
 			// 
-			this._dtpTo.CustomFormat = "yyyy-MM-dd HH:mm";
+			this._dtpTo.CustomFormat = "yyyy-MM-dd HH:mm:ss";
 			this._dtpTo.Dock = DockStyle.Fill;
 			this._dtpTo.Format = DateTimePickerFormat.Custom;
 			this._dtpTo.Location = new Point(115, 28);
@@ -108,7 +108,7 @@
 			this.label1.Name = "label1";
 			this.label1.Size = new Size(115, 28);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "From";
+			this.label1.Text = "Start";
 			this.label1.TextAlign = ContentAlignment.MiddleRight;
 			// 
 			// label2
@@ -120,12 +120,12 @@
 			this.label2.Name = "label2";
 			this.label2.Size = new Size(115, 28);
 			this.label2.TabIndex = 1;
-			this.label2.Text = "To";
+			this.label2.Text = "End";
 			this.label2.TextAlign = ContentAlignment.MiddleRight;
 			// 
 			// _dtpFrom
 			// 
-			this._dtpFrom.CustomFormat = "yyyy-MM-dd HH:mm";
+			this._dtpFrom.CustomFormat = "yyyy-MM-dd HH:mm:ss";
 			this._dtpFrom.Dock = DockStyle.Fill;
 			this._dtpFrom.Format = DateTimePickerFormat.Custom;
 			this._dtpFrom.Location = new Point(115, 0);
