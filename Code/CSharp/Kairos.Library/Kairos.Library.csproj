@@ -17,6 +17,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="IntervalService.cs" />
+    <Compile Remove="StorageService.cs" />
     <Compile Remove="TimeDataControl.cs" />
     <Compile Remove="TimeDataControl.Designer.cs" />
   </ItemGroup>

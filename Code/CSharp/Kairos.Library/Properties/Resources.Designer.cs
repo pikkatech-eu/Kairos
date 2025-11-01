@@ -97,6 +97,16 @@ namespace Kairos.Library.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hourglass_5 {
+            get {
+                object obj = ResourceManager.GetObject("hourglass_5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If set to true, will try to open the last project..
         /// </summary>
         internal static string IfSetToTrueWillTryToOpenTheLastProject {

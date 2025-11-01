@@ -10,6 +10,7 @@
 using Kairos.Library;
 using Kairos.Library.Entities;
 using Kairos.Library.Extensions;
+using Kairos.Library.Gui;
 using Kairos.Properties;
 using KM = Kairos.Library.KairosManager;
 
@@ -17,6 +18,7 @@ namespace Kairos
 {
 	public partial class KairosForm : Form
 	{
+		#region Construction
 		public KairosForm()
 		{
 			InitializeComponent();
@@ -35,60 +37,21 @@ namespace Kairos
 
 			this._timerSecond.Start();
 		}
+		#endregion
 
+		#region Timer event handlers
 		private void OnTimerSecondTick(object? sender, EventArgs e)
 		{
 			TimeSpan ts = KairosManager.Instance.GetTodaysTime().StripMilliseconds();
 
 			this._lblCurrentSumForTime.Text = String.Format("Today's total: {0}", ts);
 		}
+		#endregion
 
+		#region GUI controls' event handler
 		private void OnSelectedActivityChanged(Activity activity)
 		{
 			this.UpdateActivityListView(activity);
-		}
-
-		private void OnProjectCollectionChanged(ProjectCollection pc)
-		{
-			this._lblCollection.Text = pc.Name;
-
-			this.UpdateProjectTreeView();
-
-			this.UpdateActivityListView(null);
-
-			if (KairosManager.Instance.CurrentProject != null)
-			{
-				this._lblProject.Text = KairosManager.Instance.CurrentProject.Name;
-			}
-			else
-			{
-				this._lblProject.Text = "***";
-			}
-		}
-
-		private void OnCollectionNew(object sender, EventArgs e)
-		{
-			KairosManager.Instance.CreateProjectCollection();
-		}
-
-		private void OnCollectionEdit(object sender, EventArgs e)
-		{
-			KairosManager.Instance.EditProjectCollection();
-		}
-
-		private void OnProjectNew(object sender, EventArgs e)
-		{
-			KairosManager.Instance.AddProject();
-		}
-
-		private void OnProjectEdit(object sender, EventArgs e)
-		{
-			KairosManager.Instance.EditProject();
-		}
-
-		private void OnProjectDelete(object sender, EventArgs e)
-		{
-			KairosManager.Instance.DeleteProject();
 		}
 
 		private void OnNodeSelected(object sender, TreeViewEventArgs e)
@@ -134,6 +97,61 @@ namespace Kairos
 																	tsTotal
 																);
 			}
+		}
+		#endregion
+
+		#region KairosManager event handler
+		private void OnProjectCollectionChanged(ProjectCollection pc)
+		{
+			this._lblCollection.Text = pc.Name;
+
+			this.UpdateProjectTreeView();
+
+			this.UpdateActivityListView(null);
+
+			if (KairosManager.Instance.CurrentProject != null)
+			{
+				this._lblProject.Text = KairosManager.Instance.CurrentProject.Name;
+			}
+			else
+			{
+				this._lblProject.Text = "***";
+			}
+		}
+
+		private void OnWorkIntervalSelected(object sender, EventArgs e)
+		{
+			if (this._lvActivities.SelectedItems.Count == 1)
+			{
+				KairosManager.Instance.SelectedWorkInterval = this._lvActivities.SelectedItems[0].Tag as WorkInterval;
+			}
+		}
+		#endregion
+
+		#region Menu even handler
+		private void OnCollectionNew(object sender, EventArgs e)
+		{
+			KairosManager.Instance.CreateProjectCollection();
+		}
+
+		private void OnCollectionEdit(object sender, EventArgs e)
+		{
+			KairosManager.Instance.EditProjectCollection();
+		}
+
+		private void OnProjectNew(object sender, EventArgs e)
+		{
+			KairosManager.Instance.AddProject();
+		}
+
+		private void OnProjectEdit(object sender, EventArgs e)
+		{
+			KairosManager.Instance.EditProject();
+		}
+
+		private void OnProjectDelete(object sender, EventArgs e)
+		{
+			KairosManager.Instance.DeleteProject();
 		}
 
 		private void OnActivityNew(object sender, EventArgs e)
@@ -200,6 +218,23 @@ namespace Kairos
 		{
 			KairosManager.Instance.DeleteSelectedWorkInterval();
 		}
+
+		private void OnToolsSettings(object sender, EventArgs e)
+		{
+			KairosManager.Instance.EditSettings();
+		}
+
+		private void OnProjectCollectionQuit(object sender, EventArgs e)
+		{
+			this.Close();
+		}
+
+		private void OnHelpAbout(object sender, EventArgs e)
+		{
+			KairosAboutDialog dialog = new KairosAboutDialog();
+			dialog.ShowDialog();
+		}
+		#endregion
 
 		#region Private Auviliary
 		private void UpdateProjectTreeView()
@@ -268,26 +303,6 @@ namespace Kairos
 			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 		}
-
 		#endregion
-
-
-		private void OnWorkIntervalSelected(object sender, EventArgs e)
-		{
-			if (this._lvActivities.SelectedItems.Count == 1)
-			{
-				KairosManager.Instance.SelectedWorkInterval = this._lvActivities.SelectedItems[0].Tag as WorkInterval;
-			}
-		}
-
-		private void OnToolsSettings(object sender, EventArgs e)
-		{
-			KairosManager.Instance.EditSettings();
-		}
-
-		private void OnProjectCollectionQuit(object sender, EventArgs e)
-		{
-			this.Close();
-		}
 	}
 }

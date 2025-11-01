@@ -5,6 +5,9 @@
     <Compile Update="Gui\ItemPropertiesDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Gui\KairosAboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Gui\SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>

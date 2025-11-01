@@ -7,8 +7,6 @@
 * Copyright:    pikkatech.eu (www.pikkatech.eu)                                    *
 ***********************************************************************************/
 
-using System.Configuration;
-
 namespace Kairos.Library.Entities
 {
 	public class Activity

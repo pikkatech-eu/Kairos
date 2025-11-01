@@ -137,6 +137,16 @@ namespace Kairos.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap rocket_green_32 {
+            get {
+                object obj = ResourceManager.GetObject("rocket_green_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Save {
             get {
                 object obj = ResourceManager.GetObject("Save", resourceCulture);
@@ -170,6 +180,16 @@ namespace Kairos.Properties {
         internal static System.Drawing.Bitmap Stop {
             get {
                 object obj = ResourceManager.GetObject("Stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap target_green_32 {
+            get {
+                object obj = ResourceManager.GetObject("target_green_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

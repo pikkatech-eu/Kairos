@@ -40,16 +40,6 @@ namespace Kairos.Library
 		}
 		#endregion
 
-		private void OnCurrentWorkIntervalTick(object? sender, EventArgs e)
-		{
-			if (this.CurrentWorkInterval != null)
-			{
-				this.CurrentWorkInterval.End	= DateTime.Now;
-
-				this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
-			}
-		}
-
 		#region Properties
 		/// <summary>
 		/// Path to currect project collection
@@ -62,6 +52,9 @@ namespace Kairos.Library
 
 		public Activity	CurrentActivity	{get;internal set;} = null;
 
+		/// <summary>
+		/// Running WorkInterval
+		/// </summary>
 		public WorkInterval	CurrentWorkInterval	{get;internal set;} = null;
 
 		/// <summary>
@@ -80,6 +73,7 @@ namespace Kairos.Library
 		public event Action<Activity> SelectedActivityChanged;
 		#endregion
 
+		#region Project Collection management
 		public void CreateProjectCollection()
 		{
 			ItemPropertiesDialog dialog	= new ItemPropertiesDialog();
@@ -95,7 +89,7 @@ namespace Kairos.Library
 			}
 		}
 
-		internal void EditProjectCollection()
+		public void EditProjectCollection()
 		{
 			ItemPropertiesDialog dialog	= new ItemPropertiesDialog();
 			dialog.Text					= Resources.ProjectCollectionProperties;
@@ -112,6 +106,37 @@ namespace Kairos.Library
 			}
 		}
 
+		public void SaveProjectCollectionAs()
+		{
+			SaveFileDialog dialog	= new SaveFileDialog();
+			dialog.Filter			= Resources.FileDialogFilter;
+
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				this.FilePath = dialog.FileName;
+				this.Settings.LastOpenedProjectCollectionFile	= this.FilePath;
+
+				this.SaveProjectCollection();
+			}
+		}
+
+		public void LoadProjectCollection()
+		{
+			OpenFileDialog dialog	= new OpenFileDialog();
+			dialog.Filter			= Resources.FileDialogFilter;
+
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				this.FilePath = dialog.FileName;
+
+				this.Settings.LastOpenedProjectCollectionFile = this.FilePath;
+
+				this.DoLoadProjectCollection();
+			}
+		}
+		#endregion
+
+		#region Project management
 		public void AddProject()
 		{
 			ItemPropertiesDialog dialog = new ItemPropertiesDialog();
@@ -179,7 +204,9 @@ namespace Kairos.Library
 				this.SaveProjectCollection();
 			}
 		}
+		#endregion
 
+		#region Activity management
 		public void AddActivity()
 		{
 			if (this.CurrentProject == null)
@@ -252,7 +279,9 @@ namespace Kairos.Library
 				this.SaveProjectCollection();
 			}
 		}
+		#endregion
 
+		#region Work interval management
 		public void AddAddWorkInterval()
 		{
 			if (this.CurrentActivity == null)
@@ -284,9 +313,6 @@ namespace Kairos.Library
 			this.SelectedActivityChanged?.Invoke(activity);
 		}
 
-		/// <summary>
-		/// TODO -> work here: add CurrentProject, CurrentActivity.
-		/// </summary>
 		public void StopCurrentWorkInterval()
 		{
 			if (this.CurrentWorkInterval == null)
@@ -306,62 +332,7 @@ namespace Kairos.Library
 			}
 		}
 
-		public void SaveProjectCollectionAs()
-		{
-			SaveFileDialog dialog	= new SaveFileDialog();
-			dialog.Filter			= Resources.FileDialogFilter;
-
-			if (dialog.ShowDialog() == DialogResult.OK)
-			{
-				this.FilePath = dialog.FileName;
-				this.Settings.LastOpenedProjectCollectionFile	= this.FilePath;
-
-				this.SaveProjectCollection();
-			}
-		}
-
-		private void SaveProjectCollection()
-		{
-			if (String.IsNullOrEmpty(this.FilePath))
-			{
-				this.SaveProjectCollectionAs();
-			}
-			else
-			{
-				this.ProjectCollection.Save(this.FilePath);
-			}
-		}
-
-		public void LoadProjectCollection()
-		{
-			OpenFileDialog dialog	= new OpenFileDialog();
-			dialog.Filter			= Resources.FileDialogFilter;
-
-			if (dialog.ShowDialog() == DialogResult.OK)
-			{
-				this.FilePath = dialog.FileName;
-
-				this.Settings.LastOpenedProjectCollectionFile = this.FilePath;
-
-				this.DoLoadProjectCollection();
-			}
-		}
-
-		internal void DoLoadProjectCollection()
-		{
-			this.ProjectCollection = ProjectCollection.Load(this.FilePath);
-
-			this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
-		}
-
-		public TimeSpan GetTodaysTime()
-		{
-			double y = this.ProjectCollection.Projects.Sum(p => p.GetTodaysTime().TotalSeconds);
-
-			return TimeSpan.FromSeconds(y);
-		}
-
-		internal void EditSelectedWorkInterval()
+		public void EditSelectedWorkInterval()
 		{
 			if (this.SelectedWorkInterval == null)
 			{
@@ -390,7 +361,7 @@ namespace Kairos.Library
 			}
 		}
 
-		internal void DeleteSelectedWorkInterval()
+		public void DeleteSelectedWorkInterval()
 		{
 			if (this.SelectedWorkInterval == null)
 			{
@@ -420,7 +391,22 @@ namespace Kairos.Library
 				}
 			}
 		}
+		#endregion
 
+		#region Working time measuring
+		/// <summary>
+		/// Returns the time spent since the beginning of the day for all projects and activities.
+		/// </summary>
+		/// <returns></returns>
+		public TimeSpan GetTodaysTime()
+		{
+			double y = this.ProjectCollection.Projects.Sum(p => p.GetTodaysTime().TotalSeconds);
+
+			return TimeSpan.FromSeconds(y);
+		}
+		#endregion
+
+		#region Settings Management
 		internal void EditSettings()
 		{
 			SettingsDialog dialog = new SettingsDialog();
@@ -433,5 +419,39 @@ namespace Kairos.Library
 				this.Settings.Save();
 			}
 		}
+		#endregion
+
+		#region Private event handlers
+		private void OnCurrentWorkIntervalTick(object? sender, EventArgs e)
+		{
+			if (this.CurrentWorkInterval != null)
+			{
+				this.CurrentWorkInterval.End	= DateTime.Now;
+
+				this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
+			}
+		}
+		#endregion
+
+		#region Internal & Private Auxiliary
+		internal void DoLoadProjectCollection()
+		{
+			this.ProjectCollection = ProjectCollection.Load(this.FilePath);
+
+			this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+		}
+
+		private void SaveProjectCollection()
+		{
+			if (String.IsNullOrEmpty(this.FilePath))
+			{
+				this.SaveProjectCollectionAs();
+			}
+			else
+			{
+				this.ProjectCollection.Save(this.FilePath);
+			}
+		}
+		#endregion
 	}
 }

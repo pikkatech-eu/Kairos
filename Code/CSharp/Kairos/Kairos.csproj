@@ -7,6 +7,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
 	<BaseOutputPath>C:\pikkatech.eu\Projects\Active\Kairos\Code\CSharp\Binary</BaseOutputPath>
+	<ApplicationIcon>kairos.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,6 +17,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <NoWarn>1701;1702;CS0168;CS0414;CS8600;CS8602;CS8603;CS8604;CS8605;CS8618;CS8625;CS8629;CS8714;IDE0028;IDE0090</NoWarn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="kairos.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Kairos.Library\Kairos.Library.csproj" />

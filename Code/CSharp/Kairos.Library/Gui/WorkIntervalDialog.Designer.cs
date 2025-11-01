@@ -167,6 +167,7 @@
 			this.ForeColor = SystemColors.WindowText;
 			this.Icon = (Icon)resources.GetObject("$this.Icon");
 			this.Name = "WorkIntervalDialog";
+			this.StartPosition = FormStartPosition.CenterParent;
 			this.Text = "Work Interval Data";
 			this._tlpWorkInterval.ResumeLayout(false);
 			this._tlpWorkInterval.PerformLayout();

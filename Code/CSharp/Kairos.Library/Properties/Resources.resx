@@ -117,38 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActivityAboutToBeDeleted" xml:space="preserve">
-    <value>Activity about to be deleted</value>
-  </data>
-  <data name="WorkIntervalAboutToBeDeleted" xml:space="preserve">
-    <value>Work interval about to be deleted</value>
-  </data>
-  <data name="ActivityProperties" xml:space="preserve">
-    <value>Activity Properties</value>
-  </data>
-  <data name="FileDialogFilter" xml:space="preserve">
-    <value>Kairos files (*.kai)|*.kai|Json files (*json)|*.json</value>
-  </data>
-  <data name="ProjectAboutToBeDeleted" xml:space="preserve">
-    <value>Project about to be deleted</value>
-  </data>
-  <data name="ProjectCollectionProperties" xml:space="preserve">
-    <value>Project Collection Properties</value>
-  </data>
-  <data name="ProjectProperties" xml:space="preserve">
-    <value>Project Properties</value>
-  </data>
-  <data name="ShallActivityBeDeleted" xml:space="preserve">
-    <value>Shall activity {0} be deleted?</value>
-  </data>
-  <data name="ShallSelectedWorkIntervalBeDeleted" xml:space="preserve">
-    <value>Shall selected work interval be deleted?</value>
+  <data name="WorkIntervalProperties" xml:space="preserve">
+    <value>Work Interval Properties</value>
   </data>
   <data name="ShallProjectBeDeleted" xml:space="preserve">
     <value>Shall project {0} be deleted with all its activities?</value>
   </data>
-  <data name="WorkIntervalProperties" xml:space="preserve">
-    <value>Work Interval Properties</value>
+  <data name="WorkIntervalAboutToBeDeleted" xml:space="preserve">
+    <value>Work interval about to be deleted</value>
+  </data>
+  <data name="ShallActivityBeDeleted" xml:space="preserve">
+    <value>Shall activity {0} be deleted?</value>
+  </data>
+  <data name="FileDialogFilter" xml:space="preserve">
+    <value>Kairos files (*.kai)|*.kai|Json files (*json)|*.json</value>
+  </data>
+  <data name="ProjectCollectionProperties" xml:space="preserve">
+    <value>Project Collection Properties</value>
+  </data>
+  <data name="TheLastOpenedProjectCollectionFile" xml:space="preserve">
+    <value>The last opened project collection file</value>
+  </data>
+  <data name="ProjectAboutToBeDeleted" xml:space="preserve">
+    <value>Project about to be deleted</value>
+  </data>
+  <data name="ShallSelectedWorkIntervalBeDeleted" xml:space="preserve">
+    <value>Shall selected work interval be deleted?</value>
+  </data>
+  <data name="ActivityAboutToBeDeleted" xml:space="preserve">
+    <value>Activity about to be deleted</value>
+  </data>
+  <data name="ActivityProperties" xml:space="preserve">
+    <value>Activity Properties</value>
   </data>
   <data name="General" xml:space="preserve">
     <value>General</value>
@@ -156,7 +156,11 @@
   <data name="IfSetToTrueWillTryToOpenTheLastProject" xml:space="preserve">
     <value>If set to true, will try to open the last project.</value>
   </data>
-  <data name="TheLastOpenedProjectCollectionFile" xml:space="preserve">
-    <value>The last opened project collection file</value>
+  <data name="ProjectProperties" xml:space="preserve">
+    <value>Project Properties</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="hourglass_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hourglass_5.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
