@@ -24,7 +24,7 @@ namespace Kairos.Library
 		public bool AutoLoadLastProject	{get;set;}	= false;
 
 		[Category("General")]
-		[Description("The last opened project collection file")]
+		[Description("The last opened fixture file")]
 		public string	LastOpenedProjectCollectionFile	{get;set;}	= "";
 		#endregion
 

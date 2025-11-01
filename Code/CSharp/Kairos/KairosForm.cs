@@ -85,7 +85,7 @@ namespace Kairos
 				this._tvProjects.ContextMenuStrip = this._cmsComponent;
 
 				KairosManager.Instance.CurrentComponent = e.Node.Tag as Component;
-				this._lblProject.Text = KairosManager.Instance.CurrentComponent.Name;
+				this._lblComponent.Text = KairosManager.Instance.CurrentComponent.Name;
 
 				TimeSpan tsToDay = KairosManager.Instance.CurrentComponent.GetTodaysTime().StripMilliseconds();
 				TimeSpan tsThisWeek = KairosManager.Instance.CurrentComponent.GetThisWeeksTime().StripMilliseconds();
@@ -135,11 +135,11 @@ namespace Kairos
 
 			if (KairosManager.Instance.CurrentComponent != null)
 			{
-				this._lblProject.Text = KairosManager.Instance.CurrentComponent.Name;
+				this._lblComponent.Text = KairosManager.Instance.CurrentComponent.Name;
 			}
 			else
 			{
-				this._lblProject.Text = "***";
+				this._lblComponent.Text = "***";
 			}
 		}
 

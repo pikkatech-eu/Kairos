@@ -1,6 +1,6 @@
 ﻿/***********************************************************************************
-* File:         Project.cs                                                         *
-* Contents:     Class Project                                                      *
+* File:         Component.cs                                                       *
+* Contents:     Class Component                                                    *
 * Author:       Stanislav "Bav" Koncebovski (stanislav@pikkatech.eu)               *
 * Date:         2025-10-30 17:33                                                   *
 * Version:      1.0                                                                *
