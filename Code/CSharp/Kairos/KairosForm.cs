@@ -80,11 +80,11 @@ namespace Kairos
 
 		private void OnNodeSelected(object sender, TreeViewEventArgs e)
 		{
-			if (e.Node.Tag is Project)
+			if (e.Node.Tag is Component)
 			{
 				this._tvProjects.ContextMenuStrip = this._cmsProject;
 
-				KairosManager.Instance.CurrentProject = e.Node.Tag as Project;
+				KairosManager.Instance.CurrentProject = e.Node.Tag as Component;
 				this._lblProject.Text = KairosManager.Instance.CurrentProject.Name;
 
 				TimeSpan tsToDay = KairosManager.Instance.CurrentProject.GetTodaysTime().StripMilliseconds();
@@ -180,9 +180,9 @@ namespace Kairos
 
 		private void OnActivityNew(object sender, EventArgs e)
 		{
-			if (this._tvProjects.SelectedNode != null && this._tvProjects.SelectedNode.Tag is Project)
+			if (this._tvProjects.SelectedNode != null && this._tvProjects.SelectedNode.Tag is Component)
 			{
-				KairosManager.Instance.CurrentProject = this._tvProjects.SelectedNode.Tag as Project;
+				KairosManager.Instance.CurrentProject = this._tvProjects.SelectedNode.Tag as Component;
 				KairosManager.Instance.AddActivity();
 			}
 		}

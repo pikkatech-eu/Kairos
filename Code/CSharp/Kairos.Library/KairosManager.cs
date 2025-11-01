@@ -48,7 +48,7 @@ namespace Kairos.Library
 
 		public Fixture ProjectCollection	{get;internal set;} = new Fixture();
 
-		public Project	CurrentProject	{get;internal set;} = null;
+		public Component	CurrentProject	{get;internal set;} = null;
 
 		public Activity	CurrentActivity	{get;internal set;} = null;
 
@@ -146,7 +146,7 @@ namespace Kairos.Library
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
-				Project project		= new Project();
+				Component project		= new Component();
 				project.Name		= dialog.ItemName;
 				project.Description	= dialog.ItemDescription;
 
