@@ -25,6 +25,7 @@ namespace Kairos
 
 			KairosManager.Instance.ProjectCollectionChanged += this.OnProjectCollectionChanged;
 			KairosManager.Instance.SelectedActivityChanged += this.OnSelectedActivityChanged;
+			KairosManager.Instance.CurrentWorkIntervalChanged += this.OnCurrentlyRunningWorkIntervalChanged;
 
 			this._timerSecond.Tick += this.OnTimerSecondTick;
 
@@ -36,6 +37,24 @@ namespace Kairos
 
 
 			this._timerSecond.Start();
+		}
+
+		private void OnCurrentlyRunningWorkIntervalChanged(WorkInterval workInterval)
+		{
+			ListViewItem lviCurrent = this._lvActivities.Items.OfType<ListViewItem>().FirstOrDefault(lvi => (lvi.Tag as WorkInterval).Id == KM.Instance.CurrentWorkInterval.Id);
+
+			if (lviCurrent != null)
+			{
+				lviCurrent.SubItems[0].Text	= KM.Instance.CurrentWorkInterval.Start.ToString("yyyy-MM-dd HH:mm:ss");
+				lviCurrent.SubItems[1].Text	= ((DateTime)KM.Instance.CurrentWorkInterval.End).ToString("yyyy-MM-dd HH:mm:ss");
+				lviCurrent.SubItems[2].Text = $"{KM.Instance.CurrentWorkInterval.Duration.StripMilliseconds()}";
+
+				lviCurrent.SubItems[1].ForeColor = Color.White;
+				lviCurrent.SubItems[1].BackColor = Color.DarkGreen;
+
+				lviCurrent.SubItems[2].ForeColor = Color.White;
+				lviCurrent.SubItems[2].BackColor = Color.DarkGreen;
+			}
 		}
 		#endregion
 
@@ -285,17 +304,6 @@ namespace Kairos
 				lvi.UseItemStyleForSubItems = false;
 
 				ListViewItem.ListViewSubItemCollection subItems = lvi.SubItems;
-
-				if (KairosManager.Instance.IsIntervalRunning && i == activity.WorkIntervals.Count - 1)
-				{
-					subItems[1].ForeColor = Color.White;
-					subItems[1].BackColor = Color.DarkGreen;
-					// subItems[1].Font = new Font(lvi.Font, FontStyle.Bold);
-
-					subItems[2].ForeColor = Color.White;
-					subItems[2].BackColor = Color.DarkGreen;
-					// subItems[2].Font = new Font(lvi.Font, FontStyle.Bold);
-				}
 
 				this._lvActivities.Items.Add(lvi);
 			}

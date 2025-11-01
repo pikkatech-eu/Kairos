@@ -71,6 +71,8 @@ namespace Kairos.Library
 		public event Action<ProjectCollection> ProjectCollectionChanged;
 
 		public event Action<Activity> SelectedActivityChanged;
+
+		public event Action<WorkInterval> CurrentWorkIntervalChanged;
 		#endregion
 
 		#region Project Collection management
@@ -428,7 +430,9 @@ namespace Kairos.Library
 			{
 				this.CurrentWorkInterval.End	= DateTime.Now;
 
-				this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
+				// this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
+
+				this.CurrentWorkIntervalChanged?.Invoke(this.CurrentWorkInterval);
 			}
 		}
 		#endregion
