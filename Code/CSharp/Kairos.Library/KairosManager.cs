@@ -46,9 +46,9 @@ namespace Kairos.Library
 		/// </summary>
 		public string FilePath	{get;set;} = "";
 
-		public Fixture ProjectCollection	{get;internal set;} = new Fixture();
+		public Fixture Fixture	{get;internal set;} = new Fixture();
 
-		public Component	CurrentProject	{get;internal set;} = null;
+		public Component	CurrentComponent	{get;internal set;} = null;
 
 		public Activity	CurrentActivity	{get;internal set;} = null;
 
@@ -68,47 +68,47 @@ namespace Kairos.Library
 		#endregion
 
 		#region Events
-		public event Action<Fixture> ProjectCollectionChanged;
+		public event Action<Fixture> FixtureChanged;
 
 		public event Action<Activity> SelectedActivityChanged;
 
 		public event Action<WorkInterval> CurrentWorkIntervalChanged;
 		#endregion
 
-		#region Project Collection management
-		public void CreateProjectCollection()
+		#region Fixture management
+		public void CreateFixture()
 		{
 			ItemPropertiesDialog dialog	= new ItemPropertiesDialog();
 			dialog.Text					= Resources.ProjectCollectionProperties;
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
-				this.ProjectCollection				= new Fixture();
-				this.ProjectCollection.Name			= dialog.ItemName;
-				this.ProjectCollection.Description	= dialog.ItemDescription;
+				this.Fixture				= new Fixture();
+				this.Fixture.Name			= dialog.ItemName;
+				this.Fixture.Description	= dialog.ItemDescription;
 
-				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+				this.FixtureChanged?.Invoke(this.Fixture);
 			}
 		}
 
-		public void EditProjectCollection()
+		public void EditFixture()
 		{
 			ItemPropertiesDialog dialog	= new ItemPropertiesDialog();
 			dialog.Text					= Resources.ProjectCollectionProperties;
-			dialog.ItemName				= this.ProjectCollection.Name;
-			dialog.ItemDescription		= this.ProjectCollection.Description;
+			dialog.ItemName				= this.Fixture.Name;
+			dialog.ItemDescription		= this.Fixture.Description;
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
-				this.ProjectCollection.Name			= dialog.ItemName;
-				this.ProjectCollection.Description	= dialog.ItemDescription;
+				this.Fixture.Name			= dialog.ItemName;
+				this.Fixture.Description	= dialog.ItemDescription;
 				this.SaveProjectCollection();
 
-				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+				this.FixtureChanged?.Invoke(this.Fixture);
 			}
 		}
 
-		public void SaveProjectCollectionAs()
+		public void SaveFixtureAs()
 		{
 			SaveFileDialog dialog	= new SaveFileDialog();
 			dialog.Filter			= Resources.FileDialogFilter;
@@ -122,7 +122,7 @@ namespace Kairos.Library
 			}
 		}
 
-		public void LoadProjectCollection()
+		public void LoadFixture()
 		{
 			OpenFileDialog dialog	= new OpenFileDialog();
 			dialog.Filter			= Resources.FileDialogFilter;
@@ -138,7 +138,7 @@ namespace Kairos.Library
 		}
 		#endregion
 
-		#region Project management
+		#region Component management
 		public void AddProject()
 		{
 			ItemPropertiesDialog dialog = new ItemPropertiesDialog();
@@ -150,15 +150,15 @@ namespace Kairos.Library
 				project.Name		= dialog.ItemName;
 				project.Description	= dialog.ItemDescription;
 
-				this.ProjectCollection.Projects.Add(project);
+				this.Fixture.Projects.Add(project);
 
-				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+				this.FixtureChanged?.Invoke(this.Fixture);
 			}
 		}
 
 		internal void EditProject()
 		{
-			if (this.CurrentProject == null)
+			if (this.CurrentComponent == null)
 			{
 				return;
 			}
@@ -166,15 +166,15 @@ namespace Kairos.Library
 			ItemPropertiesDialog dialog = new ItemPropertiesDialog();
 			dialog.Text					= Resources.ProjectProperties;
 
-			dialog.ItemName				= this.CurrentProject.Name;
-			dialog.ItemDescription		= this.CurrentProject.Description;
+			dialog.ItemName				= this.CurrentComponent.Name;
+			dialog.ItemDescription		= this.CurrentComponent.Description;
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
-				this.CurrentProject.Name		= dialog.ItemName;
-				this.CurrentProject.Description	= dialog.ItemDescription;
+				this.CurrentComponent.Name		= dialog.ItemName;
+				this.CurrentComponent.Description	= dialog.ItemDescription;
 
-				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+				this.FixtureChanged?.Invoke(this.Fixture);
 				
 				this.SaveProjectCollection();
 			}
@@ -182,7 +182,7 @@ namespace Kairos.Library
 
 		internal void DeleteProject()
 		{
-			if (this.CurrentProject == null)
+			if (this.CurrentComponent == null)
 			{
 				return;
 			}
@@ -191,17 +191,17 @@ namespace Kairos.Library
 				(
 					MessageBox.Show
 									(
-										String.Format(Resources.ShallProjectBeDeleted, this.CurrentProject.Name), 
+										String.Format(Resources.ShallProjectBeDeleted, this.CurrentComponent.Name), 
 										Resources.ProjectAboutToBeDeleted, 
 										MessageBoxButtons.OKCancel, 
 										MessageBoxIcon.Question
 									) == DialogResult.OK
 				)
 			{
-				this.ProjectCollection.Projects.Remove(this.CurrentProject);
-				this.CurrentProject = null;
+				this.Fixture.Projects.Remove(this.CurrentComponent);
+				this.CurrentComponent = null;
 
-				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+				this.FixtureChanged?.Invoke(this.Fixture);
 				
 				this.SaveProjectCollection();
 			}
@@ -211,7 +211,7 @@ namespace Kairos.Library
 		#region Activity management
 		public void AddActivity()
 		{
-			if (this.CurrentProject == null)
+			if (this.CurrentComponent == null)
 			{
 				return;
 			}
@@ -225,9 +225,9 @@ namespace Kairos.Library
 				activity.Name			= dialog.ItemName;
 				activity.Description	= dialog.ItemDescription;
 
-				this.CurrentProject.Activities.Add(activity);
+				this.CurrentComponent.Activities.Add(activity);
 
-				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+				this.FixtureChanged?.Invoke(this.Fixture);
 			}
 		}
 
@@ -249,7 +249,7 @@ namespace Kairos.Library
 				this.CurrentActivity.Name			= dialog.ItemName;
 				this.CurrentActivity.Description	= dialog.ItemDescription;
 
-				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+				this.FixtureChanged?.Invoke(this.Fixture);
 				
 				this.SaveProjectCollection();
 			}
@@ -273,10 +273,10 @@ namespace Kairos.Library
 									) == DialogResult.OK
 				)
 			{
-				this.CurrentProject.Activities.Remove(this.CurrentActivity);
+				this.CurrentComponent.Activities.Remove(this.CurrentActivity);
 				this.CurrentActivity = null;
 
-				this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+				this.FixtureChanged?.Invoke(this.Fixture);
 				
 				this.SaveProjectCollection();
 			}
@@ -402,7 +402,7 @@ namespace Kairos.Library
 		/// <returns></returns>
 		public TimeSpan GetTodaysTime()
 		{
-			double y = this.ProjectCollection.Projects.Sum(p => p.GetTodaysTime().TotalSeconds);
+			double y = this.Fixture.Projects.Sum(p => p.GetTodaysTime().TotalSeconds);
 
 			return TimeSpan.FromSeconds(y);
 		}
@@ -440,20 +440,20 @@ namespace Kairos.Library
 		#region Internal & Private Auxiliary
 		internal void DoLoadProjectCollection()
 		{
-			this.ProjectCollection = Fixture.Load(this.FilePath);
+			this.Fixture = Fixture.Load(this.FilePath);
 
-			this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
+			this.FixtureChanged?.Invoke(this.Fixture);
 		}
 
 		private void SaveProjectCollection()
 		{
 			if (String.IsNullOrEmpty(this.FilePath))
 			{
-				this.SaveProjectCollectionAs();
+				this.SaveFixtureAs();
 			}
 			else
 			{
-				this.ProjectCollection.Save(this.FilePath);
+				this.Fixture.Save(this.FilePath);
 			}
 		}
 		#endregion

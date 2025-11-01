@@ -1,6 +1,6 @@
 ﻿/***********************************************************************************
-* File:         ProjectCollection.cs                                               *
-* Contents:     Class ProjectCollection                                            *
+* File:         Fixture.cs                                               *
+* Contents:     Class Fixture                                            *
 * Author:       Stanislav "Bav" Koncebovski (stanislav@pikkatech.eu)               *
 * Date:         2025-10-30 17:33                                                   *
 * Version:      1.0                                                                *

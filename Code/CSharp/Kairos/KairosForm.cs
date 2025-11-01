@@ -28,7 +28,7 @@ namespace Kairos
 
 			this.Text = $"Kairos {version}";
 
-			KairosManager.Instance.ProjectCollectionChanged += this.OnProjectCollectionChanged;
+			KairosManager.Instance.FixtureChanged += this.OnProjectCollectionChanged;
 			KairosManager.Instance.SelectedActivityChanged += this.OnSelectedActivityChanged;
 			KairosManager.Instance.CurrentWorkIntervalChanged += this.OnCurrentlyRunningWorkIntervalChanged;
 
@@ -84,17 +84,17 @@ namespace Kairos
 			{
 				this._tvProjects.ContextMenuStrip = this._cmsProject;
 
-				KairosManager.Instance.CurrentProject = e.Node.Tag as Component;
-				this._lblProject.Text = KairosManager.Instance.CurrentProject.Name;
+				KairosManager.Instance.CurrentComponent = e.Node.Tag as Component;
+				this._lblProject.Text = KairosManager.Instance.CurrentComponent.Name;
 
-				TimeSpan tsToDay = KairosManager.Instance.CurrentProject.GetTodaysTime().StripMilliseconds();
-				TimeSpan tsThisWeek = KairosManager.Instance.CurrentProject.GetThisWeeksTime().StripMilliseconds();
-				TimeSpan tsTotal = KairosManager.Instance.CurrentProject.GetAllTime().StripMilliseconds();
+				TimeSpan tsToDay = KairosManager.Instance.CurrentComponent.GetTodaysTime().StripMilliseconds();
+				TimeSpan tsThisWeek = KairosManager.Instance.CurrentComponent.GetThisWeeksTime().StripMilliseconds();
+				TimeSpan tsTotal = KairosManager.Instance.CurrentComponent.GetAllTime().StripMilliseconds();
 
 				this._lblCurrentSumForItem.Text = String.Format
 																(
 																	Resources.ItemWorkoutValues,
-																	KairosManager.Instance.CurrentProject.Name,
+																	KairosManager.Instance.CurrentComponent.Name,
 																	tsToDay,
 																	tsThisWeek,
 																	tsTotal
@@ -133,9 +133,9 @@ namespace Kairos
 
 			this.UpdateActivityListView(null);
 
-			if (KairosManager.Instance.CurrentProject != null)
+			if (KairosManager.Instance.CurrentComponent != null)
 			{
-				this._lblProject.Text = KairosManager.Instance.CurrentProject.Name;
+				this._lblProject.Text = KairosManager.Instance.CurrentComponent.Name;
 			}
 			else
 			{
@@ -155,12 +155,12 @@ namespace Kairos
 		#region Menu even handler
 		private void OnCollectionNew(object sender, EventArgs e)
 		{
-			KairosManager.Instance.CreateProjectCollection();
+			KairosManager.Instance.CreateFixture();
 		}
 
 		private void OnCollectionEdit(object sender, EventArgs e)
 		{
-			KairosManager.Instance.EditProjectCollection();
+			KairosManager.Instance.EditFixture();
 		}
 
 		private void OnProjectNew(object sender, EventArgs e)
@@ -182,7 +182,7 @@ namespace Kairos
 		{
 			if (this._tvProjects.SelectedNode != null && this._tvProjects.SelectedNode.Tag is Component)
 			{
-				KairosManager.Instance.CurrentProject = this._tvProjects.SelectedNode.Tag as Component;
+				KairosManager.Instance.CurrentComponent = this._tvProjects.SelectedNode.Tag as Component;
 				KairosManager.Instance.AddActivity();
 			}
 		}
@@ -225,12 +225,12 @@ namespace Kairos
 
 		private void OnProjectCollectionSaveAs(object sender, EventArgs e)
 		{
-			KairosManager.Instance.SaveProjectCollectionAs();
+			KairosManager.Instance.SaveFixtureAs();
 		}
 
 		private void OnProjectCollectionLoad(object sender, EventArgs e)
 		{
-			KairosManager.Instance.LoadProjectCollection();
+			KairosManager.Instance.LoadFixture();
 		}
 
 		private void OnWorkIntervalEdit(object sender, EventArgs e)
@@ -265,7 +265,7 @@ namespace Kairos
 		{
 			this._tvProjects.Nodes.Clear();
 
-			foreach (var project in KairosManager.Instance.ProjectCollection.Projects)
+			foreach (var project in KairosManager.Instance.Fixture.Projects)
 			{
 				TreeNode nodeProject = new TreeNode(project.Name);
 				nodeProject.Tag = project;
