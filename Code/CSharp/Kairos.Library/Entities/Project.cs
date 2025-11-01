@@ -1,6 +1,6 @@
 ﻿/***********************************************************************************
-* File:         Fixture.cs                                               *
-* Contents:     Class Fixture                                            *
+* File:         Project.cs                                               *
+* Contents:     Class Project                                            *
 * Author:       Stanislav "Bav" Koncebovski (stanislav@pikkatech.eu)               *
 * Date:         2025-10-30 17:33                                                   *
 * Version:      1.0                                                                *
@@ -11,7 +11,7 @@ using System.Text.Json;
 
 namespace Kairos.Library.Entities
 {
-	public class Fixture
+	public class Project
 	{
 		public string Name	{get;set;} = "";
 		public string Description	{get;set;} = "";
@@ -25,16 +25,16 @@ namespace Kairos.Library.Entities
 			File.WriteAllText(path, json);
 		}
 
-		public static Fixture Load(string path)
+		public static Project Load(string path)
 		{
 			if (!File.Exists(path))
 			{
-				return new Fixture();
+				return new Project();
 			}
 
 			string json = File.ReadAllText(path);
 
-			return JsonSerializer.Deserialize<Fixture>(json) ?? new Fixture();
+			return JsonSerializer.Deserialize<Project>(json) ?? new Project();
 		}
 	}
 }
