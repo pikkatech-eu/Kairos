@@ -17,7 +17,7 @@ namespace Kairos.Library.Entities
 		public string Description	{get;set;} = "";
 		public DateTime Created	{get; set;} = DateTime.Now;
 
-		public List<Component> Projects	{get; set;} = new List<Component>();
+		public List<Component> Components	{get; set;} = new List<Component>();
 
 		public void Save(string path)
 		{

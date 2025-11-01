@@ -37,7 +37,7 @@ namespace Kairos
 			if (KairosManager.Instance.Settings.AutoLoadLastProject && !String.IsNullOrEmpty(KM.Instance.Settings.LastOpenedProjectCollectionFile))
 			{
 				KM.Instance.FilePath = KM.Instance.Settings.LastOpenedProjectCollectionFile;
-				KM.Instance.DoLoadProjectCollection();
+				KM.Instance.DoLoadFixture();
 			}
 
 
@@ -165,17 +165,17 @@ namespace Kairos
 
 		private void OnProjectNew(object sender, EventArgs e)
 		{
-			KairosManager.Instance.AddProject();
+			KairosManager.Instance.AddComponent();
 		}
 
 		private void OnProjectEdit(object sender, EventArgs e)
 		{
-			KairosManager.Instance.EditProject();
+			KairosManager.Instance.EditComponent();
 		}
 
 		private void OnProjectDelete(object sender, EventArgs e)
 		{
-			KairosManager.Instance.DeleteProject();
+			KairosManager.Instance.DeleteComponent();
 		}
 
 		private void OnActivityNew(object sender, EventArgs e)
@@ -265,7 +265,7 @@ namespace Kairos
 		{
 			this._tvProjects.Nodes.Clear();
 
-			foreach (var project in KairosManager.Instance.Fixture.Projects)
+			foreach (var project in KairosManager.Instance.Fixture.Components)
 			{
 				TreeNode nodeProject = new TreeNode(project.Name);
 				nodeProject.Tag = project;

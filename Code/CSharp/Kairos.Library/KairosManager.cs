@@ -42,7 +42,7 @@ namespace Kairos.Library
 
 		#region Properties
 		/// <summary>
-		/// Path to currect project collection
+		/// Path to currect component collection
 		/// </summary>
 		public string FilePath	{get;set;} = "";
 
@@ -102,7 +102,7 @@ namespace Kairos.Library
 			{
 				this.Fixture.Name			= dialog.ItemName;
 				this.Fixture.Description	= dialog.ItemDescription;
-				this.SaveProjectCollection();
+				this.SaveFixture();
 
 				this.FixtureChanged?.Invoke(this.Fixture);
 			}
@@ -118,7 +118,7 @@ namespace Kairos.Library
 				this.FilePath = dialog.FileName;
 				this.Settings.LastOpenedProjectCollectionFile	= this.FilePath;
 
-				this.SaveProjectCollection();
+				this.SaveFixture();
 			}
 		}
 
@@ -133,30 +133,30 @@ namespace Kairos.Library
 
 				this.Settings.LastOpenedProjectCollectionFile = this.FilePath;
 
-				this.DoLoadProjectCollection();
+				this.DoLoadFixture();
 			}
 		}
 		#endregion
 
 		#region Component management
-		public void AddProject()
+		public void AddComponent()
 		{
 			ItemPropertiesDialog dialog = new ItemPropertiesDialog();
 			dialog.Text					= Resources.ProjectProperties;
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
-				Component project		= new Component();
-				project.Name		= dialog.ItemName;
-				project.Description	= dialog.ItemDescription;
+				Component component		= new Component();
+				component.Name			= dialog.ItemName;
+				component.Description	= dialog.ItemDescription;
 
-				this.Fixture.Projects.Add(project);
+				this.Fixture.Components.Add(component);
 
 				this.FixtureChanged?.Invoke(this.Fixture);
 			}
 		}
 
-		internal void EditProject()
+		internal void EditComponent()
 		{
 			if (this.CurrentComponent == null)
 			{
@@ -176,11 +176,11 @@ namespace Kairos.Library
 
 				this.FixtureChanged?.Invoke(this.Fixture);
 				
-				this.SaveProjectCollection();
+				this.SaveFixture();
 			}
 		}
 
-		internal void DeleteProject()
+		internal void DeleteComponent()
 		{
 			if (this.CurrentComponent == null)
 			{
@@ -198,12 +198,12 @@ namespace Kairos.Library
 									) == DialogResult.OK
 				)
 			{
-				this.Fixture.Projects.Remove(this.CurrentComponent);
+				this.Fixture.Components.Remove(this.CurrentComponent);
 				this.CurrentComponent = null;
 
 				this.FixtureChanged?.Invoke(this.Fixture);
 				
-				this.SaveProjectCollection();
+				this.SaveFixture();
 			}
 		}
 		#endregion
@@ -251,7 +251,7 @@ namespace Kairos.Library
 
 				this.FixtureChanged?.Invoke(this.Fixture);
 				
-				this.SaveProjectCollection();
+				this.SaveFixture();
 			}
 		}
 
@@ -278,7 +278,7 @@ namespace Kairos.Library
 
 				this.FixtureChanged?.Invoke(this.Fixture);
 				
-				this.SaveProjectCollection();
+				this.SaveFixture();
 			}
 		}
 		#endregion
@@ -330,7 +330,7 @@ namespace Kairos.Library
 
 				this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
 
-				this.SaveProjectCollection();
+				this.SaveFixture();
 			}
 		}
 
@@ -358,7 +358,7 @@ namespace Kairos.Library
 
 					this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
 
-					this.SaveProjectCollection();
+					this.SaveFixture();
 				}
 			}
 		}
@@ -389,7 +389,7 @@ namespace Kairos.Library
 
 					this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
 
-					this.SaveProjectCollection();
+					this.SaveFixture();
 				}
 			}
 		}
@@ -402,7 +402,7 @@ namespace Kairos.Library
 		/// <returns></returns>
 		public TimeSpan GetTodaysTime()
 		{
-			double y = this.Fixture.Projects.Sum(p => p.GetTodaysTime().TotalSeconds);
+			double y = this.Fixture.Components.Sum(p => p.GetTodaysTime().TotalSeconds);
 
 			return TimeSpan.FromSeconds(y);
 		}
@@ -430,22 +430,20 @@ namespace Kairos.Library
 			{
 				this.CurrentWorkInterval.End	= DateTime.Now;
 
-				// this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
-
 				this.CurrentWorkIntervalChanged?.Invoke(this.CurrentWorkInterval);
 			}
 		}
 		#endregion
 
 		#region Internal & Private Auxiliary
-		internal void DoLoadProjectCollection()
+		internal void DoLoadFixture()
 		{
 			this.Fixture = Fixture.Load(this.FilePath);
 
 			this.FixtureChanged?.Invoke(this.Fixture);
 		}
 
-		private void SaveProjectCollection()
+		private void SaveFixture()
 		{
 			if (String.IsNullOrEmpty(this.FilePath))
 			{
