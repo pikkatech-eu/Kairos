@@ -228,13 +228,26 @@
       "IssueId": 18,
       "Title": "Edit Work Interval does not copy the date",
       "Details": "always takes the today\u0027s date",
-      "SubmittedOn": "2025-11-01T16:14:09.1364545+01:00",
-      "Status": 1,
+      "SubmittedOn": "2025-11-01T19:58:30.0176173+01:00",
+      "Status": 2,
       "Severity": 0,
-      "Priority": 0,
-      "LastUpdated": "2025-11-01T16:14:09.1364696+01:00",
+      "Priority": 3,
+      "LastUpdated": "2025-11-01T19:58:30.0180596+01:00",
       "StepsToReproduce": "Add an working interval with a Stert in the past and Ens as Now. Save it and call to edit. The edited intervals\u0027s id is not correctly found and assigned. (index 0 or a wrong index)",
       "AdditionalInformation": "- seemingly fixed; try to find out if so",
+      "Notes": []
+    },
+    "19": {
+      "IssueId": 19,
+      "Title": "Add opening .kai files and assigning extensions",
+      "Details": "To make the history like BugLite, project-connected.",
+      "SubmittedOn": "2025-11-01T19:59:41.6305913+01:00",
+      "Status": 0,
+      "Severity": 0,
+      "Priority": 1,
+      "LastUpdated": "2025-11-01T19:59:41.6306122+01:00",
+      "StepsToReproduce": "",
+      "AdditionalInformation": "",
       "Notes": []
     }
   }

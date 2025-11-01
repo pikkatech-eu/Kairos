@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
 	  <UseWindowsForms>true</UseWindowsForms>
 	  <BaseOutputPath>C:\pikkatech.eu\Projects\Active\Kairos\Code\CSharp\Binary</BaseOutputPath>
+	  <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -44,5 +45,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(SolutionDir)..\..\version.toml&quot; &quot;$(TargetDir)&quot; /Y" />
+  </Target>
 
 </Project>

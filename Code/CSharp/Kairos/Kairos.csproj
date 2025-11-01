@@ -6,8 +6,9 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-	<BaseOutputPath>C:\pikkatech.eu\Projects\Active\Kairos\Code\CSharp\Binary</BaseOutputPath>
+	<BaseOutputPath>C:\pikkatech.eu\Projects\Active\Kairos\Code\CSharp\Binary\</BaseOutputPath>
 	<ApplicationIcon>kairos.ico</ApplicationIcon>
+	<RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Factotum\Code\CSharp\Factotum\Factotum.csproj" />
     <ProjectReference Include="..\Kairos.Library\Kairos.Library.csproj" />
   </ItemGroup>
 
@@ -43,4 +45,7 @@
     </EmbeddedResource>
   </ItemGroup>
 
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="xcopy &quot;$(SolutionDir)..\..\version.toml&quot; &quot;$(TargetDir)&quot; /Y" />
+	</Target>	
 </Project>

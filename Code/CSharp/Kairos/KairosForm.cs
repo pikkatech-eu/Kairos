@@ -13,6 +13,7 @@ using Kairos.Library.Extensions;
 using Kairos.Library.Gui;
 using Kairos.Properties;
 using KM = Kairos.Library.KairosManager;
+using FV = Factotum.Versioning;
 
 namespace Kairos
 {
@@ -22,6 +23,10 @@ namespace Kairos
 		public KairosForm()
 		{
 			InitializeComponent();
+			FV.Version version = new FV.Version();
+			version.FromToml();
+
+			this.Text = $"Kairos {version}";
 
 			KairosManager.Instance.ProjectCollectionChanged += this.OnProjectCollectionChanged;
 			KairosManager.Instance.SelectedActivityChanged += this.OnSelectedActivityChanged;
