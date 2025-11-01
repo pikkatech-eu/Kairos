@@ -82,7 +82,7 @@ namespace Kairos
 		{
 			if (e.Node.Tag is Component)
 			{
-				this._tvProjects.ContextMenuStrip = this._cmsProject;
+				this._tvProjects.ContextMenuStrip = this._cmsComponent;
 
 				KairosManager.Instance.CurrentComponent = e.Node.Tag as Component;
 				this._lblProject.Text = KairosManager.Instance.CurrentComponent.Name;

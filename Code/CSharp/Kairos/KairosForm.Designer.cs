@@ -68,7 +68,7 @@
 			this._lblCurrentSumForTime = new ToolStripStatusLabel();
 			this._scKairos = new SplitContainer();
 			this._tvProjects = new TreeView();
-			this._cmsProject = new ContextMenuStrip(this.components);
+			this._cmsComponent = new ContextMenuStrip(this.components);
 			this.editProjectToolStripMenuItem = new ToolStripMenuItem();
 			this.deleteProjectToolStripMenuItem = new ToolStripMenuItem();
 			this.toolStripSeparator3 = new ToolStripSeparator();
@@ -98,7 +98,7 @@
 			this._scKairos.Panel1.SuspendLayout();
 			this._scKairos.Panel2.SuspendLayout();
 			this._scKairos.SuspendLayout();
-			this._cmsProject.SuspendLayout();
+			this._cmsComponent.SuspendLayout();
 			this._cmsWorkInterval.SuspendLayout();
 			this._cmsActivity.SuspendLayout();
 			this.SuspendLayout();
@@ -118,14 +118,14 @@
 			// 
 			this.collectionToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { this.newToolStripMenuItem, this.editToolStripMenuItem, this.loadToolStripMenuItem, this.saveAsToolStripMenuItem, this.toolStripSeparator1, this.quitToolStripMenuItem });
 			this.collectionToolStripMenuItem.Name = "collectionToolStripMenuItem";
-			this.collectionToolStripMenuItem.Size = new Size(134, 27);
-			this.collectionToolStripMenuItem.Text = "&Collection";
+			this.collectionToolStripMenuItem.Size = new Size(101, 27);
+			this.collectionToolStripMenuItem.Text = "&Fixture";
 			// 
 			// newToolStripMenuItem
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
 			this.newToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
-			this.newToolStripMenuItem.Size = new Size(224, 28);
+			this.newToolStripMenuItem.Size = new Size(203, 28);
 			this.newToolStripMenuItem.Text = "&New";
 			this.newToolStripMenuItem.ToolTipText = "Creates a new project collection from file";
 			this.newToolStripMenuItem.Click += this.OnCollectionNew;
@@ -133,7 +133,7 @@
 			// editToolStripMenuItem
 			// 
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-			this.editToolStripMenuItem.Size = new Size(224, 28);
+			this.editToolStripMenuItem.Size = new Size(203, 28);
 			this.editToolStripMenuItem.Text = "&Edit";
 			this.editToolStripMenuItem.ToolTipText = "Edits currently loaded project collection";
 			this.editToolStripMenuItem.Click += this.OnCollectionEdit;
@@ -141,7 +141,7 @@
 			// loadToolStripMenuItem
 			// 
 			this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-			this.loadToolStripMenuItem.Size = new Size(224, 28);
+			this.loadToolStripMenuItem.Size = new Size(203, 28);
 			this.loadToolStripMenuItem.Text = "&Load";
 			this.loadToolStripMenuItem.ToolTipText = "Loads a project collection";
 			this.loadToolStripMenuItem.Click += this.OnProjectCollectionLoad;
@@ -149,7 +149,7 @@
 			// saveAsToolStripMenuItem
 			// 
 			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			this.saveAsToolStripMenuItem.Size = new Size(224, 28);
+			this.saveAsToolStripMenuItem.Size = new Size(203, 28);
 			this.saveAsToolStripMenuItem.Text = "Save &As";
 			this.saveAsToolStripMenuItem.ToolTipText = "Saves the current project collection under a new file name";
 			this.saveAsToolStripMenuItem.Click += this.OnProjectCollectionSaveAs;
@@ -157,12 +157,12 @@
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new Size(221, 6);
+			this.toolStripSeparator1.Size = new Size(200, 6);
 			// 
 			// quitToolStripMenuItem
 			// 
 			this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-			this.quitToolStripMenuItem.Size = new Size(224, 28);
+			this.quitToolStripMenuItem.Size = new Size(203, 28);
 			this.quitToolStripMenuItem.Text = "&Quit";
 			this.quitToolStripMenuItem.ToolTipText = "Quits the program";
 			this.quitToolStripMenuItem.Click += this.OnProjectCollectionQuit;
@@ -171,8 +171,8 @@
 			// 
 			this.projectToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { this.newToolStripMenuItem1, this.editToolStripMenuItem1, this.deleteToolStripMenuItem });
 			this.projectToolStripMenuItem.Name = "projectToolStripMenuItem";
-			this.projectToolStripMenuItem.Size = new Size(101, 27);
-			this.projectToolStripMenuItem.Text = "&Project";
+			this.projectToolStripMenuItem.Size = new Size(123, 27);
+			this.projectToolStripMenuItem.Text = "&Component";
 			// 
 			// newToolStripMenuItem1
 			// 
@@ -255,7 +255,7 @@
 			// aboutToolStripMenuItem
 			// 
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new Size(224, 28);
+			this.aboutToolStripMenuItem.Size = new Size(149, 28);
 			this.aboutToolStripMenuItem.Text = "&About";
 			this.aboutToolStripMenuItem.ToolTipText = "Calls the About dialog";
 			this.aboutToolStripMenuItem.Click += this.OnHelpAbout;
@@ -440,7 +440,7 @@
 			// 
 			// _tvProjects
 			// 
-			this._tvProjects.ContextMenuStrip = this._cmsProject;
+			this._tvProjects.ContextMenuStrip = this._cmsComponent;
 			this._tvProjects.Dock = DockStyle.Fill;
 			this._tvProjects.ImageIndex = 0;
 			this._tvProjects.ImageList = this._ilIssues;
@@ -451,41 +451,41 @@
 			this._tvProjects.TabIndex = 0;
 			this._tvProjects.AfterSelect += this.OnNodeSelected;
 			// 
-			// _cmsProject
+			// _cmsComponent
 			// 
-			this._cmsProject.Font = new Font("Consolas", 10F);
-			this._cmsProject.ImageScalingSize = new Size(20, 20);
-			this._cmsProject.Items.AddRange(new ToolStripItem[] { this.editProjectToolStripMenuItem, this.deleteProjectToolStripMenuItem, this.toolStripSeparator3, this.addToolStripMenuItem });
-			this._cmsProject.Name = "_cmsProject";
-			this._cmsProject.Size = new Size(205, 82);
+			this._cmsComponent.Font = new Font("Consolas", 10F);
+			this._cmsComponent.ImageScalingSize = new Size(20, 20);
+			this._cmsComponent.Items.AddRange(new ToolStripItem[] { this.editProjectToolStripMenuItem, this.deleteProjectToolStripMenuItem, this.toolStripSeparator3, this.addToolStripMenuItem });
+			this._cmsComponent.Name = "_cmsProject";
+			this._cmsComponent.Size = new Size(223, 110);
 			// 
 			// editProjectToolStripMenuItem
 			// 
 			this.editProjectToolStripMenuItem.Name = "editProjectToolStripMenuItem";
-			this.editProjectToolStripMenuItem.Size = new Size(210, 24);
-			this.editProjectToolStripMenuItem.Text = "&Edit Project";
-			this.editProjectToolStripMenuItem.ToolTipText = "Edits currently loaded project collection";
+			this.editProjectToolStripMenuItem.Size = new Size(222, 24);
+			this.editProjectToolStripMenuItem.Text = "&Edit Component";
+			this.editProjectToolStripMenuItem.ToolTipText = "Edits currently loaded component";
 			this.editProjectToolStripMenuItem.Click += this.OnProjectEdit;
 			// 
 			// deleteProjectToolStripMenuItem
 			// 
 			this.deleteProjectToolStripMenuItem.Name = "deleteProjectToolStripMenuItem";
-			this.deleteProjectToolStripMenuItem.Size = new Size(210, 24);
-			this.deleteProjectToolStripMenuItem.Text = "&Delete Project";
-			this.deleteProjectToolStripMenuItem.ToolTipText = "Deletes selected project from the project collection";
+			this.deleteProjectToolStripMenuItem.Size = new Size(222, 24);
+			this.deleteProjectToolStripMenuItem.Text = "&Delete Component";
+			this.deleteProjectToolStripMenuItem.ToolTipText = "Deletes selected component from the fixture";
 			this.deleteProjectToolStripMenuItem.Click += this.OnProjectDelete;
 			// 
 			// toolStripSeparator3
 			// 
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
-			this.toolStripSeparator3.Size = new Size(201, 6);
+			this.toolStripSeparator3.Size = new Size(207, 6);
 			// 
 			// addToolStripMenuItem
 			// 
 			this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-			this.addToolStripMenuItem.Size = new Size(204, 24);
+			this.addToolStripMenuItem.Size = new Size(210, 24);
 			this.addToolStripMenuItem.Text = "Add &Activity";
-			this.addToolStripMenuItem.ToolTipText = "Adds a new activity to selected project";
+			this.addToolStripMenuItem.ToolTipText = "Adds a new activity to selected component";
 			this.addToolStripMenuItem.Click += this.OnActivityNew;
 			// 
 			// _ilIssues
@@ -642,7 +642,7 @@
 			this._scKairos.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)this._scKairos).EndInit();
 			this._scKairos.ResumeLayout(false);
-			this._cmsProject.ResumeLayout(false);
+			this._cmsComponent.ResumeLayout(false);
 			this._cmsWorkInterval.ResumeLayout(false);
 			this._cmsActivity.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -681,7 +681,7 @@
 		private ToolStripLabel _lblProject;
 		private ToolStripButton _btStart;
 		private ToolStripButton _btStop;
-		private ContextMenuStrip _cmsProject;
+		private ContextMenuStrip _cmsComponent;
 		private ToolStripMenuItem editProjectToolStripMenuItem;
 		private ToolStripMenuItem deleteProjectToolStripMenuItem;
 		private ContextMenuStrip _cmsActivity;
