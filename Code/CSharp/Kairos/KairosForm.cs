@@ -125,7 +125,7 @@ namespace Kairos
 		#endregion
 
 		#region KairosManager event handler
-		private void OnProjectCollectionChanged(ProjectCollection pc)
+		private void OnProjectCollectionChanged(Fixture pc)
 		{
 			this._lblCollection.Text = pc.Name;
 

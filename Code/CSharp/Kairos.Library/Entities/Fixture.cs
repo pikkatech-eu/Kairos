@@ -11,7 +11,7 @@ using System.Text.Json;
 
 namespace Kairos.Library.Entities
 {
-	public class ProjectCollection
+	public class Fixture
 	{
 		public string Name	{get;set;} = "";
 		public string Description	{get;set;} = "";
@@ -25,16 +25,16 @@ namespace Kairos.Library.Entities
 			File.WriteAllText(path, json);
 		}
 
-		public static ProjectCollection Load(string path)
+		public static Fixture Load(string path)
 		{
 			if (!File.Exists(path))
 			{
-				return new ProjectCollection();
+				return new Fixture();
 			}
 
 			string json = File.ReadAllText(path);
 
-			return JsonSerializer.Deserialize<ProjectCollection>(json) ?? new ProjectCollection();
+			return JsonSerializer.Deserialize<Fixture>(json) ?? new Fixture();
 		}
 	}
 }

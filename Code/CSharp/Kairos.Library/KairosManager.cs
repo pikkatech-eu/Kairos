@@ -46,7 +46,7 @@ namespace Kairos.Library
 		/// </summary>
 		public string FilePath	{get;set;} = "";
 
-		public ProjectCollection ProjectCollection	{get;internal set;} = new ProjectCollection();
+		public Fixture ProjectCollection	{get;internal set;} = new Fixture();
 
 		public Project	CurrentProject	{get;internal set;} = null;
 
@@ -68,7 +68,7 @@ namespace Kairos.Library
 		#endregion
 
 		#region Events
-		public event Action<ProjectCollection> ProjectCollectionChanged;
+		public event Action<Fixture> ProjectCollectionChanged;
 
 		public event Action<Activity> SelectedActivityChanged;
 
@@ -83,7 +83,7 @@ namespace Kairos.Library
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
-				this.ProjectCollection				= new ProjectCollection();
+				this.ProjectCollection				= new Fixture();
 				this.ProjectCollection.Name			= dialog.ItemName;
 				this.ProjectCollection.Description	= dialog.ItemDescription;
 
@@ -440,7 +440,7 @@ namespace Kairos.Library
 		#region Internal & Private Auxiliary
 		internal void DoLoadProjectCollection()
 		{
-			this.ProjectCollection = ProjectCollection.Load(this.FilePath);
+			this.ProjectCollection = Fixture.Load(this.FilePath);
 
 			this.ProjectCollectionChanged?.Invoke(this.ProjectCollection);
 		}
