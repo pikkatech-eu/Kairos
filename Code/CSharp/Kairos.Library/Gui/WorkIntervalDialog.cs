@@ -27,7 +27,11 @@ namespace Kairos.Library.Gui
 				WorkInterval workInterval	= new WorkInterval();
 				workInterval.Start			= this._dtpFrom.Value;
 				workInterval.End			= this._dtpTo.Value;
-				workInterval.Id				= this.Tag != null ? (Guid)this.Tag : new Guid();
+
+				if (this.Tag != null && this.Tag is Guid)
+				{
+					workInterval.Id			= (Guid)this.Tag;
+				}
 
 				workInterval.Description	= this._txDescription.Text;
 

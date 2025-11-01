@@ -17,6 +17,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Gui\TimeIntervalDialog.cs" />
+    <Compile Remove="Gui\TimeIntervalDialog.Designer.cs" />
     <Compile Remove="IntervalService.cs" />
     <Compile Remove="StorageService.cs" />
     <Compile Remove="TimeDataControl.cs" />
@@ -24,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Gui\TimeIntervalDialog.resx" />
     <EmbeddedResource Remove="TimeDataControl.resx" />
   </ItemGroup>
 

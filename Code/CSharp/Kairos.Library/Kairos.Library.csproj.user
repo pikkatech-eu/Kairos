@@ -11,9 +11,6 @@
     <Compile Update="Gui\SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Gui\TimeIntervalDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Gui\WorkIntervalDialog.cs">
       <SubType>Form</SubType>
     </Compile>

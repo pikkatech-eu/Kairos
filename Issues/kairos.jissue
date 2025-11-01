@@ -223,6 +223,19 @@
       "StepsToReproduce": "",
       "AdditionalInformation": "",
       "Notes": []
+    },
+    "18": {
+      "IssueId": 18,
+      "Title": "Edit Work Interval does not copy the date",
+      "Details": "always takes the today\u0027s date",
+      "SubmittedOn": "2025-11-01T16:14:09.1364545+01:00",
+      "Status": 1,
+      "Severity": 0,
+      "Priority": 0,
+      "LastUpdated": "2025-11-01T16:14:09.1364696+01:00",
+      "StepsToReproduce": "Add an working interval with a Stert in the past and Ens as Now. Save it and call to edit. The edited intervals\u0027s id is not correctly found and assigned. (index 0 or a wrong index)",
+      "AdditionalInformation": "- seemingly fixed; try to find out if so",
+      "Notes": []
     }
   }
 }

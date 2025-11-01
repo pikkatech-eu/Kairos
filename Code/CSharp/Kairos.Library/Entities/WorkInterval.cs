@@ -15,10 +15,10 @@ namespace Kairos.Library.Entities
 	public class WorkInterval
 	{
 		#region Properties
-		public Guid Id { get; set; } = Guid.NewGuid();
-		public DateTime Start { get; set; }
-		public DateTime? End { get; set; }
-		public string? Description { get; set; }
+		public Guid Id					{get;set;} = Guid.NewGuid();
+		public DateTime		Start		{get;set;}
+		public DateTime?	End			{get;set;}
+		public string?		Description	{get;set;}
 
 		[JsonIgnore]
 		public TimeSpan Duration => (End ?? DateTime.Now) - Start;
