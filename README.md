@@ -20,4 +20,4 @@ A desktop tool for tracking working intervals / time registration.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YourUserName/YourRepoName.git
+   [https://github.com/pikkatech-eu/Kairos/]
