@@ -8,6 +8,7 @@
 ***********************************************************************************/
 
 using System.Diagnostics;
+using FV = Factotum.Versioning;
 
 namespace Kairos.Library.Gui
 {
@@ -17,6 +18,11 @@ namespace Kairos.Library.Gui
 		public KairosAboutDialog()
 		{
 			InitializeComponent();
+
+			FV.Version version = new FV.Version();
+			version.FromToml();
+
+			this._txVersion.Text =  $"Kairos {version}";
 		}
 
 		private void OnPikkatechLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

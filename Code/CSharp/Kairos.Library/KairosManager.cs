@@ -8,6 +8,7 @@
 ***********************************************************************************/
 
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using BugLite.Library.Gui.Dialogs;
 using Kairos.Library.Entities;
 using Kairos.Library.Gui;
@@ -426,6 +427,9 @@ namespace Kairos.Library
 		#region Private event handlers
 		private void OnCurrentWorkIntervalTick(object? sender, EventArgs e)
 		{
+			uint idleTime = GetIdleTime();
+
+
 			if (this.CurrentWorkInterval != null)
 			{
 				this.CurrentWorkInterval.End	= DateTime.Now;
@@ -454,6 +458,33 @@ namespace Kairos.Library
 				this.Project.Save(this.FilePath);
 			}
 		}
+
+		private static uint GetIdleTime()
+		{
+			LASTINPUTINFO lastInPut	= new LASTINPUTINFO();
+			lastInPut.cbSize		= (uint)Marshal.SizeOf(lastInPut);
+			GetLastInputInfo(ref lastInPut);
+
+			return (uint)Environment.TickCount - lastInPut.dwTime;
+		}
+
+		/// <summary>
+		/// http://www.codeproject.com/Articles/13384/Getting-the-user-idle-time-with-C
+		/// https://msdn.microsoft.com/en-us/library/windows/desktop/ms646272%28v=vs.85%29.aspx
+		/// </summary>
+		internal struct LASTINPUTINFO
+		{
+			public uint cbSize;
+
+			/// <summary>
+			/// The tick count when the last input event was received. 
+			/// </summary>
+			public uint dwTime;
+		}
+
+		[DllImport("User32.dll")]
+		private static extern bool GetLastInputInfo(ref LASTINPUTINFO lastInputInfo);
+
 		#endregion
 	}
 }

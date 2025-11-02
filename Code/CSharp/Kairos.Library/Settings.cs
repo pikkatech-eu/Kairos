@@ -25,7 +25,20 @@ namespace Kairos.Library
 
 		[Category("General")]
 		[Description("The last opened project file")]
+		[ReadOnly(true)]
 		public string	LastOpenedProjectCollectionFile	{get;set;}	= "";
+
+		/// <summary>
+		/// If set to true, CurrentActivity will be set into 'Paused' state on getting idle.
+		/// Running WorkInterval will be completed, closed, and added to the current activity.
+		/// </summary>
+		public bool AutoPause	{get;set;} = true;
+
+		/// <summary>
+		/// If set to true, and CurrentActivity is in the 'Paused' state, the GUI is set into the 'Running' state,
+		/// and a new WorkInterval will be started.
+		/// </summary>
+		public bool AutoResume	{get;set;} = true;
 		#endregion
 
 		#region Serialization
