@@ -241,11 +241,11 @@
       "IssueId": 19,
       "Title": "Add opening .kai files and assigning extensions",
       "Details": "To make the history like BugLite, project-connected.",
-      "SubmittedOn": "2025-11-01T19:59:41.6305913+01:00",
-      "Status": 0,
+      "SubmittedOn": "2025-11-02T14:01:20.4264276+01:00",
+      "Status": 2,
       "Severity": 0,
-      "Priority": 1,
-      "LastUpdated": "2025-11-01T19:59:41.6306122+01:00",
+      "Priority": 3,
+      "LastUpdated": "2025-11-02T14:01:20.4264521+01:00",
       "StepsToReproduce": "",
       "AdditionalInformation": "",
       "Notes": []
@@ -253,15 +253,20 @@
     "20": {
       "IssueId": 20,
       "Title": "Stop counting at idle processing",
-      "Details": "Loke Zeitgeist: copy froom there",
-      "SubmittedOn": "2025-11-02T11:47:15.2085155+01:00",
-      "Status": 0,
-      "Severity": 0,
-      "Priority": 0,
-      "LastUpdated": "2025-11-02T11:47:15.2085276+01:00",
+      "Details": "Like Zeitgeist: copy froom there",
+      "SubmittedOn": "2025-11-02T13:44:40.849149+01:00",
+      "Status": 2,
+      "Severity": 2,
+      "Priority": 3,
+      "LastUpdated": "2025-11-02T13:44:40.8491668+01:00",
       "StepsToReproduce": "",
       "AdditionalInformation": "",
-      "Notes": []
+      "Notes": [
+        {
+          "Created": "2025-11-02T13:44:30.4495572+01:00",
+          "Text": "Seems to be resolved, needs further observation"
+        }
+      ]
     },
     "21": {
       "IssueId": 21,

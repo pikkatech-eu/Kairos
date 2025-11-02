@@ -144,7 +144,7 @@
 			this.loadToolStripMenuItem.Size = new Size(203, 28);
 			this.loadToolStripMenuItem.Text = "&Load";
 			this.loadToolStripMenuItem.ToolTipText = "Loads a fixture";
-			this.loadToolStripMenuItem.Click += this.OnProjectCollectionLoad;
+			this.loadToolStripMenuItem.Click += this.OnProjectLoad;
 			// 
 			// saveAsToolStripMenuItem
 			// 
@@ -152,7 +152,7 @@
 			this.saveAsToolStripMenuItem.Size = new Size(203, 28);
 			this.saveAsToolStripMenuItem.Text = "Save &As";
 			this.saveAsToolStripMenuItem.ToolTipText = "Saves the current fixture under a new file name";
-			this.saveAsToolStripMenuItem.Click += this.OnProjectCollectionSaveAs;
+			this.saveAsToolStripMenuItem.Click += this.OnProjectSaveAs;
 			// 
 			// toolStripSeparator1
 			// 
@@ -281,7 +281,7 @@
 			this.toolStripButton1.Name = "toolStripButton1";
 			this.toolStripButton1.Size = new Size(34, 37);
 			this.toolStripButton1.ToolTipText = "Opens a fixture from file";
-			this.toolStripButton1.Click += this.OnProjectCollectionLoad;
+			this.toolStripButton1.Click += this.OnProjectLoad;
 			// 
 			// toolStripButton2
 			// 
@@ -293,7 +293,7 @@
 			this.toolStripButton2.Size = new Size(34, 37);
 			this.toolStripButton2.Text = "toolStripButton2";
 			this.toolStripButton2.ToolTipText = "Saves the current fixture under a new file name";
-			this.toolStripButton2.Click += this.OnProjectCollectionSaveAs;
+			this.toolStripButton2.Click += this.OnProjectSaveAs;
 			// 
 			// toolStripButton4
 			// 

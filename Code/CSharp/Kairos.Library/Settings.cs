@@ -16,6 +16,7 @@ namespace Kairos.Library
 	{
 		#region Constants
 		internal static readonly string DEFAULT_SETTINGS_FILE_NAME = "settings.json";
+		private const int DEFAULT_MAX_IDLE_TIME			= 10 * 60 * 1000;
 		#endregion
 
 		#region Properties
@@ -32,13 +33,19 @@ namespace Kairos.Library
 		/// If set to true, CurrentActivity will be set into 'Paused' state on getting idle.
 		/// Running WorkInterval will be completed, closed, and added to the current activity.
 		/// </summary>
+		[Category("Auto")]
 		public bool AutoPause	{get;set;} = true;
 
 		/// <summary>
 		/// If set to true, and CurrentActivity is in the 'Paused' state, the GUI is set into the 'Running' state,
 		/// and a new WorkInterval will be started.
 		/// </summary>
+		[Category("Auto")]
 		public bool AutoResume	{get;set;} = true;
+
+		[Category("Auto")]
+		[Description("Maximum idle time, ms.")]
+		public uint MaxIdleTime	{get;set;} = DEFAULT_MAX_IDLE_TIME;
 		#endregion
 
 		#region Serialization

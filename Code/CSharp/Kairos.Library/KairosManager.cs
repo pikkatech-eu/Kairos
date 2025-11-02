@@ -10,6 +10,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using BugLite.Library.Gui.Dialogs;
+using Factotum.Logging;
 using Kairos.Library.Entities;
 using Kairos.Library.Gui;
 using Kairos.Library.Gui.Dialogs;
@@ -22,8 +23,18 @@ namespace Kairos.Library
 {
 	public class KairosManager
 	{
+		#region Constants
+		private const int IDLE_TIME_TIMER_INTERVAL = 1000;
+		#endregion
+
 		#region Private Members
-		private Timer	_timerCurrentWorkInterval = null;
+		private Timer	_timerCurrentWorkInterval	= null;
+		private Timer	_timerIdleTime				= null;
+
+		/// <summary>
+		/// True if the system is paused in idle state.
+		/// </summary>
+		private bool	_isPaused					= false;
 		#endregion
 
 		#region Sigletonium
@@ -31,13 +42,23 @@ namespace Kairos.Library
 		public static KairosManager Instance => _instance.Value;
 		private KairosManager() 
 		{
-			this.Settings = Settings.Load();
+			Logger.Open("Kairos");
 
-			this._timerCurrentWorkInterval = new System.Windows.Forms.Timer();
+			this.Settings							= Settings.Load();
+			Logger.Trace("Settings loaded");
+
+			this._timerCurrentWorkInterval			= new Timer();
 
 			this._timerCurrentWorkInterval.Interval	= 1000;
 
-			this._timerCurrentWorkInterval.Tick += this.OnCurrentWorkIntervalTick;
+			this._timerCurrentWorkInterval.Tick		+= this.OnCurrentWorkIntervalTick;
+
+			this._timerIdleTime						= new Timer();
+			this._timerIdleTime.Interval			= IDLE_TIME_TIMER_INTERVAL;
+			this._timerIdleTime.Tick				+= this.OnIdleTimerTick;
+
+			this._timerIdleTime.Start();
+			Logger.Trace("IdleTime timer started");
 		}
 		#endregion
 
@@ -306,6 +327,11 @@ namespace Kairos.Library
 
 		public void StartCurrentWorkInterval(Activity activity)
 		{
+			if (this.IsIntervalRunning)
+			{
+				return;
+			}
+
 			this.CurrentWorkInterval		= new WorkInterval();
 			this.CurrentWorkInterval.Start	= DateTime.Now;
 			activity.WorkIntervals.Add(this.CurrentWorkInterval);
@@ -427,14 +453,45 @@ namespace Kairos.Library
 		#region Private event handlers
 		private void OnCurrentWorkIntervalTick(object? sender, EventArgs e)
 		{
+			if (this.CurrentWorkInterval == null)
+			{
+				return;
+			}
+
+			// Is performed in all cases, with or without AutoStop
+			this.CurrentWorkInterval.End	= DateTime.Now;
+			this.CurrentWorkIntervalChanged?.Invoke(this.CurrentWorkInterval);
+		}
+
+		private void OnIdleTimerTick(object? sender, EventArgs e)
+		{
+			// idle time, in ticks (ms)
 			uint idleTime = GetIdleTime();
 
+			Logger.Trace($"idle time = {idleTime}");
 
-			if (this.CurrentWorkInterval != null)
+			if (idleTime > this.Settings.MaxIdleTime)
 			{
-				this.CurrentWorkInterval.End	= DateTime.Now;
+				if (this.Settings.AutoPause)
+				{
+					this.StopCurrentWorkInterval();
+					this._isPaused = true;
 
-				this.CurrentWorkIntervalChanged?.Invoke(this.CurrentWorkInterval);
+					Logger.Trace("CurrentWorkInterval stopped.");
+				}
+			}
+			else
+			{
+				if (this.Settings.AutoResume)
+				{
+					if (this._isPaused)
+					{
+						this._isPaused = false;
+						this.StartCurrentWorkInterval(this.CurrentActivity);
+
+						Logger.Trace("CurrentWorkInterval resumed.");
+					}
+				}
 			}
 		}
 		#endregion

@@ -223,12 +223,12 @@ namespace Kairos
 			KairosManager.Instance.StopCurrentWorkInterval();
 		}
 
-		private void OnProjectCollectionSaveAs(object sender, EventArgs e)
+		private void OnProjectSaveAs(object sender, EventArgs e)
 		{
 			KairosManager.Instance.SaveProjectAs();
 		}
 
-		private void OnProjectCollectionLoad(object sender, EventArgs e)
+		private void OnProjectLoad(object sender, EventArgs e)
 		{
 			KairosManager.Instance.LoadProject();
 		}
