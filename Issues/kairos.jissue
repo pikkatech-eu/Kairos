@@ -280,6 +280,19 @@
       "StepsToReproduce": "",
       "AdditionalInformation": "",
       "Notes": []
+    },
+    "22": {
+      "IssueId": 22,
+      "Title": "When closing Kairos, do save",
+      "Details": "If an activity is running, close it and save all",
+      "SubmittedOn": "2025-11-03T20:03:53.3711387+01:00",
+      "Status": 0,
+      "Severity": 0,
+      "Priority": 0,
+      "LastUpdated": "2025-11-03T20:03:53.3714842+01:00",
+      "StepsToReproduce": "",
+      "AdditionalInformation": "",
+      "Notes": []
     }
   }
 }
