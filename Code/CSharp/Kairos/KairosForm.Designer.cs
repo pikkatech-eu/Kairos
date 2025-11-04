@@ -125,7 +125,7 @@
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
 			this.newToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
-			this.newToolStripMenuItem.Size = new Size(203, 28);
+			this.newToolStripMenuItem.Size = new Size(224, 28);
 			this.newToolStripMenuItem.Text = "&New";
 			this.newToolStripMenuItem.ToolTipText = "Creates a new fixture from file";
 			this.newToolStripMenuItem.Click += this.OnProjectNew;
@@ -133,7 +133,7 @@
 			// editToolStripMenuItem
 			// 
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-			this.editToolStripMenuItem.Size = new Size(203, 28);
+			this.editToolStripMenuItem.Size = new Size(224, 28);
 			this.editToolStripMenuItem.Text = "&Edit";
 			this.editToolStripMenuItem.ToolTipText = "Edits currently loaded fixture";
 			this.editToolStripMenuItem.Click += this.OnProjectEdit;
@@ -141,7 +141,7 @@
 			// loadToolStripMenuItem
 			// 
 			this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-			this.loadToolStripMenuItem.Size = new Size(203, 28);
+			this.loadToolStripMenuItem.Size = new Size(224, 28);
 			this.loadToolStripMenuItem.Text = "&Load";
 			this.loadToolStripMenuItem.ToolTipText = "Loads a fixture";
 			this.loadToolStripMenuItem.Click += this.OnProjectLoad;
@@ -149,7 +149,7 @@
 			// saveAsToolStripMenuItem
 			// 
 			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			this.saveAsToolStripMenuItem.Size = new Size(203, 28);
+			this.saveAsToolStripMenuItem.Size = new Size(224, 28);
 			this.saveAsToolStripMenuItem.Text = "Save &As";
 			this.saveAsToolStripMenuItem.ToolTipText = "Saves the current fixture under a new file name";
 			this.saveAsToolStripMenuItem.Click += this.OnProjectSaveAs;
@@ -157,15 +157,15 @@
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new Size(200, 6);
+			this.toolStripSeparator1.Size = new Size(221, 6);
 			// 
 			// quitToolStripMenuItem
 			// 
 			this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-			this.quitToolStripMenuItem.Size = new Size(203, 28);
+			this.quitToolStripMenuItem.Size = new Size(224, 28);
 			this.quitToolStripMenuItem.Text = "&Quit";
 			this.quitToolStripMenuItem.ToolTipText = "Quits the program";
-			this.quitToolStripMenuItem.Click += this.OnProjectCollectionQuit;
+			this.quitToolStripMenuItem.Click += this.OnProjectQuit;
 			// 
 			// projectToolStripMenuItem
 			// 
@@ -280,7 +280,7 @@
 			this.toolStripButton1.ImageTransparentColor = Color.Magenta;
 			this.toolStripButton1.Name = "toolStripButton1";
 			this.toolStripButton1.Size = new Size(34, 37);
-			this.toolStripButton1.ToolTipText = "Opens a fixture from file";
+			this.toolStripButton1.ToolTipText = "Opens a project from file";
 			this.toolStripButton1.Click += this.OnProjectLoad;
 			// 
 			// toolStripButton2
@@ -292,7 +292,7 @@
 			this.toolStripButton2.Name = "toolStripButton2";
 			this.toolStripButton2.Size = new Size(34, 37);
 			this.toolStripButton2.Text = "toolStripButton2";
-			this.toolStripButton2.ToolTipText = "Saves the current fixture under a new file name";
+			this.toolStripButton2.ToolTipText = "Saves the current project under a new file name";
 			this.toolStripButton2.Click += this.OnProjectSaveAs;
 			// 
 			// toolStripButton4
@@ -304,8 +304,8 @@
 			this.toolStripButton4.Name = "toolStripButton4";
 			this.toolStripButton4.Size = new Size(36, 37);
 			this.toolStripButton4.Text = "toolStripButton4";
-			this.toolStripButton4.ToolTipText = "Adds a new project to the currenty fixture";
-			this.toolStripButton4.Click += this.OnProjectNew;
+			this.toolStripButton4.ToolTipText = "Adds a new component to the currenty project";
+			this.toolStripButton4.Click += this.OnComponentNew;
 			// 
 			// toolStripButton5
 			// 
@@ -316,7 +316,7 @@
 			this.toolStripButton5.Name = "toolStripButton5";
 			this.toolStripButton5.Size = new Size(36, 37);
 			this.toolStripButton5.Text = "toolStripButton5";
-			this.toolStripButton5.ToolTipText = "Adds a new activity to selected project";
+			this.toolStripButton5.ToolTipText = "Adds a new activity to selected component";
 			this.toolStripButton5.Click += this.OnActivityNew;
 			// 
 			// toolStripButton6
@@ -346,7 +346,7 @@
 			this.toolStripButton3.Size = new Size(34, 37);
 			this.toolStripButton3.Text = "toolStripButton3";
 			this.toolStripButton3.ToolTipText = "Quits the program";
-			this.toolStripButton3.Click += this.OnProjectCollectionQuit;
+			this.toolStripButton3.Click += this.OnProjectQuit;
 			// 
 			// _lblComponent
 			// 
@@ -457,7 +457,7 @@
 			this._cmsComponent.ImageScalingSize = new Size(20, 20);
 			this._cmsComponent.Items.AddRange(new ToolStripItem[] { this.editProjectToolStripMenuItem, this.deleteProjectToolStripMenuItem, this.toolStripSeparator3, this.addToolStripMenuItem });
 			this._cmsComponent.Name = "_cmsProject";
-			this._cmsComponent.Size = new Size(223, 110);
+			this._cmsComponent.Size = new Size(223, 82);
 			// 
 			// editProjectToolStripMenuItem
 			// 

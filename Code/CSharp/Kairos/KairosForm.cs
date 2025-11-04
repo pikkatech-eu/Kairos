@@ -204,7 +204,7 @@ namespace Kairos
 				Activity activity = this._tvComponents.SelectedNode.Tag as Activity;
 
 				KairosManager.Instance.CurrentActivity = activity;
-				KairosManager.Instance.AddAddWorkInterval();
+				KairosManager.Instance.AddWorkInterval();
 			}
 		}
 
@@ -248,8 +248,15 @@ namespace Kairos
 			KairosManager.Instance.EditSettings();
 		}
 
-		private void OnProjectCollectionQuit(object sender, EventArgs e)
+		private void OnProjectQuit(object sender, EventArgs e)
 		{
+			if (KM.Instance.CurrentActivity != null && KM.Instance.IsIntervalRunning)
+			{
+				KM.Instance.StartCurrentWorkInterval(KM.Instance.CurrentActivity);
+			}
+
+			KM.Instance.PerformProjectSaving();
+
 			this.Close();
 		}
 

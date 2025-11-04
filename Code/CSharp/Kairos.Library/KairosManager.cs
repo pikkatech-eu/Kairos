@@ -174,6 +174,8 @@ namespace Kairos.Library
 
 				this.Project.Components.Add(component);
 
+				this.PerformProjectSaving();
+
 				this.ProjectChanged?.Invoke(this.Project);
 			}
 		}
@@ -249,6 +251,8 @@ namespace Kairos.Library
 
 				this.CurrentComponent.Activities.Add(activity);
 
+				this.PerformProjectSaving();
+
 				this.ProjectChanged?.Invoke(this.Project);
 			}
 		}
@@ -306,7 +310,7 @@ namespace Kairos.Library
 		#endregion
 
 		#region Work interval management
-		public void AddAddWorkInterval()
+		public void AddWorkInterval()
 		{
 			if (this.CurrentActivity == null)
 			{
@@ -322,6 +326,8 @@ namespace Kairos.Library
 				this.CurrentActivity.WorkIntervals.Add(workInterval);
 
 				this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
+
+				this.PerformProjectSaving();
 			}
 		}
 
@@ -504,7 +510,7 @@ namespace Kairos.Library
 			this.ProjectChanged?.Invoke(this.Project);
 		}
 
-		private void PerformProjectSaving()
+		internal void PerformProjectSaving()
 		{
 			if (String.IsNullOrEmpty(this.FilePath))
 			{
