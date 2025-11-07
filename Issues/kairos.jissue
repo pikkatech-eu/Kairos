@@ -293,6 +293,19 @@
       "StepsToReproduce": "",
       "AdditionalInformation": "",
       "Notes": []
+    },
+    "23": {
+      "IssueId": 23,
+      "Title": "Ensure visibility of the last WorkInterval",
+      "Details": "",
+      "SubmittedOn": "2025-11-07T22:03:13.7879401+01:00",
+      "Status": 2,
+      "Severity": 0,
+      "Priority": 3,
+      "LastUpdated": "2025-11-07T22:03:13.7884009+01:00",
+      "StepsToReproduce": "",
+      "AdditionalInformation": "",
+      "Notes": []
     }
   }
 }

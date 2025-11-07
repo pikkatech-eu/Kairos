@@ -320,10 +320,11 @@ namespace Kairos
 				this._lvActivities.Items.Add(lvi);
 			}
 
+			this._lvActivities.EnsureVisible(this._lvActivities.Items.Count - 1);
+
 			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 		}
 		#endregion
-
 	}
 }
