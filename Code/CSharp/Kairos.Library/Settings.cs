@@ -17,6 +17,7 @@ namespace Kairos.Library
 		#region Constants
 		internal static readonly string DEFAULT_SETTINGS_FILE_NAME = "settings.json";
 		private const int DEFAULT_MAX_IDLE_TIME			= 10 * 60 * 1000;
+		internal static readonly int NUMBER_OF_ROP = 20;
 		#endregion
 
 		#region Properties
@@ -112,6 +113,41 @@ namespace Kairos.Library
 				return settings;
 			}
 		}
+		#endregion
+
+		#region ROP
+		[Browsable(false)]
+		public List<string>	RecentlyOpenedProjects	{get;set;}	= new List<string>();
+		#endregion
+
+		#region Recent project management
+		public void AddRecentlyOpenedProject(string fileName)
+		{
+			if (!this.RecentlyOpenedProjects.Contains(fileName))
+			{
+				this.RecentlyOpenedProjects.Insert(0, fileName);
+
+				if (this.RecentlyOpenedProjects.Count > NUMBER_OF_ROP)
+				{
+					this.RecentlyOpenedProjects.RemoveAt(NUMBER_OF_ROP);
+				}
+
+				this.RecentlyOpenedProjectsChanged?.Invoke(this.RecentlyOpenedProjects);
+			}
+		}
+
+		public void RemoveRecentlyOpenedProject(string fileName)
+		{
+			if (this.RecentlyOpenedProjects.Contains(fileName))
+			{
+				this.RecentlyOpenedProjects.Remove(fileName);
+				this.RecentlyOpenedProjectsChanged?.Invoke(this.RecentlyOpenedProjects);
+			}
+		}
+		#endregion
+
+		#region RecentlyOpenedProjects Menu
+		public event Action<List<string>> RecentlyOpenedProjectsChanged;
 		#endregion
 	}
 }

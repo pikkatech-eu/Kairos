@@ -40,8 +40,55 @@ namespace Kairos
 				KM.Instance.PerformProjectLoading();
 			}
 
-
 			this._timerSecond.Start();
+
+			KairosManager.Instance.Settings.RecentlyOpenedProjectsChanged += this.OnRecentlyOpenedProjectsChanged;
+
+			this.OnRecentlyOpenedProjectsChanged(KairosManager.Instance.Settings.RecentlyOpenedProjects);
+
+			if (KairosManager.Instance.Settings.AutoLoadLastProject && KairosManager.Instance.Settings.RecentlyOpenedProjects.Count > 0)
+			{
+				KairosManager.Instance.FilePath	= KairosManager.Instance.Settings.RecentlyOpenedProjects[0];
+				KairosManager.Instance.PerformProjectLoading();
+			}
+
+			this.SetTitle();
+		}
+
+		private void OnRecentlyOpenedProjectsChanged(List<string> paths)
+		{
+			List<ToolStripItem> items = new List<ToolStripItem>();
+
+			this._menuItemRecentProjects.DropDownItems.Clear();
+
+			foreach (string path in paths)
+			{
+				ToolStripItem item = this._menuItemRecentProjects.DropDownItems.Add(path);
+
+				item.Click += this.RecentlyOpenedItemClicked;
+
+				items.Add(item);
+			}
+		}
+
+		private void RecentlyOpenedItemClicked(object? sender, EventArgs e)
+		{
+			string filePath = ((ToolStripItem)sender).Text;
+
+			if (File.Exists(filePath))
+			{
+				KairosManager.Instance.FilePath	= filePath;
+				KairosManager.Instance.PerformProjectLoading();
+			}
+			else
+			{
+				KairosManager.Instance.Settings.RemoveRecentlyOpenedProject(filePath);
+			}
+		}
+
+		private void SetTitle()
+		{
+			// TODO: implement this!
 		}
 
 		private void OnCurrentlyRunningWorkIntervalChanged(WorkInterval workInterval)

@@ -139,7 +139,7 @@ namespace Kairos.Library
 			{
 				this.FilePath = dialog.FileName;
 				this.Settings.LastOpenedProjectCollectionFile	= this.FilePath;
-
+				this.Settings.AddRecentlyOpenedProject(this.FilePath);
 				this.PerformProjectSaving();
 			}
 		}
@@ -506,6 +506,7 @@ namespace Kairos.Library
 		internal void PerformProjectLoading()
 		{
 			this.Project = Project.Load(this.FilePath);
+			this.Settings.AddRecentlyOpenedProject(this.FilePath);
 
 			this.ProjectChanged?.Invoke(this.Project);
 		}

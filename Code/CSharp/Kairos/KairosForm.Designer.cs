@@ -91,6 +91,7 @@
 			this.startToolStripMenuItem = new ToolStripMenuItem();
 			this.stopToolStripMenuItem = new ToolStripMenuItem();
 			this._timerSecond = new System.Windows.Forms.Timer(this.components);
+			this._menuItemRecentProjects = new ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -116,7 +117,7 @@
 			// 
 			// collectionToolStripMenuItem
 			// 
-			this.collectionToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { this.newToolStripMenuItem, this.editToolStripMenuItem, this.loadToolStripMenuItem, this.saveAsToolStripMenuItem, this.toolStripSeparator1, this.quitToolStripMenuItem });
+			this.collectionToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { this.newToolStripMenuItem, this.editToolStripMenuItem, this.loadToolStripMenuItem, this._menuItemRecentProjects, this.saveAsToolStripMenuItem, this.toolStripSeparator1, this.quitToolStripMenuItem });
 			this.collectionToolStripMenuItem.Name = "collectionToolStripMenuItem";
 			this.collectionToolStripMenuItem.Size = new Size(101, 27);
 			this.collectionToolStripMenuItem.Text = "&Project";
@@ -125,7 +126,7 @@
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
 			this.newToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
-			this.newToolStripMenuItem.Size = new Size(224, 28);
+			this.newToolStripMenuItem.Size = new Size(259, 28);
 			this.newToolStripMenuItem.Text = "&New";
 			this.newToolStripMenuItem.ToolTipText = "Creates a new fixture from file";
 			this.newToolStripMenuItem.Click += this.OnProjectNew;
@@ -133,7 +134,7 @@
 			// editToolStripMenuItem
 			// 
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-			this.editToolStripMenuItem.Size = new Size(224, 28);
+			this.editToolStripMenuItem.Size = new Size(259, 28);
 			this.editToolStripMenuItem.Text = "&Edit";
 			this.editToolStripMenuItem.ToolTipText = "Edits currently loaded fixture";
 			this.editToolStripMenuItem.Click += this.OnProjectEdit;
@@ -141,7 +142,7 @@
 			// loadToolStripMenuItem
 			// 
 			this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-			this.loadToolStripMenuItem.Size = new Size(224, 28);
+			this.loadToolStripMenuItem.Size = new Size(259, 28);
 			this.loadToolStripMenuItem.Text = "&Load";
 			this.loadToolStripMenuItem.ToolTipText = "Loads a fixture";
 			this.loadToolStripMenuItem.Click += this.OnProjectLoad;
@@ -149,7 +150,7 @@
 			// saveAsToolStripMenuItem
 			// 
 			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			this.saveAsToolStripMenuItem.Size = new Size(224, 28);
+			this.saveAsToolStripMenuItem.Size = new Size(259, 28);
 			this.saveAsToolStripMenuItem.Text = "Save &As";
 			this.saveAsToolStripMenuItem.ToolTipText = "Saves the current fixture under a new file name";
 			this.saveAsToolStripMenuItem.Click += this.OnProjectSaveAs;
@@ -157,12 +158,12 @@
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new Size(221, 6);
+			this.toolStripSeparator1.Size = new Size(256, 6);
 			// 
 			// quitToolStripMenuItem
 			// 
 			this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-			this.quitToolStripMenuItem.Size = new Size(224, 28);
+			this.quitToolStripMenuItem.Size = new Size(259, 28);
 			this.quitToolStripMenuItem.Text = "&Quit";
 			this.quitToolStripMenuItem.ToolTipText = "Quits the program";
 			this.quitToolStripMenuItem.Click += this.OnProjectQuit;
@@ -618,6 +619,12 @@
 			// 
 			this._timerSecond.Interval = 1000;
 			// 
+			// _menuItemRecentProjects
+			// 
+			this._menuItemRecentProjects.Name = "_menuItemRecentProjects";
+			this._menuItemRecentProjects.Size = new Size(259, 28);
+			this._menuItemRecentProjects.Text = "Recent Projects";
+			// 
 			// KairosForm
 			// 
 			this.AutoScaleDimensions = new SizeF(9F, 20F);
@@ -712,5 +719,6 @@
 		private ToolStripButton toolStripButton5;
 		private ToolStripButton toolStripButton6;
 		private ToolStripSeparator toolStripSeparator6;
+		private ToolStripMenuItem _menuItemRecentProjects;
 	}
 }

@@ -306,6 +306,71 @@
       "StepsToReproduce": "",
       "AdditionalInformation": "",
       "Notes": []
+    },
+    "24": {
+      "IssueId": 24,
+      "Title": "Last open files",
+      "Details": "Like BugLite",
+      "SubmittedOn": "2025-11-11T08:48:50.1210006+01:00",
+      "Status": 0,
+      "Severity": 2,
+      "Priority": 1,
+      "LastUpdated": "2025-11-11T08:48:50.1214421+01:00",
+      "StepsToReproduce": "",
+      "AdditionalInformation": "",
+      "Notes": []
+    },
+    "25": {
+      "IssueId": 25,
+      "Title": "Copy and paste of work intervals",
+      "Details": "To re-assigng them to a different actvity",
+      "SubmittedOn": "2025-11-11T08:49:44.2771679+01:00",
+      "Status": 0,
+      "Severity": 2,
+      "Priority": 1,
+      "LastUpdated": "2025-11-11T08:49:44.2771997+01:00",
+      "StepsToReproduce": "",
+      "AdditionalInformation": "",
+      "Notes": []
+    },
+    "26": {
+      "IssueId": 26,
+      "Title": "Drag and drop of work intervals",
+      "Details": "Like copy \u0026 paste, but with the mouse",
+      "SubmittedOn": "2025-11-11T08:50:46.0015487+01:00",
+      "Status": 0,
+      "Severity": 2,
+      "Priority": 1,
+      "LastUpdated": "2025-11-11T08:50:46.0015639+01:00",
+      "StepsToReproduce": "",
+      "AdditionalInformation": "",
+      "Notes": []
+    },
+    "27": {
+      "IssueId": 27,
+      "Title": "Total time output: in hours",
+      "Details": "Now it is in TimeSpan default format. Change it to be in hours only or, better, in total hours and working days (\u00E0 8 hours or the day\u0027s length in settings)",
+      "SubmittedOn": "2025-11-11T08:53:15.792752+01:00",
+      "Status": 0,
+      "Severity": 0,
+      "Priority": 1,
+      "LastUpdated": "2025-11-11T08:53:15.7927845+01:00",
+      "StepsToReproduce": "",
+      "AdditionalInformation": "",
+      "Notes": []
+    },
+    "28": {
+      "IssueId": 28,
+      "Title": "Summary working time for an arbitrary time period (from-to)",
+      "Details": "* interval via GUI\r\n* for work intervals selected in list view",
+      "SubmittedOn": "2025-11-11T08:55:10.9780833+01:00",
+      "Status": 0,
+      "Severity": 2,
+      "Priority": 1,
+      "LastUpdated": "2025-11-11T08:55:10.9781097+01:00",
+      "StepsToReproduce": "",
+      "AdditionalInformation": "",
+      "Notes": []
     }
   }
 }
