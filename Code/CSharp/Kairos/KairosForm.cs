@@ -7,19 +7,25 @@
 * Copyright:    pikkatech.eu (www.pikkatech.eu)                                    *
 ***********************************************************************************/
 
+// using System.Diagnostics;
+using System.Text.Json;
 using Kairos.Library;
 using Kairos.Library.Entities;
 using Kairos.Library.Extensions;
 using Kairos.Library.Gui;
 using Kairos.Properties;
-using KM = Kairos.Library.KairosManager;
 using FV = Factotum.Versioning;
-using System.Text.Json;
+using KM = Kairos.Library.KairosManager;
+using KLE = Kairos.Library.Entities;
 
 namespace Kairos
 {
 	public partial class KairosForm : Form
 	{
+		#region Private members
+		private List<ListViewItem> _selectedWorkIntervalItems = new List<ListViewItem>();
+		#endregion
+
 		#region Construction
 		public KairosForm()
 		{
@@ -247,9 +253,9 @@ namespace Kairos
 
 		private void OnActivityAddWorkInterval(object sender, EventArgs e)
 		{
-			if (this._tvComponents.SelectedNode != null && this._tvComponents.SelectedNode.Tag is Activity)
+			if (this._tvComponents.SelectedNode != null && this._tvComponents.SelectedNode.Tag is KLE.Activity)
 			{
-				Activity activity = this._tvComponents.SelectedNode.Tag as Activity;
+				KLE.Activity activity = this._tvComponents.SelectedNode.Tag as KLE.Activity;
 
 				KairosManager.Instance.CurrentActivity = activity;
 				KairosManager.Instance.AddWorkInterval();
@@ -258,9 +264,9 @@ namespace Kairos
 
 		private void OnActivityStartWorkInterval(object sender, EventArgs e)
 		{
-			if (this._tvComponents.SelectedNode != null && this._tvComponents.SelectedNode.Tag is Activity)
+			if (this._tvComponents.SelectedNode != null && this._tvComponents.SelectedNode.Tag is KLE.Activity)
 			{
-				Activity activity = this._tvComponents.SelectedNode.Tag as Activity;
+				KLE.Activity activity = this._tvComponents.SelectedNode.Tag as KLE.Activity;
 
 				KairosManager.Instance.StartCurrentWorkInterval(activity);
 			}
@@ -389,7 +395,22 @@ namespace Kairos
 
 		private void OnCutWorkIntervals(object sender, EventArgs e)
 		{
+			this._selectedWorkIntervalItems = this._lvActivities.SelectedItems.OfType<ListViewItem>().ToList();
 
+			List<WorkInterval> intervals = this._selectedWorkIntervalItems.Select(lvi => lvi.Tag as WorkInterval).ToList();
+
+			string json = JsonSerializer.Serialize(intervals);
+
+			Clipboard.SetText(json);
+
+			KairosManager.Instance.CacheProject();
+
+			foreach (WorkInterval interval in intervals)
+			{
+				KairosManager.Instance.CurrentActivity.WorkIntervals.Remove(interval);
+			}
+
+			this.UpdateActivityListView(KairosManager.Instance.CurrentActivity);
 		}
 
 		private void OnPasteWorkIntervals(object sender, EventArgs e)
@@ -402,12 +423,21 @@ namespace Kairos
 
 				List<WorkInterval> intervals = JsonSerializer.Deserialize<List<WorkInterval>>(json);
 
-				Activity activity = selectedNode.Tag as Activity;
+				Activity activity = selectedNode.Tag as KLE.Activity;
 
 				activity.WorkIntervals.AddRange(intervals);
 
 				this.UpdateActivityListView(activity);
+
+				this._selectedWorkIntervalItems.Clear();
 			}
+		}
+
+		private void OnEditUndo(object sender, EventArgs e)
+		{
+			KairosManager.Instance.RestoreCacheProject();
+			this.UpdateProjectTreeView();
+			this.UpdateActivityListView(KairosManager.Instance.CurrentActivity);
 		}
 	}
 }

@@ -11,9 +11,9 @@ namespace Kairos.Library.Entities
 {
 	public class Activity
 	{
-		public int Id	{get;set;} = 0;
-		public string Name	{get;set;} = "";
-		public string Description	{get;set;} = "";
+		public int		Id			{get;set;} = 0;
+		public string	Name		{get;set;} = "";
+		public string	Description	{get;set;} = "";
 
 		public List<WorkInterval> WorkIntervals	{get; set;} = new List<WorkInterval>();
 
@@ -52,5 +52,24 @@ namespace Kairos.Library.Entities
 
 			return result;
 		}
+
+		#region Construction
+		public Activity()
+		{
+
+		}
+
+		public Activity(Activity activity)
+		{
+			this.Id				= activity.Id;
+			this.Name			= activity.Name;
+			this.Description	= activity.Description;
+
+			foreach (WorkInterval wi in activity.WorkIntervals)
+			{
+				this.WorkIntervals.Add(new WorkInterval(wi));
+			}
+		}
+		#endregion
 	}
 }

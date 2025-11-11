@@ -36,5 +36,24 @@ namespace Kairos.Library.Entities
 
 			return JsonSerializer.Deserialize<Project>(json) ?? new Project();
 		}
+
+		#region Construction
+		public Project()
+		{
+
+		}
+
+		public Project(Project project)
+		{
+			this.Name			= project.Name;
+			this.Description	= project.Description;
+			this.Created		= project.Created;
+
+			foreach (Component component in project.Components)
+			{
+				this.Components.Add(new Component(component));
+			}
+		}
+		#endregion
 	}
 }

@@ -7,6 +7,8 @@
 * Copyright:    pikkatech.eu (www.pikkatech.eu)                                    *
 ***********************************************************************************/
 
+using System.Diagnostics;
+
 namespace Kairos.Library.Entities
 {
 	public class Component
@@ -41,5 +43,24 @@ namespace Kairos.Library.Entities
 
 			return TimeSpan.FromSeconds(y);
 		}
+
+		#region Construction
+		public Component()
+		{
+
+		}
+
+		public Component(Component component)
+		{
+			this.Id				= component.Id;
+			this.Name			= component.Name;
+			this.Description	= component.Description;
+
+			foreach (Activity activity in component.Activities)
+			{
+				this.Activities.Add(new Activity(activity));
+			}
+		}
+		#endregion
 	}
 }

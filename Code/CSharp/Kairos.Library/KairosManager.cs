@@ -31,6 +31,8 @@ namespace Kairos.Library
 		private Timer	_timerCurrentWorkInterval	= null;
 		private Timer	_timerIdleTime				= null;
 
+		private Project _copyProject				= null;
+
 		/// <summary>
 		/// True if the system is paused in idle state.
 		/// </summary>
@@ -95,6 +97,21 @@ namespace Kairos.Library
 		public event Action<Activity> SelectedActivityChanged;
 
 		public event Action<WorkInterval> CurrentWorkIntervalChanged;
+		#endregion
+
+		#region Cache and Restore
+		public void CacheProject()
+		{
+			this._copyProject = new Project(this.Project);
+		}
+
+		public void RestoreCacheProject()
+		{
+			if (this._copyProject != null)
+			{
+				this.Project	= new Project(this._copyProject);
+			}
+		}
 		#endregion
 
 		#region Fixture management
@@ -418,6 +435,8 @@ namespace Kairos.Library
 
 				if (index >= 0)
 				{
+					this.CacheProject();
+
 					this.CurrentActivity.WorkIntervals.RemoveAt(index);
 
 					this.SelectedActivityChanged?.Invoke(this.CurrentActivity);
