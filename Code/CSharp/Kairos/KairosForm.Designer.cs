@@ -47,6 +47,8 @@
 			this.newToolStripMenuItem2 = new ToolStripMenuItem();
 			this.editToolStripMenuItem2 = new ToolStripMenuItem();
 			this.deleteToolStripMenuItem1 = new ToolStripMenuItem();
+			this.editToolStripMenuItem3 = new ToolStripMenuItem();
+			this.undoToolStripMenuItem = new ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new ToolStripMenuItem();
 			this.settingsToolStripMenuItem = new ToolStripMenuItem();
 			this.helpToolStripMenuItem = new ToolStripMenuItem();
@@ -96,8 +98,6 @@
 			this.startToolStripMenuItem = new ToolStripMenuItem();
 			this.stopToolStripMenuItem = new ToolStripMenuItem();
 			this._timerSecond = new System.Windows.Forms.Timer(this.components);
-			this.editToolStripMenuItem3 = new ToolStripMenuItem();
-			this.undoToolStripMenuItem = new ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -222,7 +222,7 @@
 			// newToolStripMenuItem2
 			// 
 			this.newToolStripMenuItem2.Name = "newToolStripMenuItem2";
-			this.newToolStripMenuItem2.Size = new Size(224, 28);
+			this.newToolStripMenuItem2.Size = new Size(160, 28);
 			this.newToolStripMenuItem2.Text = "&New";
 			this.newToolStripMenuItem2.ToolTipText = "Adds a new activity to selected component";
 			this.newToolStripMenuItem2.Click += this.OnActivityNew;
@@ -230,7 +230,7 @@
 			// editToolStripMenuItem2
 			// 
 			this.editToolStripMenuItem2.Name = "editToolStripMenuItem2";
-			this.editToolStripMenuItem2.Size = new Size(224, 28);
+			this.editToolStripMenuItem2.Size = new Size(160, 28);
 			this.editToolStripMenuItem2.Text = "&Edit";
 			this.editToolStripMenuItem2.ToolTipText = "Edits the properties of selected activity";
 			this.editToolStripMenuItem2.Click += this.OnActivityEdit;
@@ -238,10 +238,25 @@
 			// deleteToolStripMenuItem1
 			// 
 			this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-			this.deleteToolStripMenuItem1.Size = new Size(224, 28);
+			this.deleteToolStripMenuItem1.Size = new Size(160, 28);
 			this.deleteToolStripMenuItem1.Text = "&Delete";
 			this.deleteToolStripMenuItem1.ToolTipText = "Deletes selected activity";
 			this.deleteToolStripMenuItem1.Click += this.OnActivityDelete;
+			// 
+			// editToolStripMenuItem3
+			// 
+			this.editToolStripMenuItem3.DropDownItems.AddRange(new ToolStripItem[] { this.undoToolStripMenuItem });
+			this.editToolStripMenuItem3.Name = "editToolStripMenuItem3";
+			this.editToolStripMenuItem3.Size = new Size(68, 27);
+			this.editToolStripMenuItem3.Text = "&Edit";
+			// 
+			// undoToolStripMenuItem
+			// 
+			this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+			this.undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
+			this.undoToolStripMenuItem.Size = new Size(214, 28);
+			this.undoToolStripMenuItem.Text = "&Undo";
+			this.undoToolStripMenuItem.Click += this.OnEditUndo;
 			// 
 			// toolsToolStripMenuItem
 			// 
@@ -253,7 +268,7 @@
 			// settingsToolStripMenuItem
 			// 
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-			this.settingsToolStripMenuItem.Size = new Size(224, 28);
+			this.settingsToolStripMenuItem.Size = new Size(182, 28);
 			this.settingsToolStripMenuItem.Text = "&Settings";
 			this.settingsToolStripMenuItem.ToolTipText = "Calls the settings dialog";
 			this.settingsToolStripMenuItem.Click += this.OnToolsSettings;
@@ -453,6 +468,7 @@
 			// 
 			// _tvComponents
 			// 
+			this._tvComponents.AllowDrop = true;
 			this._tvComponents.ContextMenuStrip = this._cmsComponent;
 			this._tvComponents.Dock = DockStyle.Fill;
 			this._tvComponents.ImageIndex = 0;
@@ -462,7 +478,11 @@
 			this._tvComponents.SelectedImageIndex = 0;
 			this._tvComponents.Size = new Size(380, 648);
 			this._tvComponents.TabIndex = 0;
+			this._tvComponents.ItemDrag += this.OnListViewItemsDrag;
 			this._tvComponents.AfterSelect += this.OnNodeSelected;
+			this._tvComponents.DragDrop += this.OnTreeViewDragDrop;
+			this._tvComponents.DragEnter += this.OnTreeViewDragEnter;
+			this._tvComponents.DragOver += this.OnTreeViewDragOver;
 			// 
 			// _cmsComponent
 			// 
@@ -524,6 +544,7 @@
 			this._lvActivities.TabIndex = 0;
 			this._lvActivities.UseCompatibleStateImageBehavior = false;
 			this._lvActivities.View = View.Details;
+			this._lvActivities.ItemDrag += this.OnListViewItemsDrag;
 			this._lvActivities.SelectedIndexChanged += this.OnWorkIntervalSelected;
 			// 
 			// Start
@@ -659,21 +680,6 @@
 			// _timerSecond
 			// 
 			this._timerSecond.Interval = 1000;
-			// 
-			// editToolStripMenuItem3
-			// 
-			this.editToolStripMenuItem3.DropDownItems.AddRange(new ToolStripItem[] { this.undoToolStripMenuItem });
-			this.editToolStripMenuItem3.Name = "editToolStripMenuItem3";
-			this.editToolStripMenuItem3.Size = new Size(68, 27);
-			this.editToolStripMenuItem3.Text = "&Edit";
-			// 
-			// undoToolStripMenuItem
-			// 
-			this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-			this.undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-			this.undoToolStripMenuItem.Size = new Size(224, 28);
-			this.undoToolStripMenuItem.Text = "&Undo";
-			this.undoToolStripMenuItem.Click += this.OnEditUndo;
 			// 
 			// KairosForm
 			// 

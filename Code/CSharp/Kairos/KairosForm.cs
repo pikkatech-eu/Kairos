@@ -8,15 +8,17 @@
 ***********************************************************************************/
 
 // using System.Diagnostics;
+using System.Drawing.Imaging.Effects;
 using System.Text.Json;
 using Kairos.Library;
 using Kairos.Library.Entities;
 using Kairos.Library.Extensions;
 using Kairos.Library.Gui;
 using Kairos.Properties;
+using static System.Net.Mime.MediaTypeNames;
 using FV = Factotum.Versioning;
-using KM = Kairos.Library.KairosManager;
 using KLE = Kairos.Library.Entities;
+using KM = Kairos.Library.KairosManager;
 
 namespace Kairos
 {
@@ -438,6 +440,100 @@ namespace Kairos
 			KairosManager.Instance.RestoreCacheProject();
 			this.UpdateProjectTreeView();
 			this.UpdateActivityListView(KairosManager.Instance.CurrentActivity);
+		}
+
+		private void OnListViewItemsDrag(object sender, ItemDragEventArgs e)
+		{
+			List<WorkInterval> items = new List<WorkInterval>();
+
+			foreach (ListViewItem lvi in this._lvActivities.SelectedItems)
+			{
+				items.Add(lvi.Tag as WorkInterval);
+			}
+
+			// Start the drag operation with our list of items
+			 DragDropEffects effect = _lvActivities.DoDragDrop(items, DragDropEffects.Copy | DragDropEffects.Move);
+
+			_lvActivities.DoDragDrop(items, DragDropEffects.Copy | DragDropEffects.Move);
+
+			
+			//if (effect == DragDropEffects.Move)
+			//{
+			//	foreach (var item in items)
+			//	{
+			//		_lvActivities.Items.Remove(item);
+			//	}
+			//}
+		}
+
+		private void OnTreeViewDragEnter(object sender, DragEventArgs e)
+		{
+			// Check that the data format is what we expect
+			if (e.Data.GetDataPresent(typeof(List<WorkInterval>)))
+			{
+				e.Effect = DragDropEffects.Copy;
+			}
+			else
+			{
+				e.Effect = DragDropEffects.None;
+			}
+		}
+
+		private void OnTreeViewDragOver(object sender, DragEventArgs e)
+		{
+			// Keep showing the copy cursor while over the tree
+			if (e.Data.GetDataPresent(typeof(List<WorkInterval>)))
+			{
+				e.Effect = DragDropEffects.Copy;
+			}
+			else
+			{
+				e.Effect = DragDropEffects.None;
+			}
+
+			// Optional: highlight the node under the cursor
+			Point targetPoint = this._tvComponents.PointToClient(new Point(e.X, e.Y));
+			this._tvComponents.SelectedNode = this._tvComponents.GetNodeAt(targetPoint);
+
+			//if (nodeUnderMouse != null && treeView1.SelectedNode != nodeUnderMouse)
+			//{
+			//	treeView1.SelectedNode = nodeUnderMouse;
+			//}
+		}
+
+		private void OnTreeViewDragDrop(object sender, DragEventArgs e)
+		{
+			if (!e.Data.GetDataPresent(typeof(List<WorkInterval>)))
+			{
+				return;
+			}
+
+			var items = (List<WorkInterval>)e.Data.GetData(typeof(List<WorkInterval>));
+
+			// Find which node we’re dropping onto
+			Point targetPoint = this._tvComponents.PointToClient(new Point(e.X, e.Y));
+			TreeNode targetNode = this._tvComponents.GetNodeAt(targetPoint);
+
+			Activity targetActivity = null;
+
+			if (targetNode.Tag is Activity)
+			{
+				targetActivity = targetNode.Tag as Activity;
+			}
+			else
+			{
+				return;
+			}
+
+			// Add them as child nodes
+			foreach (WorkInterval wi in items)
+			{
+				targetActivity.WorkIntervals.Add(wi);
+			}
+
+			KairosManager.Instance.PerformProjectSaving();
+
+			this.UpdateProjectTreeView();
 		}
 	}
 }
