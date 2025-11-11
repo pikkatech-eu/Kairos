@@ -14,6 +14,7 @@ using Kairos.Library.Gui;
 using Kairos.Properties;
 using KM = Kairos.Library.KairosManager;
 using FV = Factotum.Versioning;
+using System.Text.Json;
 
 namespace Kairos
 {
@@ -48,7 +49,7 @@ namespace Kairos
 
 			if (KairosManager.Instance.Settings.AutoLoadLastProject && KairosManager.Instance.Settings.RecentlyOpenedProjects.Count > 0)
 			{
-				KairosManager.Instance.FilePath	= KairosManager.Instance.Settings.RecentlyOpenedProjects[0];
+				KairosManager.Instance.FilePath = KairosManager.Instance.Settings.RecentlyOpenedProjects[0];
 				KairosManager.Instance.PerformProjectLoading();
 			}
 
@@ -77,7 +78,7 @@ namespace Kairos
 
 			if (File.Exists(filePath))
 			{
-				KairosManager.Instance.FilePath	= filePath;
+				KairosManager.Instance.FilePath = filePath;
 				KairosManager.Instance.PerformProjectLoading();
 			}
 			else
@@ -371,10 +372,42 @@ namespace Kairos
 			{
 				this._lvActivities.EnsureVisible(this._lvActivities.Items.Count - 1);
 			}
-			
+
 			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 			this._lvActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 		}
 		#endregion
+
+		private void OnCopyWorkIntervals(object sender, EventArgs e)
+		{
+			List<WorkInterval> intervals = this._lvActivities.SelectedItems.OfType<ListViewItem>().Select(lvi => lvi.Tag as WorkInterval).ToList();
+
+			string json = JsonSerializer.Serialize(intervals);
+
+			Clipboard.SetText(json);
+		}
+
+		private void OnCutWorkIntervals(object sender, EventArgs e)
+		{
+
+		}
+
+		private void OnPasteWorkIntervals(object sender, EventArgs e)
+		{
+			TreeNode selectedNode = this._tvComponents.SelectedNode;
+
+			if (selectedNode != null && selectedNode.Tag is Activity)
+			{
+				string json = Clipboard.GetText();
+
+				List<WorkInterval> intervals = JsonSerializer.Deserialize<List<WorkInterval>>(json);
+
+				Activity activity = selectedNode.Tag as Activity;
+
+				activity.WorkIntervals.AddRange(intervals);
+
+				this.UpdateActivityListView(activity);
+			}
+		}
 	}
 }

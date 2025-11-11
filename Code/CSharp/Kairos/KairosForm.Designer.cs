@@ -35,6 +35,7 @@
 			this.newToolStripMenuItem = new ToolStripMenuItem();
 			this.editToolStripMenuItem = new ToolStripMenuItem();
 			this.loadToolStripMenuItem = new ToolStripMenuItem();
+			this._menuItemRecentProjects = new ToolStripMenuItem();
 			this.saveAsToolStripMenuItem = new ToolStripMenuItem();
 			this.toolStripSeparator1 = new ToolStripSeparator();
 			this.quitToolStripMenuItem = new ToolStripMenuItem();
@@ -91,7 +92,10 @@
 			this.startToolStripMenuItem = new ToolStripMenuItem();
 			this.stopToolStripMenuItem = new ToolStripMenuItem();
 			this._timerSecond = new System.Windows.Forms.Timer(this.components);
-			this._menuItemRecentProjects = new ToolStripMenuItem();
+			this.copyWorkIntervalsToolStripMenuItem = new ToolStripMenuItem();
+			this.cutWorkIntervalToolStripMenuItem = new ToolStripMenuItem();
+			this.pasteWorkIntervalsToolStripMenuItem = new ToolStripMenuItem();
+			this.toolStripSeparator7 = new ToolStripSeparator();
 			this.menuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -146,6 +150,12 @@
 			this.loadToolStripMenuItem.Text = "&Load";
 			this.loadToolStripMenuItem.ToolTipText = "Loads a fixture";
 			this.loadToolStripMenuItem.Click += this.OnProjectLoad;
+			// 
+			// _menuItemRecentProjects
+			// 
+			this._menuItemRecentProjects.Name = "_menuItemRecentProjects";
+			this._menuItemRecentProjects.Size = new Size(259, 28);
+			this._menuItemRecentProjects.Text = "Recent Projects";
 			// 
 			// saveAsToolStripMenuItem
 			// 
@@ -534,9 +544,9 @@
 			// 
 			this._cmsWorkInterval.Font = new Font("Consolas", 10F);
 			this._cmsWorkInterval.ImageScalingSize = new Size(20, 20);
-			this._cmsWorkInterval.Items.AddRange(new ToolStripItem[] { this.lToolStripMenuItem, this.deleteWorkIntervaToolStripMenuItem, this.toolStripSeparator2 });
+			this._cmsWorkInterval.Items.AddRange(new ToolStripItem[] { this.lToolStripMenuItem, this.deleteWorkIntervaToolStripMenuItem, this.toolStripSeparator2, this.copyWorkIntervalsToolStripMenuItem, this.cutWorkIntervalToolStripMenuItem });
 			this._cmsWorkInterval.Name = "_cmsWorkInterval";
-			this._cmsWorkInterval.Size = new Size(259, 58);
+			this._cmsWorkInterval.Size = new Size(313, 106);
 			// 
 			// lToolStripMenuItem
 			// 
@@ -563,9 +573,9 @@
 			// 
 			this._cmsActivity.Font = new Font("Consolas", 10F);
 			this._cmsActivity.ImageScalingSize = new Size(20, 20);
-			this._cmsActivity.Items.AddRange(new ToolStripItem[] { this.editActivityToolStripMenuItem, this.deleteActivityToolStripMenuItem, this.toolStripSeparator4, this.aToolStripMenuItem, this.startToolStripMenuItem, this.stopToolStripMenuItem });
+			this._cmsActivity.Items.AddRange(new ToolStripItem[] { this.editActivityToolStripMenuItem, this.deleteActivityToolStripMenuItem, this.toolStripSeparator4, this.aToolStripMenuItem, this.pasteWorkIntervalsToolStripMenuItem, this.toolStripSeparator7, this.startToolStripMenuItem, this.stopToolStripMenuItem });
 			this._cmsActivity.Name = "_cmsActivity";
-			this._cmsActivity.Size = new Size(349, 130);
+			this._cmsActivity.Size = new Size(349, 188);
 			// 
 			// editActivityToolStripMenuItem
 			// 
@@ -619,11 +629,34 @@
 			// 
 			this._timerSecond.Interval = 1000;
 			// 
-			// _menuItemRecentProjects
+			// copyWorkIntervalsToolStripMenuItem
 			// 
-			this._menuItemRecentProjects.Name = "_menuItemRecentProjects";
-			this._menuItemRecentProjects.Size = new Size(259, 28);
-			this._menuItemRecentProjects.Text = "Recent Projects";
+			this.copyWorkIntervalsToolStripMenuItem.Name = "copyWorkIntervalsToolStripMenuItem";
+			this.copyWorkIntervalsToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
+			this.copyWorkIntervalsToolStripMenuItem.Size = new Size(312, 24);
+			this.copyWorkIntervalsToolStripMenuItem.Text = "&Copy Work Intervals";
+			this.copyWorkIntervalsToolStripMenuItem.Click += this.OnCopyWorkIntervals;
+			// 
+			// cutWorkIntervalToolStripMenuItem
+			// 
+			this.cutWorkIntervalToolStripMenuItem.Name = "cutWorkIntervalToolStripMenuItem";
+			this.cutWorkIntervalToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
+			this.cutWorkIntervalToolStripMenuItem.Size = new Size(312, 24);
+			this.cutWorkIntervalToolStripMenuItem.Text = "&Cut Work Interval";
+			this.cutWorkIntervalToolStripMenuItem.Click += this.OnCutWorkIntervals;
+			// 
+			// pasteWorkIntervalsToolStripMenuItem
+			// 
+			this.pasteWorkIntervalsToolStripMenuItem.Name = "pasteWorkIntervalsToolStripMenuItem";
+			this.pasteWorkIntervalsToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.P;
+			this.pasteWorkIntervalsToolStripMenuItem.Size = new Size(348, 24);
+			this.pasteWorkIntervalsToolStripMenuItem.Text = "&Paste Work Intervals";
+			this.pasteWorkIntervalsToolStripMenuItem.Click += this.OnPasteWorkIntervals;
+			// 
+			// toolStripSeparator7
+			// 
+			this.toolStripSeparator7.Name = "toolStripSeparator7";
+			this.toolStripSeparator7.Size = new Size(345, 6);
 			// 
 			// KairosForm
 			// 
@@ -720,5 +753,9 @@
 		private ToolStripButton toolStripButton6;
 		private ToolStripSeparator toolStripSeparator6;
 		private ToolStripMenuItem _menuItemRecentProjects;
+		private ToolStripMenuItem copyWorkIntervalsToolStripMenuItem;
+		private ToolStripMenuItem cutWorkIntervalToolStripMenuItem;
+		private ToolStripMenuItem pasteWorkIntervalsToolStripMenuItem;
+		private ToolStripSeparator toolStripSeparator7;
 	}
 }
