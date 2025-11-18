@@ -47,6 +47,8 @@
 			this.newToolStripMenuItem2 = new ToolStripMenuItem();
 			this.editToolStripMenuItem2 = new ToolStripMenuItem();
 			this.deleteToolStripMenuItem1 = new ToolStripMenuItem();
+			this.editToolStripMenuItem3 = new ToolStripMenuItem();
+			this.undoToolStripMenuItem = new ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new ToolStripMenuItem();
 			this.settingsToolStripMenuItem = new ToolStripMenuItem();
 			this.helpToolStripMenuItem = new ToolStripMenuItem();
@@ -67,6 +69,7 @@
 			this.statusStrip1 = new StatusStrip();
 			this._lblCurrentSumForItem = new ToolStripStatusLabel();
 			this._lblCurrentSumForTime = new ToolStripStatusLabel();
+			this._lblCurrentSumForSelected = new ToolStripStatusLabel();
 			this._scKairos = new SplitContainer();
 			this._tvComponents = new TreeView();
 			this._cmsComponent = new ContextMenuStrip(this.components);
@@ -86,6 +89,8 @@
 			this.toolStripSeparator2 = new ToolStripSeparator();
 			this.copyWorkIntervalsToolStripMenuItem = new ToolStripMenuItem();
 			this.cutWorkIntervalToolStripMenuItem = new ToolStripMenuItem();
+			this.toolStripSeparator8 = new ToolStripSeparator();
+			this.workTimeInIntervalsToolStripMenuItem = new ToolStripMenuItem();
 			this._cmsActivity = new ContextMenuStrip(this.components);
 			this.editActivityToolStripMenuItem = new ToolStripMenuItem();
 			this.deleteActivityToolStripMenuItem = new ToolStripMenuItem();
@@ -96,8 +101,6 @@
 			this.startToolStripMenuItem = new ToolStripMenuItem();
 			this.stopToolStripMenuItem = new ToolStripMenuItem();
 			this._timerSecond = new System.Windows.Forms.Timer(this.components);
-			this.editToolStripMenuItem3 = new ToolStripMenuItem();
-			this.undoToolStripMenuItem = new ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -148,6 +151,7 @@
 			// loadToolStripMenuItem
 			// 
 			this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+			this.loadToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.L;
 			this.loadToolStripMenuItem.Size = new Size(259, 28);
 			this.loadToolStripMenuItem.Text = "&Load";
 			this.loadToolStripMenuItem.ToolTipText = "Loads a fixture";
@@ -175,6 +179,7 @@
 			// quitToolStripMenuItem
 			// 
 			this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+			this.quitToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Q;
 			this.quitToolStripMenuItem.Size = new Size(259, 28);
 			this.quitToolStripMenuItem.Text = "&Quit";
 			this.quitToolStripMenuItem.ToolTipText = "Quits the program";
@@ -222,6 +227,7 @@
 			// newToolStripMenuItem2
 			// 
 			this.newToolStripMenuItem2.Name = "newToolStripMenuItem2";
+			this.newToolStripMenuItem2.ShortcutKeys = Keys.Alt | Keys.N;
 			this.newToolStripMenuItem2.Size = new Size(224, 28);
 			this.newToolStripMenuItem2.Text = "&New";
 			this.newToolStripMenuItem2.ToolTipText = "Adds a new activity to selected component";
@@ -230,7 +236,7 @@
 			// editToolStripMenuItem2
 			// 
 			this.editToolStripMenuItem2.Name = "editToolStripMenuItem2";
-			this.editToolStripMenuItem2.Size = new Size(224, 28);
+			this.editToolStripMenuItem2.Size = new Size(160, 28);
 			this.editToolStripMenuItem2.Text = "&Edit";
 			this.editToolStripMenuItem2.ToolTipText = "Edits the properties of selected activity";
 			this.editToolStripMenuItem2.Click += this.OnActivityEdit;
@@ -238,10 +244,25 @@
 			// deleteToolStripMenuItem1
 			// 
 			this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-			this.deleteToolStripMenuItem1.Size = new Size(224, 28);
+			this.deleteToolStripMenuItem1.Size = new Size(160, 28);
 			this.deleteToolStripMenuItem1.Text = "&Delete";
 			this.deleteToolStripMenuItem1.ToolTipText = "Deletes selected activity";
 			this.deleteToolStripMenuItem1.Click += this.OnActivityDelete;
+			// 
+			// editToolStripMenuItem3
+			// 
+			this.editToolStripMenuItem3.DropDownItems.AddRange(new ToolStripItem[] { this.undoToolStripMenuItem });
+			this.editToolStripMenuItem3.Name = "editToolStripMenuItem3";
+			this.editToolStripMenuItem3.Size = new Size(68, 27);
+			this.editToolStripMenuItem3.Text = "&Edit";
+			// 
+			// undoToolStripMenuItem
+			// 
+			this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+			this.undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
+			this.undoToolStripMenuItem.Size = new Size(214, 28);
+			this.undoToolStripMenuItem.Text = "&Undo";
+			this.undoToolStripMenuItem.Click += this.OnEditUndo;
 			// 
 			// toolsToolStripMenuItem
 			// 
@@ -253,7 +274,7 @@
 			// settingsToolStripMenuItem
 			// 
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-			this.settingsToolStripMenuItem.Size = new Size(224, 28);
+			this.settingsToolStripMenuItem.Size = new Size(182, 28);
 			this.settingsToolStripMenuItem.Text = "&Settings";
 			this.settingsToolStripMenuItem.ToolTipText = "Calls the settings dialog";
 			this.settingsToolStripMenuItem.Click += this.OnToolsSettings;
@@ -412,7 +433,7 @@
 			// 
 			this.statusStrip1.Font = new Font("Consolas", 14F);
 			this.statusStrip1.ImageScalingSize = new Size(20, 20);
-			this.statusStrip1.Items.AddRange(new ToolStripItem[] { this._lblCurrentSumForItem, this._lblCurrentSumForTime });
+			this.statusStrip1.Items.AddRange(new ToolStripItem[] { this._lblCurrentSumForItem, this._lblCurrentSumForTime, this._lblCurrentSumForSelected });
 			this.statusStrip1.Location = new Point(0, 719);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new Size(1144, 34);
@@ -433,6 +454,14 @@
 			this._lblCurrentSumForTime.Name = "_lblCurrentSumForTime";
 			this._lblCurrentSumForTime.Size = new Size(36, 28);
 			this._lblCurrentSumForTime.Text = "***";
+			// 
+			// _lblCurrentSumForSelected
+			// 
+			this._lblCurrentSumForSelected.Font = new Font("Segoe UI", 12F);
+			this._lblCurrentSumForSelected.ForeColor = Color.Green;
+			this._lblCurrentSumForSelected.Name = "_lblCurrentSumForSelected";
+			this._lblCurrentSumForSelected.Size = new Size(36, 28);
+			this._lblCurrentSumForSelected.Text = "***";
 			// 
 			// _scKairos
 			// 
@@ -546,14 +575,14 @@
 			// 
 			this._cmsWorkInterval.Font = new Font("Consolas", 10F);
 			this._cmsWorkInterval.ImageScalingSize = new Size(20, 20);
-			this._cmsWorkInterval.Items.AddRange(new ToolStripItem[] { this.lToolStripMenuItem, this.deleteWorkIntervaToolStripMenuItem, this.toolStripSeparator2, this.copyWorkIntervalsToolStripMenuItem, this.cutWorkIntervalToolStripMenuItem });
+			this._cmsWorkInterval.Items.AddRange(new ToolStripItem[] { this.lToolStripMenuItem, this.deleteWorkIntervaToolStripMenuItem, this.toolStripSeparator2, this.copyWorkIntervalsToolStripMenuItem, this.cutWorkIntervalToolStripMenuItem, this.toolStripSeparator8, this.workTimeInIntervalsToolStripMenuItem });
 			this._cmsWorkInterval.Name = "_cmsWorkInterval";
-			this._cmsWorkInterval.Size = new Size(313, 106);
+			this._cmsWorkInterval.Size = new Size(340, 136);
 			// 
 			// lToolStripMenuItem
 			// 
 			this.lToolStripMenuItem.Name = "lToolStripMenuItem";
-			this.lToolStripMenuItem.Size = new Size(312, 24);
+			this.lToolStripMenuItem.Size = new Size(339, 24);
 			this.lToolStripMenuItem.Text = "&Edit Work interval";
 			this.lToolStripMenuItem.ToolTipText = "Edits selected work interval";
 			this.lToolStripMenuItem.Click += this.OnWorkIntervalEdit;
@@ -561,7 +590,7 @@
 			// deleteWorkIntervaToolStripMenuItem
 			// 
 			this.deleteWorkIntervaToolStripMenuItem.Name = "deleteWorkIntervaToolStripMenuItem";
-			this.deleteWorkIntervaToolStripMenuItem.Size = new Size(312, 24);
+			this.deleteWorkIntervaToolStripMenuItem.Size = new Size(339, 24);
 			this.deleteWorkIntervaToolStripMenuItem.Text = "&Delete Work interval";
 			this.deleteWorkIntervaToolStripMenuItem.ToolTipText = "Deletes selected work interval";
 			this.deleteWorkIntervaToolStripMenuItem.Click += this.OnWorkIntervalDelete;
@@ -569,13 +598,13 @@
 			// toolStripSeparator2
 			// 
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new Size(309, 6);
+			this.toolStripSeparator2.Size = new Size(336, 6);
 			// 
 			// copyWorkIntervalsToolStripMenuItem
 			// 
 			this.copyWorkIntervalsToolStripMenuItem.Name = "copyWorkIntervalsToolStripMenuItem";
 			this.copyWorkIntervalsToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-			this.copyWorkIntervalsToolStripMenuItem.Size = new Size(312, 24);
+			this.copyWorkIntervalsToolStripMenuItem.Size = new Size(339, 24);
 			this.copyWorkIntervalsToolStripMenuItem.Text = "&Copy Work Intervals";
 			this.copyWorkIntervalsToolStripMenuItem.Click += this.OnCopyWorkIntervals;
 			// 
@@ -583,9 +612,22 @@
 			// 
 			this.cutWorkIntervalToolStripMenuItem.Name = "cutWorkIntervalToolStripMenuItem";
 			this.cutWorkIntervalToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
-			this.cutWorkIntervalToolStripMenuItem.Size = new Size(312, 24);
+			this.cutWorkIntervalToolStripMenuItem.Size = new Size(339, 24);
 			this.cutWorkIntervalToolStripMenuItem.Text = "&Cut Work Interval";
 			this.cutWorkIntervalToolStripMenuItem.Click += this.OnCutWorkIntervals;
+			// 
+			// toolStripSeparator8
+			// 
+			this.toolStripSeparator8.Name = "toolStripSeparator8";
+			this.toolStripSeparator8.Size = new Size(336, 6);
+			// 
+			// workTimeInIntervalsToolStripMenuItem
+			// 
+			this.workTimeInIntervalsToolStripMenuItem.Name = "workTimeInIntervalsToolStripMenuItem";
+			this.workTimeInIntervalsToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+			this.workTimeInIntervalsToolStripMenuItem.Size = new Size(339, 24);
+			this.workTimeInIntervalsToolStripMenuItem.Text = "Work time in intervals";
+			this.workTimeInIntervalsToolStripMenuItem.Click += this.OnWorkTimeInIntervals;
 			// 
 			// _cmsActivity
 			// 
@@ -659,21 +701,6 @@
 			// _timerSecond
 			// 
 			this._timerSecond.Interval = 1000;
-			// 
-			// editToolStripMenuItem3
-			// 
-			this.editToolStripMenuItem3.DropDownItems.AddRange(new ToolStripItem[] { this.undoToolStripMenuItem });
-			this.editToolStripMenuItem3.Name = "editToolStripMenuItem3";
-			this.editToolStripMenuItem3.Size = new Size(68, 27);
-			this.editToolStripMenuItem3.Text = "&Edit";
-			// 
-			// undoToolStripMenuItem
-			// 
-			this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-			this.undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-			this.undoToolStripMenuItem.Size = new Size(224, 28);
-			this.undoToolStripMenuItem.Text = "&Undo";
-			this.undoToolStripMenuItem.Click += this.OnEditUndo;
 			// 
 			// KairosForm
 			// 
@@ -776,5 +803,8 @@
 		private ToolStripSeparator toolStripSeparator7;
 		private ToolStripMenuItem editToolStripMenuItem3;
 		private ToolStripMenuItem undoToolStripMenuItem;
+		private ToolStripSeparator toolStripSeparator8;
+		private ToolStripMenuItem workTimeInIntervalsToolStripMenuItem;
+		private ToolStripStatusLabel _lblCurrentSumForSelected;
 	}
 }

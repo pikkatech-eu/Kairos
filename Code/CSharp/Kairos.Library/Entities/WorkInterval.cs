@@ -52,5 +52,14 @@ namespace Kairos.Library.Entities
 
 		public WorkInterval(WorkInterval wi) : this(wi.Id, wi.Start, wi.End, wi.Description)	{}
 		#endregion
+
+		#region Time Measurement
+		public static TimeSpan GetSummaryWorkTime(IEnumerable<WorkInterval> intervals)
+		{
+			double seconds = intervals.Sum(x => x.Duration.TotalSeconds);
+
+			return TimeSpan.FromSeconds(seconds);
+		}
+		#endregion
 	}
 }

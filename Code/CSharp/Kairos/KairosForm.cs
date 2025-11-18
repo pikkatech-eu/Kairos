@@ -149,9 +149,9 @@ namespace Kairos
 																(
 																	Resources.ItemWorkoutValues,
 																	KairosManager.Instance.CurrentComponent.Name,
-																	tsToDay,
-																	tsThisWeek,
-																	tsTotal
+																	tsToDay.Formatted(),
+																	tsThisWeek.Formatted(),
+																	tsTotal.Formatted()
 																);
 			}
 
@@ -170,9 +170,9 @@ namespace Kairos
 																(
 																	Resources.ItemWorkoutValues,
 																	KairosManager.Instance.CurrentActivity.Name,
-																	tsToDay,
-																	tsThisWeek,
-																	tsTotal
+																	tsToDay.Formatted(),
+																	tsThisWeek.Formatted(),
+																	tsTotal.Formatted()
 																);
 			}
 		}
@@ -438,6 +438,15 @@ namespace Kairos
 			KairosManager.Instance.RestoreCacheProject();
 			this.UpdateProjectTreeView();
 			this.UpdateActivityListView(KairosManager.Instance.CurrentActivity);
+		}
+
+		private void OnWorkTimeInIntervals(object sender, EventArgs e)
+		{
+			List<WorkInterval> intervals = this._lvActivities.SelectedItems.OfType<ListViewItem>().Select(lvi => lvi.Tag as WorkInterval).ToList();
+
+			TimeSpan ts = WorkInterval.GetSummaryWorkTime(intervals);
+
+			this._lblCurrentSumForSelected.Text = $"Selected in {intervals.Count} items: {ts.Formatted()}";
 		}
 	}
 }
