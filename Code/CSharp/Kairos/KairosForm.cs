@@ -15,8 +15,8 @@ using Kairos.Library.Extensions;
 using Kairos.Library.Gui;
 using Kairos.Properties;
 using FV = Factotum.Versioning;
-using KM = Kairos.Library.KairosManager;
 using KLE = Kairos.Library.Entities;
+using KM = Kairos.Library.KairosManager;
 
 namespace Kairos
 {
@@ -438,15 +438,6 @@ namespace Kairos
 			KairosManager.Instance.RestoreCacheProject();
 			this.UpdateProjectTreeView();
 			this.UpdateActivityListView(KairosManager.Instance.CurrentActivity);
-		}
-
-		private void OnWorkTimeInIntervals(object sender, EventArgs e)
-		{
-			List<WorkInterval> intervals = this._lvActivities.SelectedItems.OfType<ListViewItem>().Select(lvi => lvi.Tag as WorkInterval).ToList();
-
-			TimeSpan ts = WorkInterval.GetSummaryWorkTime(intervals);
-
-			this._lblCurrentSumForSelected.Text = $"Selected in {intervals.Count} items: {ts.Formatted()}";
 		}
 	}
 }

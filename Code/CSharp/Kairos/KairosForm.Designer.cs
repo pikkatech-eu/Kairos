@@ -227,8 +227,10 @@
 			// newToolStripMenuItem2
 			// 
 			this.newToolStripMenuItem2.Name = "newToolStripMenuItem2";
+
 			this.newToolStripMenuItem2.ShortcutKeys = Keys.Alt | Keys.N;
 			this.newToolStripMenuItem2.Size = new Size(224, 28);
+
 			this.newToolStripMenuItem2.Text = "&New";
 			this.newToolStripMenuItem2.ToolTipText = "Adds a new activity to selected component";
 			this.newToolStripMenuItem2.Click += this.OnActivityNew;
@@ -236,7 +238,7 @@
 			// editToolStripMenuItem2
 			// 
 			this.editToolStripMenuItem2.Name = "editToolStripMenuItem2";
-			this.editToolStripMenuItem2.Size = new Size(160, 28);
+			this.editToolStripMenuItem2.Size = new Size(224, 28);
 			this.editToolStripMenuItem2.Text = "&Edit";
 			this.editToolStripMenuItem2.ToolTipText = "Edits the properties of selected activity";
 			this.editToolStripMenuItem2.Click += this.OnActivityEdit;
@@ -244,7 +246,7 @@
 			// deleteToolStripMenuItem1
 			// 
 			this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-			this.deleteToolStripMenuItem1.Size = new Size(160, 28);
+			this.deleteToolStripMenuItem1.Size = new Size(224, 28);
 			this.deleteToolStripMenuItem1.Text = "&Delete";
 			this.deleteToolStripMenuItem1.ToolTipText = "Deletes selected activity";
 			this.deleteToolStripMenuItem1.Click += this.OnActivityDelete;
@@ -274,7 +276,7 @@
 			// settingsToolStripMenuItem
 			// 
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-			this.settingsToolStripMenuItem.Size = new Size(182, 28);
+			this.settingsToolStripMenuItem.Size = new Size(224, 28);
 			this.settingsToolStripMenuItem.Text = "&Settings";
 			this.settingsToolStripMenuItem.ToolTipText = "Calls the settings dialog";
 			this.settingsToolStripMenuItem.Click += this.OnToolsSettings;
@@ -482,6 +484,7 @@
 			// 
 			// _tvComponents
 			// 
+			this._tvComponents.AllowDrop = true;
 			this._tvComponents.ContextMenuStrip = this._cmsComponent;
 			this._tvComponents.Dock = DockStyle.Fill;
 			this._tvComponents.ImageIndex = 0;
@@ -553,6 +556,7 @@
 			this._lvActivities.TabIndex = 0;
 			this._lvActivities.UseCompatibleStateImageBehavior = false;
 			this._lvActivities.View = View.Details;
+			//this._lvActivities.ItemDrag += this.OnListViewItemsDrag;
 			this._lvActivities.SelectedIndexChanged += this.OnWorkIntervalSelected;
 			// 
 			// Start
@@ -627,7 +631,7 @@
 			this.workTimeInIntervalsToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
 			this.workTimeInIntervalsToolStripMenuItem.Size = new Size(339, 24);
 			this.workTimeInIntervalsToolStripMenuItem.Text = "Work time in intervals";
-			this.workTimeInIntervalsToolStripMenuItem.Click += this.OnWorkTimeInIntervals;
+			//this.workTimeInIntervalsToolStripMenuItem.Click += this.OnWorkTimeInIntervals;
 			// 
 			// _cmsActivity
 			// 
