@@ -371,6 +371,71 @@
       "StepsToReproduce": "",
       "AdditionalInformation": "implemented",
       "Notes": []
+    },
+    "29": {
+      "IssueId": 29,
+      "Title": "Calculation of total time in selected items is wrong",
+      "Details": "The calculated sums do not correspond to sums of items",
+      "SubmittedOn": "2025-11-20T08:19:23.3799994+01:00",
+      "Status": 0,
+      "Severity": 0,
+      "Priority": 0,
+      "LastUpdated": "2025-11-20T08:19:23.3807025+01:00",
+      "StepsToReproduce": "Add an interval of exactly 1 h to an activity. Then select it and see the result. It will be 2h.",
+      "AdditionalInformation": "",
+      "Notes": []
+    },
+    "30": {
+      "IssueId": 30,
+      "Title": "Calculate total time when items are selecte, without menu command",
+      "Details": "Do it just after selection",
+      "SubmittedOn": "2025-11-20T08:20:16.4982318+01:00",
+      "Status": 0,
+      "Severity": 0,
+      "Priority": 1,
+      "LastUpdated": "2025-11-20T08:20:16.498252+01:00",
+      "StepsToReproduce": "",
+      "AdditionalInformation": "",
+      "Notes": []
+    },
+    "31": {
+      "IssueId": 31,
+      "Title": "Remove calculated total time when selection is lost",
+      "Details": "set it to zero or something",
+      "SubmittedOn": "2025-11-20T08:21:04.9475394+01:00",
+      "Status": 0,
+      "Severity": 0,
+      "Priority": 1,
+      "LastUpdated": "2025-11-20T08:21:04.9475507+01:00",
+      "StepsToReproduce": "",
+      "AdditionalInformation": "",
+      "Notes": []
+    },
+    "32": {
+      "IssueId": 32,
+      "Title": "String representation of working intervals is bad",
+      "Details": "\u002217:3:56\u0022 is not clear. Make it \u002217H 03m 56s\u0022 instead",
+      "SubmittedOn": "2025-11-20T08:22:47.6389034+01:00",
+      "Status": 0,
+      "Severity": 0,
+      "Priority": 1,
+      "LastUpdated": "2025-11-20T08:22:47.6389183+01:00",
+      "StepsToReproduce": "",
+      "AdditionalInformation": "",
+      "Notes": []
+    },
+    "33": {
+      "IssueId": 33,
+      "Title": "Add dark mode",
+      "Details": "",
+      "SubmittedOn": "2025-11-21T08:52:19.0361105+01:00",
+      "Status": 0,
+      "Severity": 1,
+      "Priority": 2,
+      "LastUpdated": "2025-11-21T08:52:19.0365598+01:00",
+      "StepsToReproduce": "",
+      "AdditionalInformation": "",
+      "Notes": []
     }
   }
 }
